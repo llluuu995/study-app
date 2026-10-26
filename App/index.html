@@ -977,7 +977,7 @@ function renderPath(){
   const qq=$("#qpQuit");if(qq)qq.onclick=quitApp;
   const gx=$("#guideX");if(gx)gx.onclick=()=>{localStorage.setItem("zsb_guide","1");const g=$("#guideCard");if(g)g.remove()};
 }
-const APP_VERSION="v2.49.4（2026-10-26）";
+const APP_VERSION="v2.49.5（2026-10-26）";
 // 更新源（免服务器方案）：把 update.json 上传到任一免费托管后，把「直链」填到这里。
 // 对方打开软件点「🔄 检查更新」→ 有新版本就显示更新内容+下载链接。
 // 部署指引见项目内：更新部署\如何部署更新服务器.txt（5分钟即可，无需买服务器）。
@@ -986,6 +986,9 @@ const UPDATE_URL_ALT="https://ghfast.top/https://raw.githubusercontent.com/llluu
 const UPDATE_URL_ALT2="https://gh-proxy.com/https://raw.githubusercontent.com/llluuu995/update/main/update.json"; // 镜像2（实时回源）
 /* 注：jsDelivr CDN 有缓存延迟（更新后最长数小时才刷新），会造成「检查更新」读到旧版本误报已最新，故不再作为更新源 */
 const APP_LOG=[
+  {v:"v2.49.5（2026-10-26）",items:[
+    "「技能·PLC」第⑳章 PLC梯形图编程专项再扩 20 题（累计 53 题）：新增交通灯完整程序指令表、TON 定时器工作过程与时基计算、常规定时器/积算定时器区别、计数器编号与范围、四台电机顺序启停与过载联锁、电镀线行车多工位控制、三类抢答器（儿童并联/成人串联/6路互锁/8路数码管）、指示灯亮5s灭5s重复5次、两电机交替运转3次、彩灯循环、小车往返、传送带15s无料报警、MPS/MRD/MPP栈指令、SET/RST置位复位、四分频等；逐题标注权威来源（学科网考纲百套卷第54卷、清华大学出版社教材、万水书苑实训教材、技成培训网任务书、电子工程世界、广州菱控教材习题、《电气技术》杂志、人人文库教材习题册），不编题。",
+  ]},
   {v:"v2.49.4（2026-10-26）",items:[
     "新增「技能·PLC」专栏第⑳章：PLC梯形图编程专项（设计·补全·分析）——起保停、正反转、星三角、两地控制、交通灯、两电机顺序启动、搅拌机正反转等 33 道编程设计/指令表互转/读图分析题，含 8 张按题设绘制的梯形图示意图；题目逐题标注权威来源（山东春考真题/样题 2022-2025、学科网《PLC技术及应用》考点与职教考纲百套卷、电工电气学习网、培训教材题库），不编题；缺图/缺答案如实标注。",
     "修复：打包遗漏新版 OCR 引擎三个子模块（ch_ppocr_v2_cls/ch_ppocr_v3_det/ch_ppocr_v3_rec）导致的拍照识别「No module named」异常，已补入安装包。",
