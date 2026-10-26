@@ -977,7 +977,7 @@ function renderPath(){
   const qq=$("#qpQuit");if(qq)qq.onclick=quitApp;
   const gx=$("#guideX");if(gx)gx.onclick=()=>{localStorage.setItem("zsb_guide","1");const g=$("#guideCard");if(g)g.remove()};
 }
-const APP_VERSION="v2.49.1（2026-10-25）";
+const APP_VERSION="v2.49.2（2026-10-26）";
 // 更新源（免服务器方案）：把 update.json 上传到任一免费托管后，把「直链」填到这里。
 // 对方打开软件点「🔄 检查更新」→ 有新版本就显示更新内容+下载链接。
 // 部署指引见项目内：更新部署\如何部署更新服务器.txt（5分钟即可，无需买服务器）。
@@ -986,6 +986,11 @@ const UPDATE_URL_ALT="https://ghfast.top/https://raw.githubusercontent.com/llluu
 const UPDATE_URL_ALT2="https://gh-proxy.com/https://raw.githubusercontent.com/llluuu995/update/main/update.json"; // 镜像2（实时回源）
 /* 注：jsDelivr CDN 有缓存延迟（更新后最长数小时才刷新），会造成「检查更新」读到旧版本误报已最新，故不再作为更新源 */
 const APP_LOG=[
+  {v:"v2.49.2（2026-10-26）",items:[
+    "作文评分加固：新增「🎯 切题核对」——在「作文要求/题目」栏填写题目后，评分会自动抽取题目关键词核对文章是否扣题；明显跑题/不符合题目要求的，总分按切题度自动下调，并给出重写建议（不填题目则不核对）。",
+    "作文评分加固：英语评分新增语种检测——上传/粘贴中文文章会被识别为「不是英语作文」，直接判 0 分并提示切换语文评分，不再给错分。",
+    "作文评分加固：答题卡废话识别——拍照识别到「超出黑色边框的答案无效」等答题卡提示文字时，判定为无效内容仅给基准分，并提示只拍作文正文区或手动输入。",
+  ]},
   {v:"v2.49.1（2026-10-25）",items:[
     "修复：「检查更新」误报已是最新版本——根因是备用更新源（jsDelivr CDN）有缓存延迟，更新后最长数小时才刷新，会读到旧版 update.json。现改为实时回源的镜像（ghfast.top / gh-proxy.com），更新内容发布后立即能检查到；主源、镜像源按顺序自动切换。",
     "版本号支持 3 段（如 v2.49.1），版本比较更精确。",
@@ -2631,6 +2636,47 @@ function wzOcrRun(){
   })();
 }
 
+/* ===== v2.49.2 作文评分加固：切题核对 / 语种检测 / 答题卡废话识别 ===== */
+function wzNoiseWords(){return ["答案无效","黑色边框","超出黑色","作答区域","指定区域","准考证号","条形码","缺考","区域内作答","贴条形码","在指定"]}
+function isAnswerNoise(s){
+  const ns=wzNoiseWords().filter(w=>s.includes(w));
+  const chars=(s.replace(/\s+/g,"")||"").length;
+  return ns.length>=2 && chars<200;
+}
+function wzLangStats(s){
+  const en=(s.match(/[a-zA-Z]/g)||[]).length;
+  const cn=(s.match(/[\u4e00-\u9fff]/g)||[]).length;
+  return {en,cn};
+}
+function wzReqKeywords(req){
+  const stop=["的","了","以","请","写","作","文","一篇","不少于","字","为","题","要求","题目","根据","然后","内容","用","英语","语文","介绍","描述","谈谈","关于","你","我","他","她","们","和","与","及","在","对","把","让","要","个","这","那","是","有","就","都","而","其","上","下","中","内","外","为题","请以","写一篇","记叙文","议论文","说明文","应用文","字数","作文","一次","时","也","会","能","好","很","到","从","等","哪些","哪"];
+  // 优先取引号/书名号里的核心词（如“成长路上的……”→ 成长）
+  const quotes=(req.match(/[“"「『][^”"」』]{2,16}[”"」』]/g)||[]).map(q=>q.slice(1,-1));
+  const base=quotes.length?quotes:[req||""];
+  const frags=[];
+  base.forEach(b=>{
+    let s=b.replace(/[^\u4e00-\u9fffa-zA-Z]/g," ");
+    stop.forEach(w=>{s=s.split(w).join(" ")});
+    (s.split(/\s+/)||[]).forEach(seg=>{
+      const mm=seg.match(/[\u4e00-\u9fff]{2,}|[a-zA-Z]{3,}/g);
+      if(mm)mm.forEach(w=>frags.push(w));
+    });
+  });
+  // ≥3字的关键词额外补其前2字，提高“成长”类命中率
+  const out=[];
+  [...new Set(frags)].forEach(w=>{out.push(w);if(w.length>=3)out.push(w.slice(0,2))});
+  return [...new Set(out)].sort((a,b)=>b.length-a.length).slice(0,4);
+}
+function wzFitLocal(t,req){
+  const t2=(t||"").replace(/\s+/g,"");
+  const kws=wzReqKeywords(req);
+  if(!kws.length)return {fit:null,note:""};
+  let hit=0;const missed=[];
+  kws.forEach(k=>{if(t2.includes(k))hit++;else missed.push(k)});
+  const fit=Math.round(hit/kws.length*10);
+  const note=hit===0?`未发现与题目关键词（${kws.join("、")}）相关的内容，疑似跑题/不符合题目要求`:`命中题目关键词 ${hit}/${kws.length}（${kws.filter(k=>t2.includes(k)).join("、")}）${missed.length?`，未命中：${missed.join("、")}`:""}`;
+  return {fit,note};
+}
 function wzScoreRun(){
   const ta=$("#wzText");if(!ta)return;
   const t=(ta.value||"").trim();
@@ -2638,8 +2684,9 @@ function wzScoreRun(){
   const cfg=cfgLoad();
   const isEn=cfg.wzLang==="en";
   const rq=$("#wzReq");const req=(rq&&rq.value||"").trim();
-  const r=isEn?wzScoreEn(t):wzScoreCn(t);
-  r.t=t;r.req=req;r.at=Date.now();r.lang=isEn?"en":"cn";
+  const fl=wzFitLocal(t,req);
+  const r=isEn?wzScoreEn(t,req):wzScoreCn(t,req);
+  r.t=t;r.req=req;r.at=Date.now();r.lang=isEn?"en":"cn";r.fit=fl.fit;r.fitNote=fl.note;
   const hist=wzHist();hist.unshift(r);wzHistSave(hist);
   wzShowResult(r);
   if((cfg.wzAiKey||"").trim())wzAiScore(r);
@@ -2670,6 +2717,10 @@ function wzShowResult(r){
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px">
       ${dims.map(([n,v,m])=>`<div style="background:#f4f6fa;border-radius:8px;padding:8px 10px;text-align:center"><div class="muted" style="font-size:12px">${n}</div><div style="font-size:20px;font-weight:700">${v}<span class="muted" style="font-size:12px">/ ${m}</span></div></div>`).join("")}
     </div>
+    ${r.noise?`<div style="margin-top:10px;background:#fee2e2;border-radius:8px;padding:8px 12px;color:#b91c1c"><b>⚠️ 疑似不是作文正文：</b>识别到的文字含「${esc(r.noiseWords||"")}」等答题卡提示语，无法按作文评分（仅给基准分）。请重新拍照（只拍作文正文区）或手动输入作文内容后再评分。</div>`:""}
+    ${r.langCheck?`<div style="margin-top:10px;background:#fee2e2;border-radius:8px;padding:8px 12px;color:#b91c1c"><b>⚠️ 不是英语作文：</b>检测到文章主要是中文内容，无法按英语写作评分（0分）。请上传英文作文，或在上方评分设置切换为「语文」评分。</div>`:""}
+    ${r.fit!=null&&!r.noise?`<div style="margin-top:10px;background:#eff6ff;border-radius:8px;padding:8px 12px"><b>🎯 切题核对（本地）：</b><span style="color:${r.fit>=8?"#1d4ed8":r.fit>=5?"#d97706":"#dc2626"};font-weight:700">${r.fit}/10</span><span class="muted" style="font-size:12px">（对照你填的题目要求，是否扣题/覆盖要点）</span><p class="muted" style="margin-top:4px">${esc(r.fitNote||"")}</p>${r.fit<5?`<p style="color:#b91c1c;margin-top:2px">明显偏离题目要求——评分已按切题度下调（满分×${(0.5+r.fit/20).toFixed(2)}）。请围绕题目重写后重新评分。</p>`:""}</div>`:""}
+    ${r.fit==null&&!r.noise?`<div class="muted" style="margin-top:8px;font-size:12px">💡 在「作文要求/题目(选填)」里填写题目要求后，评分会自动核对切题度（是否跑题、覆盖要点）。</div>`:""}
     ${bandRef}
     ${r.comment?`<p style="margin-top:10px">💬 ${esc(r.comment)}</p>`:""}
     ${r.advice?`<p><b>提分建议：</b>${esc(r.advice)}</p>`:""}
@@ -2701,10 +2752,12 @@ function wzAiScore(r){
     }).catch(e=>toast("AI评分失败："+e.message+"（可在设置中检查 Key 与网络）"));
 }
 
-/* 语文作文本地评分：客观指标（字数/段落/连接词/标点）；最终分数按山东春考标准 45 分制换算 */
-function wzScoreCn(t){
+/* 语文作文本地评分：客观指标（字数/段落/连接词/标点）；最终分数按山东春考标准 45 分制换算；支持切题核对与答题卡废话识别 */
+function wzScoreCn(t,req){
   const s=(t||"").trim();
   const chars=(s.replace(/\s+/g,"")||"").length;
+  const noise=isAnswerNoise(s);
+  const fl=wzFitLocal(s,req);
   const paras=s.split(/\n+/).map(x=>x.trim()).filter(Boolean).length;
   const sents=(s.match(/[。！？!?]+/g)||[]).length;
   const connectors=["首先","其次","然后","接着","最后","总之","然而","但是","因此","所以","不仅","而且","一方面","另一方面"].filter(w=>s.includes(w)).length;
@@ -2722,20 +2775,33 @@ function wzScoreCn(t){
   // 春考换算：满分45；字数不足700字每少50字扣1分
   let score45=Math.round(percent/100*45);
   if(chars<700)score45=Math.max(0,score45-Math.floor((700-chars)/50));
+  // 切题核对：命中题目关键词的比例折算总分（完全不扣题约砍半，全命中不扣）
+  let fitNote=fl.note,fitInfo="";
+  if(fl.fit!=null){
+    const k=(0.5+fl.fit/20);
+    score45=Math.max(0,Math.round(score45*k));
+    fitInfo=`（${fl.note}，按切题度折算）`;
+  }
+  if(noise){score45=Math.min(score45,2);fitInfo="识别内容疑似答题卡提示语，非作文正文";}
   const band=score45>=36?"一等（36—45分）":score45>=30?"二等（30—35分）":score45>=24?"三等（24—29分）":"四等（23分以下）";
-  const comment=`共约 ${chars} 字、${paras} 段、${sents} 句；连接词 ${connectors} 处${punctErr?"、标点连用 "+punctErr+" 处":""}。${chars<700?"字数不足700字（每少50字扣1分）；":""}${paras<=1?"全文只有一段，层次不清晰；":""}${connectors<2?"缺少过渡词，行文衔接生硬；":""}${std<18?"标点规范需要加强；":""}${chars>=700&&paras>=3&&connectors>=2?"字数、段落、过渡词均达标，注意打磨立意与文采冲一等卷；":""}`;
+  const comment=`共约 ${chars} 字、${paras} 段、${sents} 句；连接词 ${connectors} 处${punctErr?"、标点连用 "+punctErr+" 处":""}。${noise?"识别到的文字含答题卡提示语（如「超出黑色边框的答案无效」），无法作为作文评分，请重拍或手动输入正文。":""}${fl.fit!=null?(fl.fit>=8?"切题度好，围绕题目展开。":fl.fit>=5?"部分切题，注意紧扣题目要求。":"明显偏离题目要求，请按题目重写。")+fitInfo:"未提供题目要求，未做切题核对。"}${chars<700?"字数不足700字（每少50字扣1分）；":""}${paras<=1?"全文只有一段，层次不清晰；":""}${connectors<2?"缺少过渡词，行文衔接生硬；":""}${std<18?"标点规范需要加强；":""}${chars>=700&&paras>=3&&connectors>=2?"字数、段落、过渡词均达标，注意打磨立意与文采冲一等卷；":""}`;
   const advice=[];
+  if(fl.fit!=null&&fl.fit<5)advice.push("重读题目要求（"+req+"），围绕题目关键词"+wzReqKeywords(req).join("、")+"重写，先扣题再展开");
   if(chars<700)advice.push("春考要求不少于700字，当前"+chars+"字，务必补足到700字以上");
   if(paras<=2)advice.push("分成 3—5 段：开头点题、中间分论、结尾总结");
   if(connectors<2)advice.push("多用「首先/其次/然而/总之」等过渡词，让层次更清楚");
   if(std<18)advice.push("检查标点，避免句号逗号连用，段末用句号");
   if(paras>1&&sents>=3&&chars>=700)advice.push("整体结构完整，可进一步打磨开头与结尾的感染力");
-  return {total:score45,band,scale:"ck45",content,structure,langS:lang,std,comment,advice:advice.join("；")};
+  if(noise)advice.unshift("请重新拍照（只拍作文正文区）或手动输入作文内容后再评分");
+  return {total:score45,band,scale:"ck45",content,structure,langS:lang,std,comment,advice:advice.join("；"),noise,noiseWords:noise?wzNoiseWords().filter(w=>s.includes(w)).join("、"):"",fit:fl.fit,fitNote:fl.note};
 }
 
-/* 英语写作本地评分：词数/句型/连接词/规范；最终分数按山东春考标准 10 分制（四档）换算 */
-function wzScoreEn(t){
+/* 英语写作本地评分：词数/句型/连接词/规范；最终分数按山东春考标准 10 分制（四档）换算；支持语种检测与切题核对 */
+function wzScoreEn(t,req){
   const s=(t||"").trim();
+  const ls=wzLangStats(s);
+  const noise=isAnswerNoise(s);
+  const fl=wzFitLocal(s,req);
   const words=(s.match(/[a-zA-Z']+/g)||[]);
   const nw=words.length;
   const sents=s.split(/[.!?]+/).map(x=>x.trim()).filter(Boolean);
@@ -2752,6 +2818,8 @@ function wzScoreEn(t){
   if(ns&&capStart!==ns)std-=Math.min(8,Math.round((ns-capStart)*3));
   if(nw&&!s.trim().endsWith(".")&&!s.trim().endsWith("!")&&!s.trim().endsWith("?"))std=Math.max(6,std-2);
   const percent=Math.max(0,Math.min(100,content+structure+lang+std));
+  // 语种检测：中文占比远高于英文 → 判定不是英语作文
+  const notEn=ls.cn>=40&&ls.cn>ls.en*2;
   // 春考四档换算：第一档10 / 第二档7-9（>=60词）/ 第三档4-6（>=40词）/ 第四档1-3
   let score,band;
   if(nw<40){score=percent>=60?3:percent>=40?2:1;band="第四档（1—3分）· 词数不足40，内容未展开";}
@@ -2759,14 +2827,26 @@ function wzScoreEn(t){
   else if(nw<80){score=7+Math.round(percent/100*2);band="第二档（7—9分）";}
   else if(nw<=120){score=percent>=85?10:percent>=70?9:8;band=score===10?"第一档（10分）":"第一档线内（10分封顶），语言/内容仍有瑕疵";}
   else{score=Math.min(8,7+Math.round(percent/100*1));band="第二档（7—9分）· 词数超过120，超出范围酌情降档";}
-  const comment=`共 ${nw} 词、${ns} 句、平均每句 ${avg} 词；连接词 ${connectors} 处；句首大写 ${ns?capStart+"/"+ns:0}。${nw<80?"词数偏少，内容展开不足；":""}${ns<=2?"句子太短太少，结构单薄；":""}${connectors<2?"缺少连接词，行文跳跃；":""}${ns&&capStart!==ns?"有句首未大写或句末缺标点；":""}${nw>=80&&nw<=120&&ns>=4?"词数达标、结构完整，注意要点覆盖与书写工整（书写差会降档）；":""}`;
+  // 切题核对折算（英语同样适用）
+  let fitInfo="";
+  if(fl.fit!=null){
+    const k=(0.5+fl.fit/20);
+    score=Math.max(0,Math.round(score*k));
+    fitInfo=`（${fl.note}，按切题度折算）`;
+  }
+  if(notEn){score=Math.min(score,0);band="非英语作文（0分）· 检测到文章主要为中文";fitInfo="检测到文章主要是中文，不是英语作文，无法按英语写作评分";}
+  if(noise){score=Math.min(score,1);fitInfo="识别内容疑似答题卡提示语，非作文正文";}
+  const comment=`共 ${nw} 词、${ns} 句、平均每句 ${avg} 词；连接词 ${connectors} 处；句首大写 ${ns?capStart+"/"+ns:0}。${notEn?"⚠️ 检测到文章主要是中文（中文"+ls.cn+"字/英文"+ls.en+"词），不是英语作文，请上传英文作文或切换为语文评分。":""}${noise?"识别到的文字含答题卡提示语，无法作为作文评分，请重拍或手动输入正文。":""}${fl.fit!=null?(fl.fit>=8?"切题度好，围绕题目展开。":fl.fit>=5?"部分切题，注意覆盖题目要点。":"明显偏离题目要求，请按题目重写。")+fitInfo:"未提供题目要求，未做切题核对。"}${nw<80?"词数偏少，内容展开不足；":""}${ns<=2?"句子太短太少，结构单薄；":""}${connectors<2?"缺少连接词，行文跳跃；":""}${ns&&capStart!==ns?"有句首未大写或句末缺标点；":""}${nw>=80&&nw<=120&&ns>=4?"词数达标、结构完整，注意要点覆盖与书写工整（书写差会降档）；":""}`;
   const advice=[];
+  if(notEn)advice.push("当前识别/输入的是中文内容，请改用英文写作，或在上方切换为「语文」评分");
+  if(fl.fit!=null&&fl.fit<5)advice.push("重读题目要求（"+req+"），围绕题目关键词"+wzReqKeywords(req).join("、")+"重写，先扣题再展开");
   if(nw<80)advice.push("春考写作要求80—120词，当前"+nw+"词，需补足到80词以上并覆盖题目要点");
   if(ns<=3)advice.push("用 and/but/because/however 连接成 4—6 句的完整段落");
   if(connectors<2)advice.push("加入 First/In addition/Finally 等过渡词");
   if(ns&&capStart!==ns)advice.push("检查每句首字母大写与句末标点");
   if(nw>=80&&ns>=4)advice.push("词数达标，可尝试使用定语从句等复杂句式、确保覆盖全部要点冲第一档");
-  return {total:score,band,scale:"ck10",content,structure,langS:lang,std,comment,advice:advice.join("；")};
+  if(noise)advice.unshift("请重新拍照（只拍作文正文区）或手动输入作文内容后再评分");
+  return {total:score,band,scale:"ck10",content,structure,langS:lang,std,comment,advice:advice.join("；"),noise,noiseWords:noise?wzNoiseWords().filter(w=>s.includes(w)).join("、"):"",langCheck:notEn,fit:fl.fit,fitNote:fl.note};
 }
 </script>
 </body>
