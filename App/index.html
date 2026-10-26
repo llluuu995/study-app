@@ -1,0 +1,2773 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
+<title>专升本备考 · 章节学习</title>
+<style>
+:root{--bg:#f3f6fb;--card:#fff;--ink:#17202a;--sub:#6b7280;--line:#e3e8ef;--blue:#2563eb;--blue-l:#eaf1ff;--green:#0a8a5f;--green-l:#e9f9f2;--red:#d93a3a;--red-l:#fdecec;--amber:#c97700;--amber-l:#fff6e5;--no:#eef2f8;--r:14px}
+body.dark{--bg:#13171f;--card:#1d2430;--ink:#e6eaf2;--sub:#9aa6b8;--line:#2b3547;--blue:#5b8cf7;--blue-l:#18233a;--green:#34d399;--green-l:#0f2c22;--red:#f87171;--red-l:#331b1b;--amber:#fbbf24;--amber-l:#33280e;--no:#262f3d}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7}
+header{position:sticky;top:0;z-index:50;background:#101c33;color:#fff;padding:12px 20px;display:flex;align-items:center;gap:14px;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+header .ttl{font-size:17px;font-weight:700}
+header .sub{font-size:12px;color:#9fb0c8}
+header .grow{flex:1}
+.pbar{height:8px;border-radius:99px;background:#26354e;overflow:hidden;width:180px}
+.pbar i{display:block;height:100%;background:linear-gradient(90deg,#38bdf8,#818cf8);transition:width .4s}
+header .ph{margin-top:2px;font-size:11px;color:#9fb0c8}
+#menuBtn{display:none;background:none;border:1px solid #33415c;color:#fff;border-radius:8px;padding:4px 10px;font-size:18px;cursor:pointer}
+#main{max-width:960px;margin:0 auto;padding:20px 16px 90px}
+h2.pg{font-size:21px;margin-bottom:4px}
+.dsc{color:var(--sub);font-size:13px;margin-bottom:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.card h3{font-size:15px;margin-bottom:10px}
+.muted{color:var(--sub);font-size:13px}
+.btn{display:inline-block;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 18px;border-radius:10px;cursor:pointer;font-size:14px;user-select:none;transition:.12s}
+.btn:hover{border-color:var(--blue);color:var(--blue)}
+.btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.pri:hover{background:#1d4ed8;color:#fff}
+.btn.grn{background:var(--green);border-color:var(--green);color:#fff}
+.btn.sm{padding:5px 12px;font-size:13px}
+.btn.dis{opacity:.4;pointer-events:none}
+.brow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
+/* 学习路径 */
+.subject{margin-bottom:20px}
+.subject .shead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.subject .shead .ic{font-size:22px}
+.subject .shead b{font-size:17px}
+.subject .shead .prog{margin-left:auto;font-size:12px;color:var(--sub)}
+.chap{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:.12s}
+.chap:hover{border-color:var(--blue);box-shadow:0 2px 8px rgba(37,99,235,.12)}
+.chap.lock{opacity:.55;cursor:not-allowed}
+.chap.done{border-left:4px solid var(--green)}
+.chap.cur{border-left:4px solid var(--blue);background:var(--blue-l)}
+.chap .no{width:34px;height:34px;border-radius:50%;background:var(--no);color:#475569;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+.chap.done .no{background:var(--green);color:#fff}
+.chap.cur .no{background:var(--blue);color:#fff}
+.chap .ct{flex:1;min-width:0}
+.chap .ct b{display:block;font-size:14px}
+.chap .ct span{font-size:12px;color:var(--sub)}
+.chap .st{font-size:12px;color:var(--sub);flex-shrink:0}
+.chap .st.lock{color:var(--amber)}
+.chap .st.ok{color:var(--green);font-weight:600}
+/* 做题 */
+.qbox{padding:16px 0;border-bottom:1px dashed var(--line)}
+.qbox:last-child{border-bottom:none}
+.qstem{font-size:15px;margin-bottom:12px;white-space:pre-wrap}
+.qno{color:var(--blue);font-weight:700;margin-right:6px}
+.qopt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 14px;margin:6px 0;cursor:pointer;font-size:14px}
+.qopt:hover{border-color:var(--blue);background:var(--blue-l)}
+.qopt.correct{border-color:var(--green);background:var(--green-l);color:var(--green);font-weight:600}
+.qopt.wrong{border-color:var(--red);background:var(--red-l);color:var(--red)}
+.qopt.dis{pointer-events:none;opacity:.85}
+.qans{margin-top:10px;padding:12px 14px;background:var(--amber-l);border:1px solid #f6dfb4;border-radius:10px;font-size:14px;display:none;white-space:pre-wrap}
+.qans.show{display:block}
+.qans b{color:var(--amber)}
+.qin{width:100%;max-width:640px;border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px;margin-top:8px}
+.qin:focus{outline:none;border-color:var(--blue)}
+.selfk{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.progress-line{height:6px;background:#eef2f8;border-radius:99px;overflow:hidden;margin:10px 0}
+.progress-line i{display:block;height:100%;background:var(--blue);transition:width .3s}
+.score-float{position:fixed;top:74px;right:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 14px;font-size:13px;box-shadow:0 2px 8px rgba(0,0,0,.1);z-index:40}
+/* 错题本 */
+.wb{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;background:#fff}
+.tag{display:inline-block;font-size:12px;padding:2px 10px;border-radius:99px;margin-right:8px}
+.tag.en{background:var(--blue-l);color:var(--blue)}.tag.math{background:var(--green-l);color:var(--green)}.tag.cn{background:var(--amber-l);color:var(--amber)}
+.vidgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.vidcard{display:block;border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-decoration:none;color:var(--ink);background:#fff}
+.vidlist{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.vidrow{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid var(--line);border-radius:8px;padding:9px 12px;text-decoration:none;color:var(--ink);background:#fff}
+.vidrow b{flex:1;font-size:13px}
+.vidrow span{color:var(--muted);font-size:12px;white-space:nowrap}
+.brow.wrap{flex-wrap:wrap;gap:8px}
+.qimg{max-width:100%;border-radius:8px;margin:8px 0;display:block}
+.qimgmiss{background:#fff8e1;border:1px solid #f0d48a;color:#8a6d1a;border-radius:8px;padding:8px 12px;margin:8px 0;font-size:13px}
+.vwrow{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-bottom:1px solid var(--line)}
+.vwrow:last-child{border-bottom:none}
+.vwrow.ok{background:#f0f9f0}
+.vwrow.no{background:#fdf0f0}
+.vwbody{flex:1;min-width:0}
+.vwbody .vwm{margin-top:4px;font-size:13px;color:var(--ink)}
+.brow.col{flex-direction:column;align-items:flex-end;gap:6px;min-width:96px;margin-top:2px}
+.vwtag{font-size:12px;padding:3px 8px;border-radius:6px}
+.vwtag.ok{background:#e3f2e3;color:#2e7d32}
+.vwtag.no{background:#fdeaea;color:#c62828}
+.vidcard:hover{border-color:var(--blue)}
+.vidcard b{font-size:13px;color:var(--blue);display:block;margin-bottom:2px}
+.vidcard span{font-size:12px;color:var(--sub)}
+.wy{white-space:pre-wrap;font-size:14px;line-height:1.95;color:#374151}
+.phgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.phitem{text-align:center;border:1px solid var(--line);border-radius:10px;padding:9px 4px;background:#fff}
+.phitem .sym{font-size:19px;color:var(--blue);font-weight:700}
+.phitem .demo{font-size:12px;color:var(--sub)}
+.foot-note{margin-top:20px;padding:14px;background:var(--amber-l);border:1px solid #f6dfb4;border-radius:12px;font-size:12px;color:#7a5200}
+.toast{position:fixed;top:64px;left:50%;transform:translateX(-50%);background:#101c33;color:#fff;padding:9px 22px;border-radius:99px;font-size:13px;z-index:99;opacity:0;transition:.25s;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.toast.show{opacity:1}
+@media(max-width:820px){
+  #menuBtn{display:block}
+  #sideNav{display:none}
+  #sideNav.open{display:block;position:fixed;inset:0;background:#101c33;z-index:60;padding:20px;overflow:auto}
+  header .pbar{width:110px}
+  .score-float{position:static;margin:10px 0}
+}
+#sideNav{display:none}
+#sideNav.open{display:block}
+/* 背单词专栏 */
+.vws-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:12px}
+.vws{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+.vws b{font-size:20px;color:var(--blue);display:block;line-height:1.3}
+.vws span{font-size:12px;color:var(--sub)}
+.pbar.big{width:100%;height:12px;margin:6px 0 4px}
+.pbar.big i{background:linear-gradient(90deg,#38bdf8,#2563eb,#0a8a5f)}
+.vwword{text-align:center;padding:24px 10px 8px}
+.snd{border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;font-size:12px;border-radius:8px;padding:2px 6px;margin:0 4px;vertical-align:middle}
+.snd:hover{border-color:var(--blue);color:var(--blue)}
+.vwword b{font-size:34px;color:#101c33;letter-spacing:.5px}
+.vwphon{display:block;font-size:15px;color:var(--sub);margin-top:4px}
+.vwfreq{display:inline-block;font-size:12px;background:var(--blue-l);color:var(--blue);border-radius:99px;padding:2px 10px;margin-top:6px}
+.vwans{margin-top:16px;padding:14px;background:var(--blue-l);border:1px solid #c7dbfe;border-radius:12px}
+.vwans .vwm{font-size:15px;white-space:pre-wrap}
+.vwcard .progress-line{height:8px}
+/* 整体 UI 微调 */
+header{background:linear-gradient(135deg,#0f1e3d,#17325e 55%,#1d4ed8)}
+body{background:linear-gradient(180deg,#f3f6fb,#eaf0fa)}
+.card{box-shadow:0 1px 3px rgba(16,28,51,.05)}
+.card h3{margin-bottom:10px}
+.btn{border-radius:10px;box-shadow:0 1px 2px rgba(16,28,51,.04)}
+.btn.pri{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.btn.pri:hover{background:linear-gradient(135deg,#1d4ed8,#1e40af)}
+.chap{box-shadow:0 1px 3px rgba(16,28,51,.05)}
+.chap:hover{box-shadow:0 4px 14px rgba(37,99,235,.14)}
+.pg em{font-style:normal}
+/* ===== v2.33 全面 UI 优化 ===== */
+/* 数字统计卡（首页/统计页通用） */
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 10px;text-align:center;box-shadow:0 2px 6px rgba(16,28,51,.06);transition:.15s}
+.stat:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(37,99,235,.12)}
+.stat .v{font-size:26px;font-weight:800;color:var(--blue);line-height:1.15}
+.stat .v.g{color:var(--green)}.stat .v.r{color:var(--red)}.stat .v.a{color:var(--amber)}
+.stat .k{font-size:12px;color:var(--sub);margin-top:3px}
+/* 首次使用引导卡 */
+.guide{border:1px solid #c7dbfe;background:linear-gradient(135deg,#eaf1ff,#f7fbff);border-radius:14px;padding:13px 16px;margin-bottom:14px;font-size:13px;color:#1e3a8a;line-height:1.8}
+body.dark .guide{background:linear-gradient(135deg,#18233a,#1d2430);border-color:#2b3547;color:#c9d8f5}
+.guide b{font-size:14px}
+.guide .x{float:right;background:none;border:none;color:#7b9be0;cursor:pointer;font-size:15px;line-height:1}
+/* 顶部模式 tab：小屏横向滚动 */
+#modeTabs{overflow-x:auto;scrollbar-width:thin;white-space:nowrap;padding-bottom:2px;-webkit-overflow-scrolling:touch}
+#modeTabs::-webkit-scrollbar{height:4px}
+#modeTabs .btn{margin:0 2px 2px 0}
+/* 章节卡片：微型进度条 */
+.chapmini{height:4px;background:var(--no);border-radius:99px;margin-top:6px;overflow:hidden}
+.chapmini i{display:block;height:100%;background:linear-gradient(90deg,#38bdf8,#2563eb);border-radius:99px}
+body.dark .chapmini{background:#2b3547}
+/* 选项按钮：更大点击区 + hover 抬升 */
+.qopt{padding:11px 16px;border-radius:12px;transition:.12s}
+.qopt:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(37,99,235,.15)}
+/* 题干：浅底卡片 */
+.qstem{font-size:15.5px;padding:10px 14px;background:#f8fafc;border:1px solid var(--line);border-radius:12px;margin-bottom:14px}
+body.dark .qstem{background:#1d2430}
+/* 空状态 */
+.empty{text-align:center;padding:44px 10px;color:var(--sub)}
+.empty .e{font-size:42px;margin-bottom:8px}
+/* 评级徽章 */
+.badge{display:inline-block;min-width:34px;padding:3px 12px;border-radius:99px;font-weight:800;font-size:15px;text-align:center;color:#fff}
+.badge.S{background:linear-gradient(135deg,#f59e0b,#fbbf24)}
+.badge.A{background:var(--green)}.badge.B{background:var(--blue)}
+.badge.C{background:var(--amber)}.badge.D{background:var(--red)}
+/* 成绩卡 */
+.result-card{text-align:center;padding:26px 16px}
+.result-card .big{font-size:46px;font-weight:800;color:var(--blue)}
+.result-card .big.ok{color:var(--green)}.result-card .big.no{color:var(--red)}
+/* 全局滚动条 */
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:#c3cede;border-radius:99px;border:2px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-thumb:hover{background:#a9b8ce;background-clip:content-box;border:2px solid transparent}
+::-webkit-scrollbar-track{background:transparent}
+/* toast 加强 */
+.toast{box-shadow:0 8px 24px rgba(16,28,51,.32);font-weight:600}
+/* 视频卡片 hover */
+.vidcard,.vidrow{transition:.12s}
+.vidcard:hover,.vidrow:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(16,28,51,.10)}
+/* 收藏/错题条目 hover */
+.wb{transition:.12s}
+.wb:hover{box-shadow:0 3px 10px rgba(16,28,51,.08)}
+/* 小屏：按钮更易点 */
+@media(max-width:820px){
+  .btn{padding:9px 16px}
+  .stat .v{font-size:22px}
+  .qstem{font-size:15px}
+}
+/* ===== v2.49 手机端全面适配（竖屏/触屏） ===== */
+/* 刘海屏安全区（MDN 推荐 env(safe-area-inset-*)，无刘海设备返回 0，不影响电脑版） */
+body{padding-top:env(safe-area-inset-top);padding-right:env(safe-area-inset-right);padding-bottom:env(safe-area-inset-bottom);padding-left:env(safe-area-inset-left)}
+@media(max-width:820px){
+  header{padding-top:calc(8px + env(safe-area-inset-top))}
+  #main{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+  #sideNav.open{padding-top:calc(14px + env(safe-area-inset-top))}
+}
+@media(max-width:820px){
+  html{-webkit-text-size-adjust:100%}
+  header{padding:8px 10px;gap:8px;flex-wrap:wrap;align-items:center}
+  header .ttl{font-size:14px}
+  header .sub{display:none}
+  #modeTabs{order:9;width:100%;max-width:none;justify-content:flex-start;gap:6px;flex-wrap:nowrap;overflow-x:auto;margin:4px 0 0!important;padding-bottom:3px;-webkit-overflow-scrolling:touch}
+  #modeTabs .btn{padding:6px 11px;font-size:12.5px;margin:0;flex-shrink:0;border-radius:99px}
+  header .pbar{width:74px;height:6px}
+  #totalPct{font-size:10px}
+  #quitBtn{display:none}
+  #main{padding:12px 10px 96px;max-width:100%}
+  h2.pg{font-size:18px}
+  .dsc{font-size:12.5px}
+  .card{padding:14px 12px;border-radius:13px}
+  .btn{padding:10px 15px;font-size:14px;border-radius:11px;min-height:38px}
+  .btn.sm{padding:6px 12px;font-size:13px;min-height:30px}
+  .qopt{padding:13px 15px;font-size:14.5px;border-radius:12px}
+  .qstem{font-size:14.5px;padding:9px 11px}
+  .qin{font-size:15px;padding:11px 13px}
+  .qans{padding:11px 12px;font-size:13.5px}
+  .chap{padding:11px 12px;gap:10px}
+  .chap .no{width:30px;height:30px;font-size:13px}
+  .chap .ct b{font-size:13.5px}
+  .chap .st{font-size:11px}
+  .statgrid{grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px}
+  .stat .v{font-size:20px}
+  .stat .k{font-size:11px}
+  .subject .shead b{font-size:15px}
+  .vidgrid{grid-template-columns:1fr 1fr;gap:8px}
+  .vidcard{padding:9px 10px}
+  .vidcard b{font-size:12.5px}
+  .vidrow{padding:9px 10px;flex-wrap:wrap}
+  .vidrow span{font-size:11px}
+  .brow{gap:8px}
+  .brow.wrap{gap:7px}
+  .vws-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .vws{padding:10px 8px}
+  .vws b{font-size:17px}
+  .vwrow{gap:8px;flex-wrap:wrap}
+  .brow.col{min-width:84px}
+  .vwbody .vwm{font-size:13px}
+  .score-float{position:static;margin:10px 0;font-size:12.5px;width:fit-content}
+  .result-card .big{font-size:38px}
+  .phgrid{grid-template-columns:repeat(3,1fr);gap:7px}
+  .phitem .sym{font-size:17px}
+  .empty .e{font-size:36px}
+  .guide{padding:11px 13px;font-size:12.5px}
+  .badge{min-width:30px;font-size:13px}
+  #sideNav.open{padding:14px}
+  #sideNav.open .brow{flex-wrap:wrap}
+  #sideNav.open .btn{flex:1 1 45%;text-align:center}
+  table{display:block;overflow-x:auto;white-space:nowrap}
+  .toast{font-size:12.5px;padding:8px 18px;top:56px}
+}
+/* 横屏手机（高度受限）：压缩头部留出空间 */
+@media(max-width:920px) and (orientation:landscape){
+  header{padding:6px 10px}
+  header .sub{display:none}
+  #modeTabs .btn{font-size:12px;padding:5px 9px}
+  #main{padding-top:10px}
+}
+/* 超小屏（≤380px）再收紧 */
+@media(max-width:380px){
+  #modeTabs .btn{padding:5px 9px;font-size:11.5px}
+  .btn{min-height:36px;padding:9px 12px}
+  .qopt{font-size:14px}
+  .vwword b{font-size:30px}
+}
+</style>
+<script>
+/* 数据兜底：任一数据文件加载失败（缺文件/语法错误/半途损坏）时，全局结构仍存在，界面不会白屏；
+   各数据文件正常加载后会以真实数据覆盖下列默认空结构。 */
+window.CK_DATA=window.CK_DATA||{math_chapters:[],en_single:[],en_write:[],en_read:[],en2023_single:[],en2023_fill:[],en_new1:[],en_new2:[],en_new3:[],en_new4:[],cn_learn:[],cn_read:[],cn_modern:[],cn_write:[],cn_moxie:[],cn_pool:[],videos:{math:[],en:[],cn:[]}};
+window.DZ_DATA=window.DZ_DATA||{subj:"dz",cn_chapters:[]};
+window.JN_DATA=window.JN_DATA||{subj:"jn",cn_chapters:[]};
+window.APP_DATA=window.APP_DATA||{words:[],en:{cloze:[],trans:[],write:[]},math:{choice:[],fill:[],calc:[]},cn:{choice:[],fill:[],word:[],trans:[],read:[],write:[]},cn_sents:[],cn_wenyan:[],chapters:{vocab_chapters:[],phonetics:[],grammar:[],en:[],math_chapters:[],cn_chapters:[],videos:[]}};
+window.ZZ2600_WORDS=window.ZZ2600_WORDS||[];
+window.GUIDE_DATA=window.GUIDE_DATA||{subj:"guide",cn_chapters:[]};
+</script>
+</head>
+<body>
+<header>
+  <button id="menuBtn">☰</button>
+  <div><div class="ttl">📚 专升本·春考·单招 学习</div><div class="sub">按顺序学 · 自动记进度 · 章节评分</div></div>
+  <div class="grow"></div>
+  <div class="brow" id="modeTabs" style="margin:0;flex-wrap:wrap;justify-content:flex-end;gap:4px;max-width:560px">
+    <button class="btn sm pri mtab" data-mode="zsb">📚 专升本</button>
+    <button class="btn sm mtab" data-mode="ck">🏫 山东春考</button>
+    <button class="btn sm mtab" data-mode="dz">🎯 单招</button>
+    <button class="btn sm mtab" data-mode="jn">🔧 技能·PLC</button>
+    <button class="btn sm mtab" data-mode="zz">📋 总结</button>
+    <button class="btn sm mtab" data-mode="sj">📄 模拟卷</button>
+    <button class="btn sm mtab" data-mode="vw">📖 背单词</button>
+    <button class="btn sm mtab" data-mode="wz">✍️ 作文评分</button>
+  </div>
+  <div><div class="pbar"><i id="totalBar" style="width:0%"></i></div><div class="ph" id="totalPct">总进度 0%</div></div>
+  <button class="btn sm" id="quitBtn" title="退出程序" style="margin-left:8px">⏻ 退出</button>
+</header>
+<div id="sideNav">
+  <div class="card" style="margin-bottom:10px">
+    <div class="brow">
+      <button class="btn" data-nav="path">🗺️ 学习路径</button>
+      <button class="btn" data-nav="wrong">❌ 错题本</button>
+      <button class="btn" data-nav="fav">⭐ 收藏夹</button>
+      <button class="btn" data-nav="stats">📊 统计</button>
+      <button class="btn" data-nav="settings">⚙️ 设置</button>
+    </div>
+  </div>
+</div>
+<div id="main"></div>
+<div id="toast" class="toast"></div>
+<script src="data.js?v=325"></script>
+<script src="chunkao_data.js?v=325"></script>
+<script src="danzhao_data.js?v=325"></script>
+<script src="zz2600_data.js?v=325"></script>
+<script src="guide.js?v=325"></script>
+<script>
+"use strict";
+const D = window.APP_DATA;
+const CK = window.CK_DATA;
+const DZ = window.DZ_DATA;
+const JN = window.JN_DATA;
+const GZ = window.GUIDE_DATA;
+const VW = window.DZ_WORDS||[];  /* 单招/春考高频词（build_danzhao 输出，来源：七彩学科网高频核心800词预览63词） */
+/* —— 背单词词库（专栏）配置：中职2600词 / 高考3500词 / 单招63词，各自独立进度与生词本 —— */
+const VW_LIBS={
+  "zz2600":{name:"中职·单招·春考英语2500词（教育部课标附录5：2490+参考141）",mk:()=>window.ZZ2600_WORDS?ZZ2600_WORDS.map(w=>({w:w.w,p:w.p,m:w.m,f:w.ex?"★拓展·课标":"课标"})):[],pg:"vw_pg_zz",wb:"vw_wb_zz",src:"山东省春季高考考试标准（2025年版）规定英语词汇为教育部《中等职业学校英语课程标准（2020年版）》2490 词（含义务教育阶段+中职基础/职业/拓展模块）；另含课标参考词汇表141词（大洲大洋/国家语言/月份/数词/星期/传统文化/四大发明），合计约2500+，即春考/单招「2500词」考纲口径。音标词义取自学科网《课标英语词汇手册(2490)》等公开来源，个别词源表未公开的如实标注待补"},
+  "3500":{name:"高考3500词（词频版）+ 单招63词",mk:vwWords,pg:"vw_pg2",wb:"vw_wb2",src:"高考英语词汇3500词（词频标记版，高→中→低频）+ 单招高频核心63词"},
+  "dz63":{name:"单招高频核心 63 词",mk:()=>VW.slice(),pg:"vw_pg_dz",wb:"vw_wb_dz",src:"七彩学科网《2026山东春考英语高频核心800词》预览63词"}
+};
+function vwLib(){const k=cfgLoad().vwlib||"zz2600";return VW_LIBS[k]||VW_LIBS["zz2600"]}
+function vwList(){return vwLib().mk()}
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const rnd = n => Math.floor(Math.random() * n);
+const pick = a => a[rnd(a.length)];
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]]}return a}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+const K_WB="zsb_wb2",K_ST="zsb_st2",K_DAY="day_log2",K_FAV="zsb_fav2";
+const K_VWPG="vw_pg2",K_VWWB="vw_wb2";
+let MODE="zsb";
+const pgKey=()=>({ck:"ck_pg2",dz:"dz_pg2",jn:"jn_pg2",zz:"zz_pg2"}[MODE]||(MODE==="vw"?vwLib().pg:"zsb_pg2"));
+const CFG_KEY="zsb_cfg2";
+const cfgLoad=()=>{try{return JSON.parse(localStorage.getItem(CFG_KEY))||{target:40,pass:60,dailyN:20,randN:20,vwGap:5,vwScope:"all"}}catch(e){return{target:40,pass:60,dailyN:20,randN:20,vwGap:5,vwScope:"all"}}};
+const cfgSave=c=>{localStorage.setItem(CFG_KEY,JSON.stringify(c));cloudSave(CFG_KEY,c)};
+const cfgTarget=()=>{const c=cfgLoad();return c.target||40};
+const cfgPass=()=>{const c=cfgLoad();return c.pass||60};
+const cfgDailyN=()=>{const c=cfgLoad();return c.dailyN||20};
+/* —— 进度本地+云端双保险：localStorage 保存，同时备份到程序数据目录（exe 模式），
+   清缓存/删页面后从备份恢复，进度不丢 —— */
+function cloudSave(k,v){try{fetch("api/save",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({k:k,v:v})}).catch(()=>{})}catch(e){}}
+function cloudLoad(k){return new Promise(r=>{try{fetch("api/load/"+k).then(x=>x.text()).then(t=>{if(t&&t!=="null"&&(t[0]==="{"||t[0]==="[")){try{r(JSON.parse(t))}catch(e){r(null)}}else r(null)}).catch(()=>r(null))}catch(e){r(null)}})}
+async function restoreAll(){
+  // 文件备份是权威存储（E:\专升本学习软件\dist\progress 固定目录）：
+  // 每次启动无条件用文件覆盖 localStorage（localStorage 只作缓存）。
+  const keys=[["zsb_pg2","pg"],["ck_pg2","pg"],["dz_pg2","pg"],["jn_pg2","pg"],["zz_pg2","pg"],
+    ["vw_pg2","pg"],["vw_wb2","wb"],["vw_pg_zz","pg"],["vw_wb_zz","wb"],["vw_pg_dz","pg"],["vw_wb_dz","wb"],
+    ["zsb_wb2","wb"],["zsb_st2","st"],["zsb_cfg2","cfg"]];
+  for(const [k,kind] of keys){
+    const v=await cloudLoad(k);
+    if(v!==null){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+  }
+}
+const pgLoad=()=>{try{return JSON.parse(localStorage.getItem(pgKey()))||{}}catch(e){return{}}};
+const pgSave=p=>{localStorage.setItem(pgKey(),JSON.stringify(p));cloudSave(pgKey(),p)};
+const wbLoad=()=>{try{return JSON.parse(localStorage.getItem(K_WB))||[]}catch(e){return[]}};
+const wbSave=w=>{localStorage.setItem(K_WB,JSON.stringify(w));cloudSave(K_WB,w)};
+const stLoad=()=>{try{return JSON.parse(localStorage.getItem(K_ST))||{done:0,right:0}}catch(e){return{done:0,right:0}}};
+const stSave=s=>{localStorage.setItem(K_ST,JSON.stringify(s));cloudSave(K_ST,s)};
+const dayKey=d=>{const dt=d||new Date();return dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0")};
+const dayLoad=()=>{try{return JSON.parse(localStorage.getItem(K_DAY))||{}}catch(e){return{}}};
+const dayAdd=(n,r)=>{const k=dayKey(),m=dayLoad(),t=m[k]||{n:0,r:0};t.n+=n;t.r+=r;m[k]=t;localStorage.setItem(K_DAY,JSON.stringify(m));cloudSave(K_DAY,m)};
+const dayStreak=()=>{const m=dayLoad(),set=new Set(Object.keys(m));let n=0;const d=new Date();if(!set.has(dayKey(d)))d.setDate(d.getDate()-1);while(set.has(dayKey(d))){n++;d.setDate(d.getDate()-1)}return n};
+const dayWeek=()=>{const m=dayLoad(),keys=Object.keys(m);let n=0,r=0;const d=new Date();const sd=new Date(d);sd.setDate(d.getDate()-d.getDay());const sk=dayKey(sd);for(const k of keys){if(k>=sk){n+=(m[k].n||0);r+=(m[k].r||0)}}return{n,r}};
+function quitApp(){
+  try{
+    if(window.pywebview&&window.pywebview.api&&window.pywebview.api.exit){window.pywebview.api.exit();return}
+  }catch(e){}
+  toast("网页版无需退出：直接关闭浏览器页面即可。");
+}
+function exitBtnSetup(){const b=$("#quitBtn");if(b)b.onclick=quitApp}
+function toast(m,ms){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(t._tm);t._tm=setTimeout(()=>t.classList.remove("show"),ms||1900)}
+function fmt(t){const d=new Date(t);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function vsrc(){return MODE==="ck"?CK.videos:MODE==="dz"?DZ.videos:MODE==="jn"?JN.videos:MODE==="zz"?GZ.videos:D.chapters.videos}
+function vids(g){const vs=(vsrc()||{})[g]||[];return `<div class="vidgrid">${vs.map(v=>`<a class="vidcard" href="${v.url}" target="_blank" rel="noopener"><b>▶ ${esc(v.t)}</b><span>${esc(v.src)}</span></a>`).join("")}</div>`}
+// 视频讲解面板：科目标签可自行切换，列表形式展示（答题页/背单词页通用）
+function vidsPanel(active){
+  const vsrc0=vsrc();
+  const order=MODE==="jn"?[["jn","🔧 技能/PLC 视频"]]:MODE==="dz"?[["chinese","📖 单招语文视频"],["math","➗ 数学课"],["en","🇬🇧 英语课"]]:MODE==="zz"?[["chinese","📖 语文课"],["math","➗ 数学课"],["en","🇬🇧 英语课"]]:[["phonetics","🎙️ 音标视频"],["vocabulary","🔤 词汇课"],["grammar","📐 语法课"],["math","➗ 数学课"],["chinese","📖 语文课"],["en","🇬🇧 春考英语课"]];
+  const getVs=k=>{const o=vsrc0||{};return o[k]||(k==="chinese"?o.cn:null)||(k==="cn"?o.chinese:null)||[]};
+  const groups=order.map(([k,t])=>({k,t,vs:getVs(k)})).filter(g=>g.vs.length);
+  if(!groups.length)return "";
+  let tabs="",panels="";
+  groups.forEach(g=>{
+    const on=g.k===active;
+    tabs+=`<button class="btn sm${on?" pri":""}" data-vtab="${g.k}" onclick="switchVids('${g.k}')">${g.t}</button>`;
+    panels+=`<div class="vidlist" data-vp="${g.k}"${on?"":" hidden"}>${g.vs.map(v=>`<a class="vidrow" href="${v.url}" target="_blank" rel="noopener"><b>▶ ${esc(v.t)}</b><span>${esc(v.src)} · 跳转观看</span></a>`).join("")}</div>`;
+  });
+  return `<div class="card vids-panel"><h3>📺 视频讲解 · 点标签切换科目（跳转 B 站观看，需联网）</h3><div class="brow wrap">${tabs}</div>${panels}</div>`;
+}
+function switchVids(k){
+  document.querySelectorAll(".vids-panel [data-vp]").forEach(p=>{p.hidden=p.dataset.vp!==k});
+  document.querySelectorAll(".vids-panel [data-vtab]").forEach(b=>{b.classList.toggle("pri",b.dataset.vtab===k)});
+}
+// 题干富文本：支持 ![描述](图片URL) 内嵌图片；题干提及图示但无图片 → 明确提示配图缺失
+function richQ(txt){
+  let s=esc(txt);
+  let imgs=0;
+  s=s.replace(/!\[([^\]]*)\]\(([^)]+)\)/g,(m,alt,url)=>{
+    if(!/^(https?:\/\/|img\/)/i.test(url))return m;
+    imgs++;
+    return `<img class="qimg" src="${esc(url)}" alt="${esc(alt||"题目配图")}" referrerpolicy="no-referrer" onerror="this.style.display='none'">`;
+  });
+  if(/(如图所示|如图\s*\d*|见下图|请看图|下图[^。]*所示|图示)/.test(txt)&&imgs===0){
+    s+=`<div class="qimgmiss">⚠️ 本题原卷配图暂缺（来源未提供）：题干涉及图示，请对照教材或原卷插图作答。</div>`;
+  }
+  return s;
+}
+
+/* ============ 章节清单（按科组织） ============ */
+function buildChapters(){
+  const en=[];
+  en.push({id:"en-phon",subj:"en",title:"① 音标与拼读",kind:"phon",desc:"48个国际音标+发音视频",n:1});
+  D.chapters.vocab_chapters.forEach((c,i)=>{
+    en.push({id:c.id,subj:"en",title:"② 词汇·"+c.title,kind:"vocab",desc:c.freq+" "+c.words.length+"词",n:0,target:20,freq:c.freq,words:c.words});
+  });
+  en.push({id:"en-grm",subj:"en",title:"③ 语法考点学习",kind:"grammar",desc:"词法+句法+易错点",n:0});
+  D.chapters.en.cloze.forEach((c,i)=>{en.push({id:"en-cloze-"+i,subj:"en",title:"④ 真题选词填空 "+(c.year||"").slice(0,4),kind:"cloze",desc:"Cloze真题 "+((c.year||"").slice(0,4)||("第"+(i+1)+"篇")),n:0,cloze:c})});
+  en.push({id:"en-zw",subj:"en",title:"⑤ 真题翻译与写作",kind:"ensub",desc:"翻译"+D.chapters.en.trans.length+"道+作文"+D.chapters.en.write.length+"道",n:0,trans:D.chapters.en.trans,write:D.chapters.en.write});
+  const math=D.chapters.math_chapters.map((c,i)=>({id:c.id,subj:"math",title:"⑥ 数学·"+c.title,kind:"pool",desc:c.pool.length+"题",n:0,target:10,pool:c.pool}));
+  const cn=D.chapters.cn_chapters.map((c,i)=>{
+    if(c.id==="c-zhenti")return {id:c.id,subj:"cn",title:"⑦ 语文·真题综合",kind:"pool",desc:"真题练习",n:0,target:10,pool:Object.values(c.pool).flat()};
+    return {id:c.id,subj:"cn",title:"⑧ 古文·"+c.title.split("（")[0],kind:"wenyan",desc:(c.sents||[]).length+"句必背",n:0,book:c};
+  });
+  return {en,math,cn};
+}
+const CH = buildChapters();
+const CKCH = buildCkChapters();
+function buildDzChapters(){
+  const en=[],math=[],cn=[];
+  (DZ.cn_chapters||[]).forEach(c=>cn.push({id:c.id,subj:"cn",title:c.title,kind:c.kind,desc:c.desc,n:0,target:c.target||10,pool:c.pool,items:c.items}));
+  return {en,math,cn};
+}
+function buildJnChapters(){
+  const en=[],math=[],cn=[];
+  (JN.cn_chapters||[]).forEach(c=>cn.push({id:c.id,subj:"cn",title:c.title,kind:c.kind,desc:c.desc,n:0,target:c.target||10,pool:c.pool,items:c.items}));
+  return {en,math,cn};
+}
+const DZCH=buildDzChapters(),JNCH=buildJnChapters();
+function buildZzChapters(){
+  const en=[],math=[],cn=[];
+  (GZ.cn_chapters||[]).forEach(c=>cn.push({id:c.id,subj:"cn",title:c.title,kind:"learn",desc:c.desc,n:0,items:c.items}));
+  return {en,math,cn};
+}
+const ZZCH=buildZzChapters();
+const CHS={zsb:CH,ck:CKCH,dz:DZCH,jn:JNCH,zz:ZZCH,wz:{en:[],math:[],cn:[]}};
+const ALLCH=CH.en.concat(CH.math).concat(CH.cn);
+function mkMap(ch){const m={};["en","math","cn"].forEach(s=>ch[s].forEach(c=>m[c.id]=c));return m}
+const cMap=mkMap(CH),ckMap=mkMap(CKCH),dzMap=mkMap(DZCH),jnMap=mkMap(JNCH),zzMap=mkMap(ZZCH);
+const MAPS={zsb:cMap,ck:ckMap,dz:dzMap,jn:jnMap,zz:zzMap,wz:{}};
+const curList=s=>CHS[MODE][s];
+const curMap=()=>MAPS[MODE];
+const curAll=()=>{const m=CHS[MODE];if(!m||!m.en)return[];return ["en","math","cn"].reduce((a,s)=>a.concat(m[s]||[]),[])};
+function updateTabs(){$$("#modeTabs .mtab").forEach(x=>x.classList.toggle("pri",x.dataset.mode===MODE))}
+let OPEN_ID=null;
+
+/* ============ 进度 + 评分系统 ============ */
+function prog(id){const p=pgLoad();return p[id]||{done:0,total:0,right:0,state:0}}
+function gradeOf(p){
+  // 评级：S≥90分 A≥80 B≥70 C≥60 D<60（无对错数据的按完成计 S）
+  if(!p||!p.state)return null;
+  const done=p.done||0,right=p.right||0;
+  const pct=done?Math.round(right/done*100):100;
+  const g=pct>=90?"S":pct>=80?"A":pct>=70?"B":pct>=60?"C":"D";
+  return {pct,g};
+}
+function setProg(id,done,total,right){const p=pgLoad();const gr=gradeOf({done,total,right,state:done>=total?2:1});p[id]={done,total,right,state:done>=total?2:1,at:Date.now(),grade:gr?gr.g:"",pct:gr?gr.pct:null};pgSave(p);renderTotal()}
+function chapterGrade(id){const p=prog(id);if(p.state!==2)return "";const gr=gradeOf(p);return gr?`<span class="st ok">✓ ${gr.g}级 ${gr.pct}%</span>`:`<span class="st ok">✓ 已完成</span>`}
+function unlockOf(c){
+  if(MODE==="jn"||MODE==="zz")return true; /* 技能·PLC 与 总结 专栏免解锁：所有章节可直接观看 */
+  const list=curList(c.subj)||[];
+  const idx=list.indexOf(c);
+  return idx<=0||prog(list[idx-1].id).state===2;
+}
+function totalPct(){if(MODE==="vw"){return 0}const done=curAll().filter(c=>prog(c.id).state===2).length;return Math.round(done/curAll().length*100)}
+function renderTotal(){if(MODE==="vw"){const p=vwPg(),t=vwList().length;const pct=t?Math.round((p.cursor||0)/t*100):0;$("#totalBar").style.width=pct+"%";$("#totalPct").textContent="背词进度 "+pct+"%";return}if(MODE==="sj"){$("#totalBar").style.width="0%";$("#totalPct").textContent="模拟卷 · 随机组卷";return}if(MODE==="wz"){$("#totalBar").style.width="0%";$("#totalPct").textContent="作文评分";return}const p=totalPct();$("#totalBar").style.width=p+"%";$("#totalPct").textContent="总进度 "+p+"%"}
+function chapterTitle(id){const c=curMap()[id];return c?c.title.replace(/^[①-⑧]\s*/,""):id}
+function chapterSubj(id){const c=curMap()[id];return c?c.subj:""}
+
+/* ============ 山东春考专栏章节 ============ */
+function buildCkChapters(){
+  const en=[];
+  const fmap={高频:"高频词",中频:"中频词",低频:"低频词",高:"高频词",中:"中频词",低:"低频词",h:"高频词",m:"中频词",l:"低频词"};
+  const seen={};const groups=[];
+  D.words.forEach(w=>{const k=fmap[w.f]||"其他";(groups.find(g=>g[0]===k)||(groups.push([k,[]])&&groups[groups.length-1]))[1].push(w)});
+  groups.forEach(([t,ws],i)=>{
+    if(ws.length)en.push({id:"ck-e-v"+i,subj:"en",title:"① 中职词汇·"+t,kind:"vocab",desc:t+" "+ws.length+"词（来源：高考英语3500词表·词频标记版）",n:0,target:20,words:ws});
+  });
+  en.push({id:"ck-e-grm",subj:"en",title:"② 中职英语基础语法",kind:"grammar",desc:"词法+句法+易错点（语法体系覆盖中职英语考纲考点）",n:0});
+  en.push({id:"ck-e-1",subj:"en",title:"③ 2025春考英语真题·单选",kind:"pool",desc:"25题·全带答案解析（2025年山东春季高考统一考试·考生回忆版）",n:0,target:10,pool:CK.en_single});
+  en.push({id:"ck-e-zw",subj:"en",title:"④ 2025春考英语真题·写作",kind:"ensub",desc:"写作（回忆版+范文模板）",n:0,trans:[],write:CK.en_write});
+  en.push({id:"ck-e-read",subj:"en",title:"⑤ 春考英语·阅读理解真题",kind:"read",desc:"6篇30题（2017/2018/2020/2021春考真题，菁优网收录；官方未公开答案，作答后如实显示“来源未提供”）",n:0,target:10,passages:CK.en_read});
+  en.push({id:"ck-e-2023a",subj:"en",title:"⑥ 2023春考英语真题·单选与阅读",kind:"pool",desc:"40题·全带官方答案（2023年普通高校招生（春季）全省统一考试英语真题·AI职教文字版含答案：单选25+阅读15；原资源未附解析，未编造）",n:0,target:10,pool:(CK.en2023_single||[])});
+  en.push({id:"ck-e-2023b",subj:"en",title:"⑦ 2023春考英语真题·补全对话/短文填空/写作",kind:"pool",desc:"3大题·全带官方答案（补全对话5空+短文填空10空+职场写作附参考范文）",n:0,target:3,pool:(CK.en2023_fill||[])});
+  en.push({id:"ck-e-zk20",subj:"en",title:"⑧ 春考英语真题再现·2020/2021/2024（真题单选）",kind:"pool",desc:"30题·全带答案解析（2020×5+2021×5+2024×20 山东春考真题单选，学科网二轮专项卷收录：序数词/介词/名词/代词/情景交际/构词法/比较级/动词短语/时态/主谓一致/倍数/强调句/定语从句/宾语从句/连词/非谓语）",n:0,target:10,pool:(CK.en_new1||[])});
+  en.push({id:"ck-e-mn20",subj:"en",title:"⑨ 英语知识运用·各地模拟34题",kind:"pool",desc:"34题·全带答案解析（学科网2027二轮专项卷B组：定语从句/固定搭配/情景交际/海报细节/特殊疑问词/日期/介词/There be/宾语从句/冠词/主动表被动/不定代词/副词/感叹句/并列连词/祈使句/非谓语/主谓一致/分数年龄/反意疑问/if主将从现）",n:0,target:10,pool:(CK.en_new2||[])});
+  en.push({id:"ck-e-2026erm",subj:"en",title:"⑩ 2026春考英语二模·全卷（含答案）",kind:"pool",desc:"55题·全带答案解析（2026山东春季高考全省统一考试二模英语：单选25+阅读15+补全对话5+短文填空9+写作1附范文；原卷阅读第40题答案表转写缺失，如实标注『来源未提供』）",n:0,target:10,pool:(CK.en_new3||[])});
+  en.push({id:"ck-e-2025full",subj:"en",title:"⑪ 2025春考英语真题·全卷（含答案）",kind:"pool",desc:"33题·全带答案解析（2025山东春考英语真题：单选25+阅读5+补全对话5+短文填空10+写作1；阅读B/C篇原卷图片材料未公开故未收录）",n:0,target:10,pool:(CK.en_new4||[])});
+  const math=[];
+  const cn=CK.cn_learn.map((c,i)=>({id:c.id,subj:"cn",title:"⑦ 语文·"+c.title,kind:"learn",desc:"考点框架·按中职语文课标（专属题库已收录：见下文字音字形等真题训练卷）",n:0,items:c.items}));
+  (CK.cn_pool||[]).forEach((c,i)=>cn.push({id:c.id,subj:"cn",title:"⑧ 语文·"+c.title,kind:"pool",desc:c.desc,n:0,target:10,pool:c.pool}));
+  CK.math_chapters.forEach((c)=>{
+    const isCn=String(c.title).indexOf("语文")>=0,isEn=String(c.title).indexOf("英语")>=0;
+    const item={id:c.id,subj:isCn?"cn":isEn?"en":"math",title:(isCn?"⑨ 语文·":isEn?"⑪ 英语·":"⑨ 数学·")+c.title,kind:"pool",desc:c.pool.length+"题"+(c.pool[0]&&c.pool[0].source?("（"+c.pool[0].source.split("·")[0]+"）"):""),n:0,target:10,pool:c.pool};
+    if(isCn)cn.push(item);else if(isEn)en.push(item);else math.push(item);
+  });
+  cn.push({id:"ck-c-mx1",subj:"cn",title:"⑩ 语文·默写·基础模块上（6篇）",kind:"wenyan",desc:"念奴娇·赤壁怀古、静女、短歌行、春江花月夜、燕歌行、李凭箜篌引（教材原文+易错字默写）",n:0,book:CK.cn_moxie.up});
+  cn.push({id:"ck-c-mx2",subj:"cn",title:"⑪ 语文·默写·下册/拓展/职业（18篇）",kind:"wenyan",desc:"国殇、永遇乐、声声慢、将进酒、登高、琵琶行、雨霖铃、书愤、扬州慢等18篇（教材原文+易错字默写）",n:0,book:CK.cn_moxie.rest});
+  cn.push({id:"ck-c-4",subj:"cn",title:"⑫ 语文·文言文/现代文/写作训练",kind:"learn",desc:"复用专升本专栏精读与真题",n:0,items:[
+    "文言文精读与名句默写：前往「专升本·语文」专栏练习25篇必背古文（郑伯克段于鄢、劝学、师说等），文言文阅读与名句能力两专栏通用。",
+    "现代文阅读：专升本语文历年真题阅读题（54道）可作训练（来源已在专升本专栏标注）。",
+    "写作：专升本语文写作真题（41道）可作训练。",
+    "说明：春考语文专属真题正在按《中等职业学校语文课程标准（2020年版）》与《山东省春季高考统一考试语文考试标准》收集，到位后在本专栏补充专属练习，不编题。"
+  ]});
+  cn.push({id:"ck-c-5",subj:"cn",title:"⑬ 语文·知识运用真题训练",kind:"pool",desc:"93道语文知识运用真题（来源：专升本语文历年真题·文学文化常识部分；春考语文与专升本均考此类考点，作通用训练）",n:0,target:10,pool:(D.cn&&D.cn.choice?D.cn.choice:[]).map(q=>Object.assign({},q))});
+  return {en,math,cn};
+}
+
+/* ============ 背单词专栏（每日 N 词 + 进度 + 生词复习） ============ */
+function vwWords(){
+  const out=[];const seen={};
+  const rk=w=>({高:0,h:0,中:1,m:1,低:2,l:2}[w.f]===undefined?3:({高:0,h:0,中:1,m:1,低:2,l:2}[w.f]));
+  const all=(D.words||[]).slice();
+  all.sort((a,b)=>rk(a)-rk(b));
+  const add=(w,f)=>{const k=String(w.w||"").toLowerCase();if(k&&!seen[k]){seen[k]=1;out.push({w:w.w,p:w.p||"",m:w.m||"",f:f||""})}};
+  all.forEach(w=>add(w,w.f));
+  (VW||[]).forEach(w=>add(w,"单招高频"));
+  return out;
+}
+function vwToday(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function vwPg(){let p={};try{p=JSON.parse(localStorage.getItem(vwLib().pg))||{}}catch(e){}const t=vwToday();if(p.last!==t){p.doneToday=0;p.last=t}return p}
+function vwPgSave(p){localStorage.setItem(vwLib().pg,JSON.stringify(p));cloudSave(vwLib().pg,p)}
+function vwWb(){try{return JSON.parse(localStorage.getItem(vwLib().wb))||[]}catch(e){return[]}}
+function vwWbSave(w){localStorage.setItem(vwLib().wb,JSON.stringify(w));cloudSave(vwLib().wb,w)}
+function vwPgOf(k){const lib=VW_LIBS[k]||VW_LIBS["3500"];let p={};try{p=JSON.parse(localStorage.getItem(lib.pg))||{}}catch(e){}const t=vwToday();if(p.last!==t){p.doneToday=0;p.last=t}return p}
+function vwWbOf(k){const lib=VW_LIBS[k]||VW_LIBS["3500"];try{return JSON.parse(localStorage.getItem(lib.wb))||[]}catch(e){return[]}}
+function renderVwHome(){
+  const p=vwPg(),N=cfgDailyN(),total=vwList().length;
+  const cursor=p.cursor||0,doneToday=p.doneToday||0,doneDays=p.doneDays||0;
+  const wb=vwWb(),pct=total?Math.round(cursor/total*100):0;
+  const finishedToday=doneToday>=N;
+  const lib=vwLib(),libK=cfgLoad().vwlib||"zz2600";
+  const libBtns=Object.keys(VW_LIBS).map(k=>`<button class="btn ${libK===k?"pri":""}" data-lib="${k}">${VW_LIBS[k].name.split("·")[0]}</button>`).join("");
+  $("#main").innerHTML=`<h2 class="pg">📖 每日背单词</h2>
+  <div class="card">
+    <div class="muted">当前词库：<b>${lib.name}</b></div>
+    <div class="brow" style="flex-wrap:wrap;gap:8px;margin-top:6px">${libBtns}</div>
+    <p class="muted" style="margin-top:6px">来源：${lib.src}。每天固定背 <b>${N}</b> 个（可设 10—50），进度自动保存，不认识的自动进生词本复习。三个词库进度/生词本互不干扰，随时可切换。</p>
+  </div>
+  <div class="card vwstat"><div class="vws-grid">
+    <div class="vws"><b>${doneToday}/${N}</b><span>今日已背</span></div>
+    <div class="vws"><b>${cursor}/${total}</b><span>累计已学</span></div>
+    <div class="vws"><b>${doneDays}</b><span>打卡天数</span></div>
+    <div class="vws"><b>${wb.length}</b><span>待复习生词</span></div>
+  </div>
+  <div class="pbar big"><i style="width:${pct}%"></i></div>
+  <div class="muted">总进度 ${pct}% · 剩余 ${Math.max(0,total-cursor)} 词</div></div>
+  <div class="brow">
+    <button class="btn pri" id="vwGo">${finishedToday?"✅ 今日已完成 · 继续多背":"▶ 开始今日背词（"+N+" 个）"}</button>
+    <button class="btn" id="vwList">📋 今日词表 · 列表模式</button>
+    <button class="btn pri" id="vwDict">✍️ 今日默写（看汉字默写单词）</button>
+    <button class="btn pri" id="vwOral">🔊 报词听写（念汉字·本子上写）</button>
+    <button class="btn" id="vwScope">🎯 默写范围：${({all:"全部一起",today:"只今天学的",wb:"只生词本"})[cfgLoad().vwScope||"all"]}</button>
+    <button class="btn" id="vwGap">⏱ 报词间隔：${cfgLoad().vwGap||5} 秒</button>
+    <button class="btn" id="vwRev">📚 复习生词（${wb.length}）</button>
+    <button class="btn" id="vwWbList">📋 生词本列表</button>
+    <button class="btn pri" id="vwTest">🎯 单词综合测试</button>
+    <button class="btn" id="vwSet">⚙️ 每日数量：${N} 词</button>
+  </div>`;
+  $$("[data-lib]").forEach(b=>b.onclick=()=>{
+    const c=cfgLoad();c.vwlib=b.dataset.lib;cfgSave(c);
+    toast("已切换到："+VW_LIBS[b.dataset.lib].name);renderVwHome();
+  });
+  $("#vwGo").onclick=()=>startVwDaily(finishedToday);
+  $("#vwList").onclick=renderVwList;
+  $("#vwDict").onclick=startVwDict;
+  $("#vwOral").onclick=startVwDictOral;
+  $("#vwScope").onclick=renderVwScope;
+  $("#vwGap").onclick=renderVwGap;
+  $("#vwRev").onclick=reviewVw;
+  $("#vwWbList").onclick=renderVwWbList;
+  $("#vwTest").onclick=startVwTest;
+  $("#vwSet").onclick=renderVwSettings;
+}
+// 背单词·默写词池：按「默写范围」取词——all=生词本全部+今日词补足；today=只今天背的；wb=只生词本（打字默写/报词听写共用）
+function vwPool(){
+  const list=vwList(),wb=vwWb(),N=cfgDailyN(),cursor=vwPg().cursor||0,scope=cfgLoad().vwScope||"all";
+  const pool=[];
+  const addW=(w)=>{if(!pool.find(x=>x.w===w.w))pool.push(w)};
+  if(scope==="wb"||scope==="all") wb.forEach(w=>{const src=list.find(x=>x.w===w.w);if(src)addW(src)});
+  if(scope==="today"||scope==="all") list.slice(cursor,cursor+Math.max(N,20)).forEach(w=>{if(pool.length>=40)return;addW(w)});
+  return pool;
+}
+// 默写范围设置：一块（全部一起）/ 只今天学的 / 只生词本
+function renderVwScope(){
+  const c=cfgLoad(),cur=c.vwScope||"all";
+  const opts=[
+    {k:"all",t:"📚 全部一起",d:"生词本里的词优先 + 今天背的词补足（上限40个），巩固又学新"},
+    {k:"today",t:"📖 只今天学的",d:"只默写今天要背的 N 个词"},
+    {k:"wb",t:"📌 只生词本",d:"只默写复习生词本里的词"}
+  ];
+  $("#main").innerHTML=`<h2 class="pg">🎯 默写范围设置</h2>
+  <div class="card"><p class="dsc">选择默写（打字默写 / 报词听写）出词的范围，可随时切换：</p>
+  ${opts.map(o=>`<div class="vwrow" style="cursor:pointer;border:1px solid ${cur===o.k?"#2d7ff9":"#eee"};border-radius:8px;margin:6px 0;padding:8px 12px" data-k="${o.k}">
+    <b>${o.t} ${cur===o.k?"（当前）":""}</b><div class="vwm">${o.d}</div></div>`).join("")}</div>
+  <div class="brow"><button class="btn" id="sBack">返回背单词首页</button></div>`;
+  $$("#main [data-k]").forEach(b=>b.onclick=()=>{const c2=cfgLoad();c2.vwScope=b.dataset.k;cfgSave(c2);toast("默写范围已设为："+({all:"全部一起",today:"只今天学的",wb:"只生词本"})[b.dataset.k]);renderVwScope()});
+  const bk=$("#sBack");if(bk)bk.onclick=renderVwHome;
+}
+function startVwDict(){
+  const pool=vwPool();
+  if(!pool.length){toast("当前词库还没有可默写的词，先去背几个词吧");return}
+  for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=pool[i];pool[i]=pool[j];pool[j]=t}
+  window._vwDict={list:pool,idx:0,right:0,wrong:0,wrongList:[],show:false,ans:"",timer:null,gap:cfgLoad().vwGap||0};
+  paintVwDict();
+}
+// 听写间隔设置：0=手动翻题；3/5/10=显示答案后自动倒计时翻下一题
+function renderVwGap(){
+  const c=cfgLoad(),opts=[0,3,5,10];
+  $("#main").innerHTML=`<h2 class="pg">⏱ 听写间隔设置</h2>
+  <div class="card"><p class="dsc">选择显示答案后、自动进入下一题的等待秒数：<b>0 秒=不自动翻题（看完手动点“下一题”/自评）</b>；3/5/10 秒=倒计时自动翻题，倒计时内点自评会立即进入下一题。</p>
+  <div class="brow" style="flex-wrap:wrap;gap:8px">${opts.map(g=>`<button class="btn ${(c.vwGap||0)===g?"pri":""}" data-g="${g}">${g} 秒</button>`).join("")}</div></div>
+  <div class="brow"><button class="btn" id="gBack">返回背单词首页</button></div>`;
+  $$("#main [data-g]").forEach(b=>b.onclick=()=>{const c2=cfgLoad();c2.vwGap=+b.dataset.g;cfgSave(c2);toast("听写间隔已设为 "+b.dataset.g+" 秒");renderVwGap()});
+  const bk=$("#gBack");if(bk)bk.onclick=renderVwHome;
+}
+// 报词听写：软件朗读中文释义，你在本子上手写，间隔 N 秒自动报下一个词（今日 N 词随机）
+function oralClean(m){return String(m||"").replace(/^(art\.|n\.|v\.|vt\.|vi\.|adv\.|adj\.|prep\.|conj\.|pron\.|num\.|int\.|aux\.|modal\.|pl\.|&)\s*/i,"")}
+function startVwDictOral(){
+  const pool=vwPool();
+  if(!pool.length){toast("当前词库还没有可报听写的词，先去背几个词吧");return}
+  for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=pool[i];pool[i]=pool[j];pool[j]=t}
+  window._vwOral={list:pool,idx:0,gap:cfgLoad().vwGap||5,timer:null,count:0};
+  paintVwDictOral();
+}
+function paintVwDictOral(){
+  const O=window._vwOral;if(!O)return;
+  const i=O.idx,w=O.list[i];
+  if(O.timer){clearTimeout(O.timer);O.timer=null}
+  if(!w){ // 报词结束：词表对照页（按本子顺序：中文→英文+音标）
+    $("#main").innerHTML=`<h2 class="pg">🔊 报词听写 · 完成</h2>
+    <div class="card" style="text-align:center;padding:24px">
+      <div style="font-size:40px">📝</div>
+      <h3>已报 ${O.list.length} 个词，拿出本子对照检查</h3>
+      <div class="muted" style="margin:8px 0">把你写下的英文与下表核对，写错的抄写 3 遍巩固。</div>
+    </div>
+    <div class="card"><table style="width:100%;border-collapse:collapse">
+      <tr><th style="text-align:left;padding:6px;border-bottom:1px solid #ddd">序号</th><th style="text-align:left;padding:6px;border-bottom:1px solid #ddd">中文释义（念的）</th><th style="text-align:left;padding:6px;border-bottom:1px solid #ddd">英文单词</th><th style="text-align:left;padding:6px;border-bottom:1px solid #ddd">音标</th></tr>
+      ${O.list.map((x,k)=>`<tr><td style="padding:6px;border-bottom:1px solid #eee">${k+1}</td><td style="padding:6px;border-bottom:1px solid #eee">${esc(oralClean(x.m)||x.m||"")}</td><td style="padding:6px;border-bottom:1px solid #eee"><b>${esc(x.w)}</b></td><td style="padding:6px;border-bottom:1px solid #eee">${esc(x.p||"")}</td></tr>`).join("")}
+    </table></div>
+    <div class="brow"><button class="btn pri" id="oAgain">🔁 再来一轮</button><button class="btn" id="oBack">返回背单词首页</button></div>`;
+    const a=$("#oAgain");if(a)a.onclick=startVwDictOral;
+    const b=$("#oBack");if(b)b.onclick=renderVwHome;
+    return;
+  }
+  const barPct=Math.round(i/O.list.length*100);
+  $("#main").innerHTML=`<h2 class="pg">🔊 报词听写 <span class="muted" style="font-size:14px">（第 ${i+1}/${O.list.length} 个 · 听汉字写单词）</span></h2>
+  <div class="card vwcard" style="text-align:center;padding:30px">
+    <div class="pbar big"><i style="width:${barPct}%"></i></div>
+    <div class="muted" style="margin:10px 0">请听中文释义，在<b>本子上</b>默写英文单词</div>
+    <div style="font-size:30px;margin:18px 0;line-height:1.6" id="oralText">${esc(oralClean(w.m)||w.m||"释义待补充")}</div>
+    <div class="muted" id="oralGap">⏳ ${O.gap} 秒后报下一个词</div>
+    <div class="brow" style="justify-content:center;margin-top:14px">
+      <button class="btn" id="oralSkip">⏭ 报下一个（不等待）</button>
+      <button class="btn" id="oralQuit">⏹ 结束本轮</button>
+    </div>
+  </div>`;
+  // 朗读中文释义（去掉词性前缀，避免把 art./adv. 念成英文）
+  const say=()=>speakCn(oralClean(w.m)||w.m||"读音待补充");
+  say();
+  let left=O.gap;
+  const tip=()=>{const n=$("#oralGap");if(n)n.textContent="⏳ "+left+" 秒后报下一个词"};
+  tip();
+  O.timer=setInterval(()=>{left--;if(left<=0){clearInterval(O.timer);O.timer=null;O.idx++;O.count++;paintVwDictOral()}else tip()},1000);
+  const sk=$("#oralSkip");if(sk)sk.onclick=()=>{if(O.timer){clearInterval(O.timer);O.timer=null}O.idx++;O.count++;paintVwDictOral()};
+  const q=$("#oralQuit");if(q)q.onclick=()=>{if(O.timer){clearInterval(O.timer);O.timer=null}window._vwOral=null;renderVwHome()};
+}
+function paintVwDict(){
+  const D=window._vwDict;if(!D)return;
+  const i=D.idx,w=D.list[i];
+  if(D.timer){clearTimeout(D.timer);D.timer=null}
+  const barPct=Math.round(i/D.list.length*100);
+  if(!w){ // 结束
+    const p=vwPg();
+    if(D.wrongList.length){
+      const wb=vwWb();
+      D.wrongList.forEach(x=>{if(!wb.find(y=>y.w===x.w))wb.push({w:x.w,p:x.p||"",m:x.m||"",at:Date.now()})});
+      vwWbSave(wb);
+    }
+    $("#main").innerHTML=`<h2 class="pg">✍️ 今日默写 · 完成</h2>
+    <div class="card" style="text-align:center;padding:28px">
+      <div style="font-size:44px">${D.right>=Math.ceil(D.list.length*0.6)?"🎉":"💪"}</div>
+      <h3>共 ${D.list.length} 词 · 答对 ${D.right} · 答错 ${D.wrong}</h3>
+      <div class="muted" style="margin:8px 0">正确率 ${Math.round(D.right/Math.max(1,D.list.length)*100)}%（≥60% 加油哦）${D.wrongList.length?" · 错词已自动进生词本复习":""}</div>
+      ${D.wrongList.length?`<div class="card" style="text-align:left"><b>本次答错的词：</b>${D.wrongList.map(x=>`<span class="vwtag no" style="margin:2px">${esc(x.w)} ${esc(x.p||"")}</span>`).join("")}</div>`:""}
+      <div class="brow" style="justify-content:center;margin-top:12px">
+        <button class="btn pri" id="dAgain">🔁 再来一轮</button><button class="btn" id="dBack">返回背单词首页</button>
+      </div>
+    </div>`;
+    const a=$("#dAgain");if(a)a.onclick=startVwDict;
+    const b=$("#dBack");if(b)b.onclick=renderVwHome;
+    return;
+  }
+  const shown=D.show;
+  $("#main").innerHTML=`<h2 class="pg">✍️ 今日默写 <span class="muted" style="font-size:14px">（${i+1}/${D.list.length} · 看汉字默写英文单词）</span></h2>
+  <div class="card vwcard">
+    <div class="pbar big"><i style="width:${barPct}%"></i></div>
+    <div class="muted" style="margin:8px 0">正确 ${D.right} · 错误 ${D.wrong} · 释义：<b>${esc(w.m||"释义待补充")}</b>${w.f?` <span class="vwfreq">${esc(w.f)}</span>`:""}</div>
+    ${shown?`
+      <div class="vwans">✅ 正确拼写：<b>${esc(w.w)}</b><button class="snd" data-snd="${esc(w.w)}" title="朗读单词（英文）">🔊</button><button class="snd" data-snd-cn="${esc(w.m||"")}" title="朗读释义（中文）">🇨🇳</button><span class="vwphon"> ${esc(w.p||"")}</span></div>
+      ${D.gap>0?`<div class="muted" id="gapTip" style="margin-top:6px">⏳ <span id="gapN">${D.gap}</span> 秒后自动进入下一题（点下方自评立即下一题）</div>`:""}
+      <div class="brow">
+        <button class="btn pri" data-ds="1">✓ 我写对了</button>
+        <button class="btn" data-ds="0">✗ 写错了（进生词本）</button>
+      </div>
+    `:`
+      <input class="qin" id="dictIn" placeholder="请输入英文拼写，回车检查…" style="font-size:20px" autocomplete="off" spellcheck="false">
+      <div class="brow"><button class="btn pri" id="dictChk">🔍 检查</button><button class="btn" data-skip="1">⏭ 跳过</button></div>
+    `}
+  </div>
+  <div class="brow"><button class="btn" id="dictQuit">⏹ 结束本轮（返回首页）</button></div>`;
+  if(shown){
+    $$("#main .snd[data-snd]").forEach(b=>b.onclick=()=>speakWord(b.dataset.snd));
+    $$("#main .snd[data-snd-cn]").forEach(b=>b.onclick=()=>speakCn(b.dataset.sndCn));
+    $$("#main [data-ds]").forEach(b=>b.onclick=()=>{
+      const ok=b.dataset.ds==="1";
+      if(ok)D.right++;else{D.wrong++;D.wrongList.push(w)}
+      D.show=false;D.idx++;paintVwDict();
+    });
+    if(D.gap>0){
+      let left=D.gap;
+      const tipN=()=>{const n=$("#gapN");if(n)n.textContent=left};
+      tipN();
+      D.timer=setInterval(()=>{left--;if(left<=0){clearInterval(D.timer);D.timer=null;D.show=false;D.idx++;paintVwDict()}else tipN()},1000);
+    }
+  }else{
+    const inp=$("#dictIn");if(inp){
+      inp.focus();
+      inp.addEventListener("keydown",e=>{if(e.key==="Enter"){const c=$("#dictChk");if(c)c.click()}});
+    }
+    const chk=$("#dictChk");if(chk)chk.onclick=()=>{
+      const inp=$("#dictIn");
+      const given=(inp?inp.value.trim():"").toLowerCase(),right=String(w.w).trim().toLowerCase();
+      if(!given){toast("先输入你的拼写再检查");return}
+      D.ans=given;D.show=true;paintVwDict();
+    };
+    $$("#main [data-skip]").forEach(b=>b.onclick=()=>{D.show=false;D.idx++;paintVwDict()});
+  }
+  const q=$("#dictQuit");if(q)q.onclick=()=>{window._vwDict=null;renderVwHome()};
+}
+// 背单词·列表模式：一次浏览今日全部单词，逐个标记认识/不认识，全部标记完即打卡
+function renderVwList(){
+  const p=vwPg(),N=cfgDailyN();
+  const start=p.cursor||0;
+  const words=vwList().slice(start,start+N);
+  if(!words.length){toast("词库已全部背完 🎉");return}
+  window._vwL={start,words,marks:new Array(words.length).fill(0)};
+  paintVwList();
+}
+function paintVwList(){
+  const L=window._vwL;if(!L)return;
+  const done=L.marks.filter(m=>m!==0).length;
+  $("#main").innerHTML=`<h2 class="pg">📋 今日词表 · 列表模式</h2>
+  <p class="dsc">一次浏览今天要背的 ${L.words.length} 个词（词库第 ${L.start+1}~${L.start+L.words.length}/${vwList().length} 个）。逐个标记『✓ 认识』或『✗ 不认识』：认识的行变绿，不认识的自动进生词本复习。全部标记完成即打卡成功，进度自动保存。</p>
+  <div class="card"><div class="pbar big"><i style="width:${Math.round(done/L.words.length*100)}%"></i></div><div class="muted">已标记 ${done}/${L.words.length} 个 · ${done>=L.words.length?"🎉 今日任务完成，点击下方按钮打卡":""}</div></div>
+  <div class="card">${L.words.map((w,i)=>`<div class="vwrow${L.marks[i]===1?" ok":L.marks[i]===2?" no":""}">
+    <b class="vwi">${i+1}.</b><div class="vwbody"><b>${esc(w.w)}</b><button class="snd" data-snd="${esc(w.w)}" title="发音（朗读该单词）">🔊</button><span class="vwphon"> ${esc(w.p||"")}</span><span class="vwfreq"> ${esc(w.f||"")}</span>
+    <div class="vwm">${esc(w.m||"释义待补充（来源未提供）")}</div></div>
+    <div class="brow col">${L.marks[i]===0?`<button class="btn sm pri" data-k="${i}" data-m="1">✓ 认识</button><button class="btn sm" data-k="${i}" data-m="2">✗ 不认识</button>`:`<span class="vwtag ${L.marks[i]===1?"ok":"no"}">${L.marks[i]===1?"✅ 已认识":"📌 已进生词本"}</span>`}</div>
+  </div>`).join("")}</div>
+  <div class="brow"><button class="btn pri" id="vwLdone" ${done<L.words.length?"disabled":""}>${done>=L.words.length?"✅ 今日打卡完成 · 返回":"⏹ 结束本轮（返回首页）"}</button><button class="btn" id="vwLback">返回背单词首页</button></div>`;
+  $$("#main .vwrow button[data-k]").forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.k,known=b.dataset.m==="1";
+    L.marks[i]=known?1:2;
+    if(!known){
+      const w=L.words[i],wb=vwWb();
+      if(!wb.find(x=>x.w===w.w)){wb.push({w:w.w,p:w.p||"",m:w.m||"",at:Date.now()});vwWbSave(wb)}
+    }
+    paintVwList();
+  });
+  $$("#main .snd[data-snd]").forEach(b=>b.onclick=()=>speakWord(b.dataset.snd));
+  const dl=$("#vwLdone");if(dl)dl.onclick=()=>{
+    const p=vwPg(),d=L.marks.filter(m=>m!==0).length;
+    if(d>=L.words.length){
+      const np={cursor:(p.cursor||0)+L.words.length,doneToday:L.words.length,doneDays:(p.doneDays||0)+1,last:Date.now(),lastDone:L.words.length};
+      vwPgSave(np);toast("✅ 今日背词完成，已打卡");
+    }
+    renderVwHome();
+  };
+  const bk=$("#vwLback");if(bk)bk.onclick=renderVwHome;
+}
+let vwQuiz=null;
+function startVwDaily(extra){
+  const p=vwPg(),N=cfgDailyN();
+  vwQuiz={cur:p.cursor||0,done:extra?(p.doneToday||0):0,target:N,extra:!!extra};
+  nextVwQ();
+}
+function nextVwQ(){
+  const p=vwPg(),N=cfgDailyN();
+  if(!vwQuiz.extra&&vwQuiz.done>=N){finishVwDay();return}
+  if(vwQuiz.cur>=vwList().length){finishVwAll();return}
+  const w=vwList()[vwQuiz.cur];
+  const barPct=vwQuiz.extra?Math.round((vwQuiz.cur-p.cursor)/(Math.max(1,vwList().length-(p.cursor||0)))*100):Math.min(100,Math.round(vwQuiz.done/N*100));
+  $("#main").innerHTML=`<div class="card vwcard">
+    <div class="progress-line"><i style="width:${Math.max(4,barPct)}%"></i></div>
+    <div class="muted">${vwQuiz.extra?"继续多背 · ":"今日第 "+(vwQuiz.done+1)+"/"+N+" 个 · "}词库第 ${vwQuiz.cur+1}/${vwList().length} 个</div>
+    <div class="vwword"><b>${esc(w.w)}</b><button class="snd" data-snd="${esc(w.w)}" title="发音（朗读该单词）">🔊</button><span class="vwphon">${esc(w.p||"")}</span><span class="vwfreq">${esc(w.f||"")}</span></div>
+    <div class="vwans" id="vwA" hidden><p class="vwm">${esc(w.m||"释义待补充（来源未提供）")}</p>
+    <div class="brow"><button class="btn pri" id="vwK">✅ 认识</button><button class="btn" id="vwN">❌ 不认识 · 进生词本</button></div></div>
+    <div class="brow"><button class="btn pri sm" id="vwShow">💡 显示释义</button><button class="btn sm" id="vwX2">⏹ 结束本轮</button></div>
+  </div>`;
+  $("#vwShow").onclick=()=>{const a=$("#vwA");if(a)a.hidden=false;$("#vwShow").disabled=true};
+  const snd=$("#main .snd[data-snd]");if(snd)snd.onclick=()=>speakWord(snd.dataset.snd);
+  $("#vwK").onclick=()=>vwMark(true);
+  $("#vwN").onclick=()=>vwMark(false);
+  $("#vwX2").onclick=renderVwHome;
+}
+function speakWord(w){
+  try{
+    if(!window.speechSynthesis){toast("当前环境不支持发音（浏览器语音功能不可用）");return}
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(String(w));
+    u.lang="en-US";u.rate=0.85;u.pitch=1;
+    speechSynthesis.speak(u);
+  }catch(e){toast("发音失败："+e.message)}
+}
+function speakCn(t){
+  try{
+    if(!window.speechSynthesis){toast("当前环境不支持朗读（浏览器语音功能不可用）");return}
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(String(t));
+    u.lang="zh-CN";u.rate=0.95;u.pitch=1;
+    speechSynthesis.speak(u);
+  }catch(e){toast("朗读失败："+e.message)}
+}
+function vwMark(known){
+  const p=vwPg(),w=vwList()[vwQuiz.cur];
+  vwQuiz.cur++;vwQuiz.done++;
+  if(!known){
+    const wb=vwWb();if(!wb.find(x=>x.w===w.w)){wb.push({w:w.w,p:w.p||"",m:w.m||"",at:Date.now()});vwWbSave(wb)}
+  }
+  p.cursor=Math.max(p.cursor||0,vwQuiz.cur);
+  p.doneToday=(p.doneToday||0)+1;
+  vwPgSave(p);
+  nextVwQ();
+}
+function finishVwDay(){
+  const p=vwPg(),t=vwToday(),N=cfgDailyN();
+  if(p.lastDone!==t){p.doneDays=(p.doneDays||0)+1;p.lastDone=t}
+  p.doneToday=p.doneToday||N;
+  vwPgSave(p);
+  $("#main").innerHTML=`<div class="card vwcard"><h3>🎉 今日 ${N} 词完成！</h3>
+    <p>今日已背 <b>${p.doneToday}</b> 个，累计 <b>${p.cursor||0}/${vwList().length}</b>，打卡 <b>${p.doneDays||0}</b> 天。</p>
+    <p class="muted">不认识或模糊的词已自动进生词本，可随时复习。</p>
+    <div class="brow"><button class="btn pri" id="vwMore">继续多背</button><button class="btn" id="vwH">返回单词首页</button><button class="btn" id="vwR">📚 复习生词</button></div></div>`;
+  $("#vwMore").onclick=()=>{vwQuiz.extra=true;nextVwQ()};
+  $("#vwH").onclick=renderVwHome;
+  $("#vwR").onclick=reviewVw;
+}
+function finishVwAll(){
+  $("#main").innerHTML=`<div class="card vwcard"><h3>🏆 全部 ${vwList().length} 词背完！</h3>
+    <p>词库已全部学完，可复习生词或调整每日数量。</p>
+    <div class="brow"><button class="btn pri" id="vwH2">返回单词首页</button><button class="btn" id="vwR2">📚 复习生词</button></div></div>`;
+  $("#vwH2").onclick=renderVwHome;
+  $("#vwR2").onclick=reviewVw;
+}
+function reviewVw(){
+  const wb=vwWb();
+  if(!wb.length){$("#main").innerHTML=`<div class="card vwcard"><h3>🎉 生词本为空</h3><p>没有待复习的生词，继续背新词吧！</p><div class="brow"><button class="btn pri" id="vwH3">返回单词首页</button></div></div>`;$("#vwH3").onclick=renderVwHome;return}
+  let i=0;
+  const show=()=>{
+    const w=wb[i];
+    $("#main").innerHTML=`<div class="card vwcard"><div class="muted">复习生词 ${i+1}/${wb.length}</div>
+      <div class="vwword"><b>${esc(w.w)}</b><button class="snd" data-snd="${esc(w.w)}" title="发音（朗读该单词）">🔊</button><span class="vwphon">${esc(w.p||"")}</span></div>
+      <div class="vwans" id="vwA2" hidden><p class="vwm">${esc(w.m||"释义待补充")}</p>
+      <div class="brow"><button class="btn pri" id="vwR1">✅ 记住了 · 移出生词本</button><button class="btn" id="vwR2">❌ 还没记住 · 保留</button></div></div>
+      <div class="brow"><button class="btn pri sm" id="vwS2">💡 显示释义</button><button class="btn sm" id="vwX">⏹ 结束复习</button></div></div>`;
+    $("#vwS2").onclick=()=>{const a=$("#vwA2");if(a)a.hidden=false;$("#vwS2").disabled=true};
+    $$("#main .snd[data-snd]").forEach(b=>b.onclick=()=>speakWord(b.dataset.snd));
+    $("#vwR1").onclick=()=>{wb.splice(i,1);vwWbSave(wb);if(!wb.length){toast("生词本已清空 🎉");renderVwHome();return}show()};
+    $("#vwR2").onclick=()=>{i++;if(i>=wb.length){toast("本轮复习结束");renderVwHome()}else show()};
+    $("#vwX").onclick=renderVwHome;
+  };
+  show();
+}
+// 生词本列表页：表格展示全部生词，支持发音、单个移除、一键清空
+function renderVwWbList(){
+  const wb=vwWb();
+  if(!wb.length){$("#main").innerHTML=`<div class="card vwcard"><h3>🎉 生词本为空</h3><p>没有待复习的生词，继续背新词吧！</p><div class="brow"><button class="btn pri" id="vwLBack2">返回背单词首页</button></div></div>`;$("#vwLBack2").onclick=renderVwHome;return}
+  const rows=wb.map((w,i)=>`<div class="vwrow">
+    <b class="vwi">${i+1}.</b><div class="vwbody"><b>${esc(w.w)}</b><button class="snd" data-snd="${esc(w.w)}" title="发音（朗读该单词）">🔊</button><span class="vwphon"> ${esc(w.p||"")}</span>
+    <div class="vwm">${esc(w.m||"释义待补充")}</div><div class="muted" style="font-size:12px">${w.at?("加入时间 "+new Date(w.at).toLocaleDateString()):""}</div></div>
+    <button class="btn sm" data-rm="${i}">移除</button>
+  </div>`).join("");
+  $("#main").innerHTML=`<h2 class="pg">📚 生词本列表 <span class="muted" style="font-size:14px">共 ${wb.length} 个</span></h2>
+  <p class="dsc">背词/听写中标记『不认识』的词都会自动进这里。可逐词复习或移除，也可一键清空。移除不影响已学进度。</p>
+  <div class="card">${rows}</div>
+  <div class="brow"><button class="btn pri" id="vwWbRev">▶ 开始逐词复习</button><button class="btn" id="vwWbClear">🗑 一键清空生词本</button><button class="btn" id="vwWbBack">返回背单词首页</button></div>`;
+  $$("#main .snd[data-snd]").forEach(b=>b.onclick=()=>speakWord(b.dataset.snd));
+  $$("#main [data-rm]").forEach(b=>b.onclick=()=>{wb.splice(+b.dataset.rm,1);vwWbSave(wb);toast("已移除");renderVwWbList()});
+  $("#vwWbRev").onclick=reviewVw;
+  $("#vwWbBack").onclick=renderVwHome;
+  $("#vwWbClear").onclick=()=>{if(confirm("确定清空全部生词吗？清空后无法恢复。")){vwWbSave([]);toast("生词本已清空");renderVwWbList()}};
+}
+function renderVwSettings(){
+  const cfg=cfgLoad(),opts=[10,20,30,40,50];
+  $("#main").innerHTML=`<div class="card"><h3>⚙️ 每日背词数量</h3><p class="muted">每天固定背多少个新词（随时可调，已学进度不受影响）</p>
+    <div class="brow" style="flex-wrap:wrap;gap:8px">${opts.map(n=>`<button class="btn ${cfg.dailyN===n?"pri":""}" data-vn="${n}">${n} 词</button>`).join("")}</div>
+    <div class="brow" style="margin-top:10px"><button class="btn" id="vwSBack">返回单词首页</button></div></div>`;
+  $$("[data-vn]").forEach(b=>b.onclick=()=>{const c=cfgLoad();c.dailyN=+b.dataset.vn;cfgSave(c);toast("每日背词已设为 "+c.dailyN+" 词");renderVwSettings()});
+  $("#vwSBack").onclick=renderVwHome;
+}
+
+/* ============ 首页：学习路径 ============ */
+function MODEINFO(){return MODE==="ck"?"山东春考":MODE==="dz"?"单招":MODE==="jn"?"技能·PLC":MODE==="zz"?"总结":MODE==="vw"?"背单词":"专升本"}
+function renderPath(){
+  if(MODE==="vw"){renderVwHome();return}
+  if(MODE==="sj"){renderSjHome();return}
+  if(MODE==="wz"){renderWzHome();return}
+  const modeInfo=MODEINFO();
+  const desc=MODE==="ck"?"山东职教高考（春季高考）语数英：按考纲顺序学，完成一章自动解锁下一章，进度自动保存。真题来源：2019/2021/2022/2023/2024春考数学真题、2025/2026春考数学回忆版（学科网，带参考答案）、2025春考英语真题（考生回忆版+答案解析）、不等式/应用题专题、语文默写96句+字音字形等基础训练31题（近11年字音真题分类汇编+考纲百套卷）；语文按中职语文课标考点框架推进，专属真题持续收集补充。":
+    MODE==="dz"?"山东单独招生考试文化课真题：语文卷38题（含答案）、数学卷12题（含答案）、英语卷40题（2025卷20单选带解析+2026卷15单选带详解；完形/阅读答案原卷未公开预览的已如实标注）、词汇与交际专项7题（带解析）、高频核心词63个（春考/单招词汇标准同以中职课标2490词为准）。来源逐题标注，不编题；更多单招真题持续收录。":
+    MODE==="jn"?"单招技能考试·电气类：已收录三菱PLC相关知识选择题109题（含答案）、PLC位逻辑指令训练卷23题（含答案解析，含PLC写程序/梯形图编程题）、维修电工中级理论知识样题200题（广东工业大学继续教育学院官方样题，未附答案已如实标注）、2026中级电工考试题库43题（含PLC指令与电气图形符号题，带答案解析）。来源逐题标注，不编题。":
+    MODE==="zz"?"语数英三科复习总结：必背文言文篇目、作文怎么写、阅读题怎么做、英语题型技巧与作文模板、数学公式与题型解法总表。内容为依据课标与教材整理的方法总结与标准公式，不含编造题目。":
+    "按顺序学：完成一章自动解锁下一章，进度自动保存。三科可同时推进。做错的题自动进错题本。每章完成后按正确率评级（S/A/B/C/D）。当前通关设置：做满 " + cfgTarget() + " 题、正确率 ≥" + cfgPass() + "% 解锁下一章（可在设置中调整）。";
+  const html=`<h2 class="pg">${MODE==="ck"?"🏫 山东春考 · 学习路径":MODE==="dz"?"🎯 单招 · 学习路径":MODE==="jn"?"🔧 技能·PLC · 学习路径":MODE==="zz"?"📋 总结 · 复习手册":"🗺️ 学习路径"}</h2>
+  <div class="card" style="margin-bottom:12px"><div class="brow">
+    <button class="btn pri" id="qpDaily">📅 每日一练</button>
+    <button class="btn" id="qpRnd">🎲 随机刷题 ${cfgLoad().randN||20} 题</button>
+    <button class="btn" id="qpWrong">❌ 错题本</button>
+    <button class="btn" id="qpFav">⭐ 收藏夹</button>
+    <button class="btn" id="qpStats">📊 统计</button>
+    <button class="btn" id="qpLog">📣 更新日志</button>
+    <button class="btn" id="qpSet">⚙️ 设置</button>
+    <button class="btn" id="qpQuit">⏻ 退出程序</button>
+  </div></div>
+  ${(()=>{const _st=stLoad(),_wb=wbLoad(),_day=dayLoad()[dayKey()]||{},_streak=dayStreak(),_lib=cfgLoad().vwlib||"zz2600",_wbw=vwWbOf(_lib);const _gd=localStorage.getItem("zsb_guide")!=="1";return `${_gd?`<div class="guide" id="guideCard"><b>👋 快速上手</b><button class="x" id="guideX" title="知道了">✕</button><br>① 选顶部栏目（专升本 / 春考 / 单招 / 技能PLC / 总结 / 模拟卷 / 背单词 / 作文评分）→ ② 点章节「开始学习」，做满通关题量并达标即可解锁下一章 → ③ 做错的题自动进<b>错题本</b>，可一键重做 → ④ 随时可「随机刷题」「每日一练」查漏补缺。</div>`:""}<div class="card todaybar"><div class="statgrid">
+    <div class="stat"><div class="v">${_day.n||0}</div><div class="k">今日做题</div></div>
+    <div class="stat"><div class="v">${_streak}</div><div class="k">连续学习(天)</div></div>
+    <div class="stat"><div class="v">${_st.done?_st.done+" 题":"0"}</div><div class="k">累计做题</div></div>
+    <div class="stat"><div class="v ${_st.done&&_st.right/_st.done>=0.8?"g":""}">${_st.done?Math.round(_st.right/_st.done*100)+"%":"—"}</div><div class="k">总体正确率</div></div>
+    <div class="stat"><div class="v ${_wb.length?"r":""}">${_wb.length}</div><div class="k">错题待复习</div></div>
+    <div class="stat"><div class="v ${_wbw.length?"a":""}">${_wbw.length}</div><div class="k">生词待复习</div></div>
+  </div><p class="muted" style="margin-top:4px;font-size:12px">数据实时统计，错题本四模式共用；错题可到「❌ 错题本」一键重做，做对自动移出。</p></div>`})()}
+  <p class="dsc">${desc}</p>
+  ${vidsAll()}
+  ${subjectHtml("英语",curList("en"),"en")}
+  ${subjectHtml("数学",curList("math"),"math")}
+  ${subjectHtml("语文",curList("cn"),"cn")}
+  <div class="foot-note">📌 数据来源：所有真题与词表来自权威备考资料（近10年真题、25篇必背、3500词表）及公开真题（山东职教高考网、豆丁网、菁优网、广州菱控自动化题库、B站公开课），题目未做任何编造；缺答案的真题如实标注"来源未提供"。视频为 B站公开课链接，点击跳转观看（需联网），其余功能全部离线可用。评分规则：S≥90分、A≥80、B≥70、C≥60、D<60（按章节正确率）。通关难度可在「⚙️ 设置」调整（题量 10—60 道、通过率 50%—80%）。</div>`;
+  $("#main").innerHTML=html;
+  const qw=$("#qpWrong");if(qw)qw.onclick=renderWrong;
+  const qf=$("#qpFav");if(qf)qf.onclick=renderFav;
+  const qr=$("#qpRnd");if(qr)qr.onclick=startRandom;
+  const qd=$("#qpDaily");if(qd)qd.onclick=startDaily;
+  const qs=$("#qpStats");if(qs)qs.onclick=renderStats;
+  const ql=$("#qpLog");if(ql)ql.onclick=renderLog;
+  const qp=$("#qpSet");if(qp)qp.onclick=renderSettings;
+  const qq=$("#qpQuit");if(qq)qq.onclick=quitApp;
+  const gx=$("#guideX");if(gx)gx.onclick=()=>{localStorage.setItem("zsb_guide","1");const g=$("#guideCard");if(g)g.remove()};
+}
+const APP_VERSION="v2.49.1（2026-10-25）";
+// 更新源（免服务器方案）：把 update.json 上传到任一免费托管后，把「直链」填到这里。
+// 对方打开软件点「🔄 检查更新」→ 有新版本就显示更新内容+下载链接。
+// 部署指引见项目内：更新部署\如何部署更新服务器.txt（5分钟即可，无需买服务器）。
+const UPDATE_URL="https://raw.githubusercontent.com/llluuu995/update/main/update.json";
+const UPDATE_URL_ALT="https://ghfast.top/https://raw.githubusercontent.com/llluuu995/update/main/update.json"; // 镜像1（实时回源，国内可达）
+const UPDATE_URL_ALT2="https://gh-proxy.com/https://raw.githubusercontent.com/llluuu995/update/main/update.json"; // 镜像2（实时回源）
+/* 注：jsDelivr CDN 有缓存延迟（更新后最长数小时才刷新），会造成「检查更新」读到旧版本误报已最新，故不再作为更新源 */
+const APP_LOG=[
+  {v:"v2.49.1（2026-10-25）",items:[
+    "修复：「检查更新」误报已是最新版本——根因是备用更新源（jsDelivr CDN）有缓存延迟，更新后最长数小时才刷新，会读到旧版 update.json。现改为实时回源的镜像（ghfast.top / gh-proxy.com），更新内容发布后立即能检查到；主源、镜像源按顺序自动切换。",
+    "版本号支持 3 段（如 v2.49.1），版本比较更精确。",
+  ]},
+  {v:"v2.49（2026-10-25）",items:[
+    "📱 手机端（安卓 APK）全面适配：按官方标准（MDN viewport/safe-area、Android Developers WebView、Capacitor 配置）重做窄屏布局——顶部栏目两行排布不挤压、卡片与统计区自适应、按钮加大便于触屏，刘海屏自动避让安全区（env(safe-area-inset)），支持页面缩放（无障碍，Capacitor zoomEnabled）。",
+    "📱 作文评分手机版：手机端隐藏拍照识别（OCR 需电脑本地引擎），改为手动输入/粘贴作文评分（语文45分制/英语10分制本地评分正常）；联网 AI 深度评分请在电脑版使用（页面已注明）。",
+    "修复：历史遗留「更新日志」页面版本号显示 undefined（APP_VERSION 常量缺失），现正常显示当前版本。",
+  ]},
+  {v:"v2.48（2026-10-25）",items:[
+    "背单词：新增「🎯 默写范围」选项——打字默写/报词听写的出词范围可选「全部一起（生词本+今天学的）」「只今天学的」「只生词本」，一键切换，随时可改。",
+  ]},
+  {v:"v2.47（2026-10-25）",items:[
+    "背单词：默写词池调整——报词听写与打字默写的出词范围改为「生词本（复习生词）里的词全部优先 + 今天背的词补足」，混合随机（上限 40 个），不再只报今天学的词；生词本里有词时优先反复巩固。",
+  ]},
+  {v:"v2.46（2026-10-25）",items:[
+    "背单词：新增「🔊 报词听写（念汉字·本子上写）」——软件自动朗读中文释义（去掉词性前缀，只念词义汉字），你在本子上默写英文，间隔默认 5 秒自动报下一个（可在「⏱ 报词间隔」设 0/3/5/10 秒）；今日 N 词随机报词，全部报完显示词表对照页（中文→英文+音标）方便自查，可再来一轮。",
+    "背单词：「⏱ 听写间隔」更名为「报词间隔」，默认 5 秒，打字默写与报词听写共用。",
+  ]},
+  {v:"v2.45（2026-10-25）",items:[
+    "背单词：听写自测更名为「✍️ 今日默写」专栏入口（看汉字默写英文单词），与你要的默写功能一一对应；进入后从今天要背的 N 个词中随机出词，支持中文释义朗读🇨🇳与英文发音🔊。",
+  ]},
+  {v:"v2.44（2026-10-25）",items:[
+    "题库：语文题去重 14 条（2025 春考语文卷阅读材料「冬天（朱自清）」重复 4 处已清理；单招模拟卷与单招真题卷重复的 10 道题已清理，只保留一份），全库复核 0 重复。",
+    "背单词：今日默写（原听写自测）新增「今日词优先」——以今天要背的 N 个词为主随机出词默写（生词本补足至 25 词），看中文释义默写英文拼写。",
+    "背单词：新增「⏱ 听写间隔」设置（0/3/5/10 秒）——显示答案后自动倒计时进入下一题，倒计时内可随时自评立即翻题。",
+    "背单词：答案区新增 🇨🇳 中文释义朗读按钮（同时保留英文单词发音），默写时既可听音也可看汉字。",
+    "中职 2600 词：全部标注词频——高频 713、中频 1170、低频 275（按《高考英语词汇3500词·词频标记版》映射）；不在 3500 表中的 451 词如实标注「核心」（中职课标核心词）。列表/卡片/听写页自动显示词频徽标。",
+  ]},
+  {v:"v2.43（2026-10-25）",items:[
+    "修复：v2.42 模拟卷作文判定过严导致部分写作题不进「五、写作」（如「不少于X字」的字数范围漏判），现恢复对全部作文题（不少于任意字数/不得少于/扩写等）的识别，春考与单招语文卷写作板块实测正常。",
+  ]},
+  {v:"v2.42（2026-10-25）",items:[
+    "修复：模拟卷语文「没有语病的有（）」等多选题此前被误判进「五、写作」板块（题干含“写作水平”触发作文判定）；现已正确识别「选项写在题干里」的多选/内嵌选项题，归入「一、选择题」，点「查看答案」显示官方答案对照自评（如本题答案 A、D），不再串板块。",
+    "修复：同类内嵌选项题（成语使用、标点符号、课文理解等多项选择）不再被误判成阅读问答/解答题，一律按选择题板块自评作答。",
+  ]},
+  {v:"v2.41（2026-10-25）",items:[
+    "修复：程序运行时不再弹出黑色命令行窗口（打包改为无控制台模式）。",
+    "瘦身：清理打包文件中的开发残留与备份（约1.4MB），安装包更小、内部文件更干净。",
+    "增强：作文手写识别前自动做图片增强（放大+对比度+锐化），潦草字识别更准；页面明确标注「AI评分仅供参考，不替代老师」。",
+  ]},
+  {v:"v2.40（2026-10-25）",items:[
+    "加固：新增数据兜底机制——任一题库文件缺失或损坏时界面不再白屏，其余栏目照常可用（已实测）。",
+    "加固：新增发布前全量校验（语法/章节ID唯一/题目字段完整/无答案题必须如实标注/视频链接防串台），作为每次打包前自动门槛。",
+    "数据：为 42 处早期真题补充“未附答案/作答后自评”如实标注（数学专题与应用题10处、作文2处、英语阅读30处），不编造答案。",
+  ]},
+  {v:"v2.39（2026-10-25）",items:[
+    "修复：春考「英语课」视频此前误跳转到语文基础班，已替换为渤海春季高考团队官方「职教高考/对口单招中职英语基础班（春考英语）」合集（从0基础开讲，BV1uA7Kz4EXZ，链接经B站检索核实）。",
+    "修复：作文评分历史列表此前个别记录显示「undefined分」，现已兼容旧记录（显示实际分数，无分数显示—）。",
+  ]},
+  {v:"v2.38（2026-10-25）",items:[
+    "作文评分·支持多张照片上传：一次可选多张作文照片，识别时按顺序自动拼接（每张标注「第N张」），再长的手写作文也不用分多次拍。",
+    "作文评分·新增「作文要求/题目」栏（选填）：把题目与写作要求粘贴进去，AI 深度评分会自动核对作文是否切题、是否覆盖要求要点，并在结果页显示「🎯 切题核对」分数与说明；不填写也能照常评分（结果会注明未做切题核对）。",
+  ]},
+  {v:"v2.37（2026-10-25）",items:[
+    "新增题库：2025 山东春考语文真题全卷 29 题（学科网原卷+答案解析，字音字形/词语/标点/成语/病句/排序/文常/修辞/元曲/立春阅读/蝶恋花阅读/六国论·过秦论文言/默写/扩写/请假条/朱自清《冬天》阅读/作文）。",
+    "新增题库：2025 山东春考英语真题 33 题（豆丁真题卷+学科网核对：单选25+阅读5+补全对话5+短文填空10+写作1，全带答案解析；阅读B/C篇原卷材料未公开故未收录）。",
+    "新增题库：2025 山东春考数学真题 9 题（学科网回忆版+职教高考网核对，仅收题面完整、答案核验无误的题；图形/缺项/答案矛盾题一律不录）。",
+    "新增题库：2024 山东春考技能测试电气技术类官方样题 30 题（省考试院公布；官方未附答案，全部如实标注，作答后可自评）。",
+    "修复数据写入引擎：题库插入逻辑改为按字符状态机精确配平（此前题干含方括号字符会导致数组边界错乱），本次加题后全库语法校验与审计全部通过。",
+    "题库总量：春考语数英 587 题、单招语数英 617 题、技能·PLC 670 题；无答案题均来自未公开答案的权威原卷（已如实标注），作答后可自评、可收录错题本。",
+  ]},
+  {v:"v2.36（2026-10-25）",items:[
+    "题库整理：技能·PLC「维修电工中级样题」200 题解析文本冗余清理；2026 山东春考英语二模阅读第 40 题补上官方答案与解析（学科网核对），目前全库仅写作回忆题不设标准答案（写作自由发挥）。",
+    "题库总量：春考语数英 229 题、单招语数英 617 题、技能·PLC 640 题；无答案题均来自未公开答案的权威原卷（已如实标注），作答后可自评、可收录错题本。",
+  ]},
+  {v:"v2.35（2026-10-25）",items:[
+    "修复检查更新：服务器 update.json 兼容 UTF-8 BOM 与格式差异，更新检查更稳定；新增「下载新版」按钮（主 jsDelivr 国内 CDN 加速 + 备用 GitHub 直链），解决对方“下载慢/下载不了”的问题。",
+    "修复作文识别异常兜底：本地识别引擎万一出错不再把错误代码显示进作文框，改为友好提示并引导拍清晰/手动输入。",
+  ]},
+  {v:"v2.34（2026-10-25）",items:[
+    "作文识别升级：本地 OCR 引擎换成开源离线识别（PP-OCRv4），手写中文/英文作文都能识别（实测英语手写作文整篇可读、语文手写能读出大意），不再出现“识别不到文字/乱码”；引擎不可用时自动降级系统自带识别。",
+    "作文评分改为严格按山东春考标准：语文作文满分 45 分（一等36-45/二等30-35/三等24-29/四等23分以下，字数不足700字每少50字扣1分）；英语职场写作满分 10 分（四档：10/7-9/4-6/1-3/0，词数80-120，书写差降档）。评分页显示官方档次对照表；单招因各院校自主命题无全省统一分值，按春考口径评分并已注明。",
+    "AI 深度评分（选填 API Key 时）同步按春考 45/10 分制输出得分与档次。",
+  ]},
+  {v:"v2.33（2026-10-25）",items:[
+    "全面 UI 优化：首页/统计页改为大数字卡片（今日做题/连续学习/累计/正确率/错题/生词），悬停有动效；章节卡片新增微型进度条，一眼看到本章学到哪；评级用彩色徽章（S/A/B/C/D）展示。",
+    "修复「点不动」困惑：整卷/章节作答中，未作答时点「下一题」不再死板禁用，而是弹出明确提示（“请先点击选项作答”/“请先写下答案并对照解析”），并同步给出引导。",
+    "答题即时反馈：章节练习中选对弹「✅ 回答正确」，选错弹「❌ 答错了，已加入错题本」。",
+    "新增「快速上手」引导卡（首次打开显示，可关闭），新用户三步看懂怎么用。",
+    "数据修复：单招/春考判断题全部补齐「正确/错误」选项（此前判断题被前端过滤不显示）；5 处缺类型题补齐；专升本 232 处题目示意图缺失全部补齐（程序生成 11 个数学/制图示意图）。",
+    "数据脚本加版本号，避免旧缓存导致页面按钮失效。",
+  ]},
+  {v:"v2.32（2026-10-24）",items:[
+    "修复「单招语文栏有题重复」：全量扫描去重（前端自动跳过与前面章节重复的题），章节进入时提示已自动跳过 N 道重复题。",
+  ]},
+  {v:"v2.31（2026-10-24）",items:[
+    "新增「✍️ 作文评分」专栏：拍下语文作文或英语写作的照片，软件本地自动识别文字（离线 OCR，无需联网）→ 按内容/结构/语言/规范四维客观评分并给出提分建议；评分历史自动保存。",
+    "作文深度 AI 评分（可选）：在「⚙️ 设置」填入 DeepSeek 或通义千问的 API Key 后，评分时自动调用该接口联网深度批改（更接近真人老师）；Key 只保存在本机，不填 Key 也能用本地评分。",
+    "设置页新增「作文 AI 深度评分」配置卡（选择服务商、填 Key、一键测试连接）。",
+  ]},
+  {v:"v2.30（2026-10-24）",items:[
+    "新增「🔤 单词综合测试」：中职2500词 / 高考3500词 / 单招63词三个词库均可一键测试，每次随机抽20词、题型随机（看英文选释义 / 看中文选英文 / 看释义拼写），做错的词自动进生词本，完成页显示正确率与达标判定（80%为自定义合格线——官方考纲只规定词汇范围、未公布统一合格率数字，界面已如实标注）。",
+    "修复：模拟卷栏目此前偶发的「判分后页面被切回模拟卷首页」问题——启动时的云端数据恢复若在进入模拟卷后才完成，会误覆盖当前试卷页，现已加保护（正在作答的试卷不会被启动流程顶掉）。",
+    "修复：「模拟卷」标签偶发点不开的问题（组卷渲染缺少模拟卷分支导致的报错中断），已加防御。",
+  ]},
+  {v:"v2.29（2026-10-23）",items:[
+    "移除软件界面右上角的「开发人：刘超」署名标识（应要求去掉开发人与名字）。",
+  ]},
+  {v:"v2.28（2026-10-23）",items:[
+    "新增「📄 模拟卷」专栏（顶部导航栏）：分栏「春考 / 单招」，各自再分「语文 / 数学 / 英语」，一键随机组卷，仿正式试卷排版（一、选择题 / 二、填空 / 三、阅读问答 / 四、解答题 / 五、写作，卷头注明满分与建议时间）。",
+    "组卷规则：题目全部取自本软件现有题库（真题/模拟卷，逐题标注来源，绝不编题），同一套卷内不重复；选择题点选项即判分，填空/解答/阅读/写作先作答再点「查看答案/解析」自评对错，答错的题自动进错题本。",
+    "卷面分值按真实考试结构设定：春考语文100分（选择15×3+填空3×3+阅读3×6+写作1×28）、春考数学100分（选择20×3+填空5×4+解答2×10）、春考英语80分（单选25×1+阅读15×2+填空类15×1）；单招语文80分、数学60分、英语40分（按单招文化素质卷面比例）。",
+    "交卷后自动评分：总分/正确率/评级（S≥90 A≥80 B≥70 C≥60 D），支持「再组一套」无限练；题库对应题型不足时按现有题量全数收录，并在卷面如实标注「题库该题型现仅X题」，不凑数不编题。",
+  ]},
+  {v:"v2.27（2026-10-23）",items:[
+    "春考专栏新增「2027春考语文·考纲百套卷第93卷」23题：单选10+阅读选择6+文言文选择4（20题全带官方答案与解析）+名句默写3空+长句改短句+广告词评析（官方答案）（来源：学科网《2027语文考纲百套卷》第93卷·模拟真题(3)原卷版+解析版）。",
+    "春考专栏新增「2027春考英语·考纲百套卷第101卷」40题：英语知识运用25单选+阅读理解15题（三篇），全部带官方答案与解析（来源：学科网《2027英语考纲百套卷》第101卷·综合模拟卷（难4）原卷版+解析版）。",
+    "春考专栏新增「2027春考数学·45分钟训练卷(六)」2题（系统抽样、排列组合概率，带官方答案）：该卷多数题干公式以图片呈现、文字无法提取，仅收录题干完整的题（来源：学科网2027《数学45分钟训练卷》综合训练卷(六)）。",
+    "单招专栏新增「2027山东单招语数英压轴模拟·语文部分」3题：字音/字形/成语，带官方答案（来源：道客巴巴2027山东单招语数英综合压轴模拟试题公开预览；该文档全文需付费/登录，仅收录预览区题面完整部分）。",
+    "技能/PLC：为2025春考电气样题「接触器联锁正反转控制电路」题补配电机主电路与联锁控制示意图。",
+    "背单词：复习生词卡新增🔊发音按钮；新增「生词本列表」页（表格展示全部生词：发音/释义/加入时间，支持单个移除、一键清空、逐词复习）；背单词首页新增对应入口。",
+  ]},
+  {v:"v2.26（2026-10-23）",items:[
+    "春考专栏新增「2024春考英语真题·整卷」55题：英语知识运用25单选+阅读理解15题+补全对话5题+短文填空10题，全部带官方答案（来源：学科网公开文字版+官方答案）。",
+    "单招专栏新增「2023山东单招语文模拟卷（6）」16题：单选10+文言文阅读选择3+现代文阅读选择3（来源：菁优网公开试卷，题面完整；菁优网未公开答案，已按「来源未提供」标注，不作对错判定、不进错题本）。",
+  ]},
+  {v:"v2.25（2026-10-23）",items:[
+    "软件页面右上角新增「开发人：刘超」标识（金色高亮，常驻显示）。",
+  ]},
+  {v:"v2.24（2026-10-23）",items:[
+    "「检查更新」多源切换：主源 GitHub raw 拉不到时自动改用 jsDelivr CDN 备用源，任一可达即成功，解决部分地区 GitHub 直链慢/断的问题；并新增下载失败提示（下载慢或打不开时，让发件人 QQ 直发最新安装包最快）。",
+    "下载链接已配置到仓库（exe 直链），有新版本时点「⬇ 下载新版」即可获取。",
+  ]},
+  {v:"v2.23（2026-10-23）",items:[
+    "单招专栏新增 5 个章节、177 道题（全部来自权威公开卷、逐题标注来源，未编题）：㉕山东轻工职院2023单招数学模拟卷40题（官方PDF含答案，判断20+单选20）；㉖山东轻工职院2023单招语文模拟卷46题（官方含答案，判断20+单选18+多选8）；㉗山东轻工职院2023单招英语模拟卷31题（官方含答案，词义配对10+单选10+阅读判断10+补全对话）；㉘2023全国对口单招英语卷25题（豆丁公开卷含答案，单选20+阅读5）；㉙2023全国单独考试招生语文卷35题（金锄头公开卷含答案，单选20+填空8+文言文阅读7）。",
+    "山东轻工职院卷为院校官方招生信息网发布的模拟题（含参考答案），与春考/单招考纲贴合；通用卷答案照录原卷，个别原卷选项文字模糊处已如实标注。",
+  ]},
+  {v:"v2.22（2026-10-22）",items:[
+    "技能/PLC 专栏剩余的图示题全部配图：V 带张紧装置（自动张紧+张紧轮装置教学原理图）、盘盖类零件图（全剖主视图+俯视图教学同类图）2 张网上学习资源真实图；液压系统、单相电能表实训接线、三相负载星形连接、电磁感应导轨装置、变频器点动/连续控制、单向连续运转控制电路、反馈放大电路、齿轮传动简图、万用表测电阻、2022 春考 PLC 定时器梯形图、铰链四杆机构 11 张按题设手绘示意图。全库缺图题从 132 条降至 6 条（均为无需配图的数据判断题，如实保留提示）。",
+    "修复背单词潜在卡死 bug：「看音标选单词」题型抽到无音标的词（如待补词条）时不再无限重抽，自动改出其它题型，页面不会再卡死。",
+  ]},
+  {v:"v2.21（2026-10-22）",items:[
+    "全库 132 条「有图但图缺失」的题补上示意图：数学几何（长方体/三棱锥/正方体/圆柱/斜二测/椭圆/圆与抛物线/三视图/菱形/正方形中点/三角形中点/1500m 路程图/直线垂直/公路石料/线性规划可行域/正弦图像/指数对数图像）与 PLC/电气（三极管符号/熔断器符号/梯形图元素/自锁电路/顺序功能图）共 23 张按题设绘制、带字母尺寸标注的标准示意图，离线可看；无法安全绘制具体原卷图的题（如 V 带张紧/液压系统/零件图等）如实保留「原卷配图暂缺」提示，不生成误导图。",
+    "修复设置页「通关要求」说明文字不显示动态数值的 bug（专升本默认分支描述符插值失效），现正确显示「做满 N 题、正确率≥M% 解锁下一章」。",
+  ]},
+  {v:"v2.20（2026-10-22）",items:[
+    "技能/PLC 专栏的图示题全部配上原卷图：⑮ 2025 春考技能电气样题·实操题配「接触器联锁电动机正反转控制电路接线原理图」；⑯ 2022 自动控制样题·搅拌机实操配「搅拌机 PLC 控制系统电路图（FX2N-32MR 接线）」；⑱ 2021 机电一体化样题配 4 张原卷图纸（零件测绘图 1、平面图形绘制题图 2、视图绘制题图 3 主视图 + 俯视图）。图片打包进软件，离线也能看，题干不再只有「见图见原卷」。",
+    "新装电脑不再需要电脑管家：软件启动时自动检测微软官方 WebView2 组件，缺失时弹窗提示并自动打开微软官网下载页，装官方组件（免费、约 2 分钟）即可运行，与任何第三方“运行库安装器/电脑管家”无关。",
+  ]},
+  {v:"v2.19（2026-10-22）",items:[
+    "错题本新增「🎯 重做错题」：把当前筛选的错题一键组卷重做（随机 40 题内），答对的题自动移出错题本（标记已掌握），答错的题保留继续巩固，完成页显示剩余错题数；错题复习真正闭环。",
+    "学习路径页新增「进度总览条」：今日做题、连续学习天数、累计做题、总体正确率、错题待复习、生词待复习 六项统计一眼可见，实时更新。",
+    "设置新增「🎲 随机刷题题量」：10/20/40/60 题可调，路径页按钮同步显示当前题量。",
+  ]},
+  {v:"v2.18（2026-10-22）",items:[
+    "新增 5 章权威真题/官方样题（全库 1347 题）：⑮ 2025 春考技能·电气技术类官方样题 31 题（山东电力高等专科学校官网 PDF：FX2N 接线/万用表/电能表/ JK 触发器/三相四线制/交流毫伏表/电工钳/运放耦合/接触器联锁正反转/桥式整流滤波/电动机首尾端/多地控制/ Y-Δ 降压起动/整流二极管/二极管检测/电工刀/ PLC 常闭触点/直流法判同名端 + 判断题 10 + 实操 100 分接线题；官方未附答案如实标注）；⑯ 2022 春考技能·自动控制类官方样题 7 题（济宁职业技术学院官网：笔试单选 6 + 搅拌机正反向运行 PLC 控制实操 200 分含 I/O 分配表）；⑰ PLC 控制技术·山东电气类考纲百套卷第 97 卷 24 题（学科网全带官方答案：PLC 选型/扫描顺序/定时器/功能指令/步进指令等单选 20 + 简答计算 4）；⑱ 2021 春考机电一体化技能官方样题 9 题（济宁职业技术学院官网：零件测绘/图 1 标注/φ26F6 公差查表/CAD 抄画/补画全剖左视图，官方未附答案如实标注，公差题给出计算参考答案）；㉔ 2025 单招山东语文整卷 38 题（豆丁网全卷带答案：单选 10 字音字形词语病句文学常识+多选 10+判断 10+简答 4+讨论 4）。",
+    "单招专栏新增整卷模拟源；技能/PLC 专栏新增官方样题与考纲百套卷（含 PLC 写程序、梯形图/顺序功能图、机械绘图三视图等实操题型文字版）。",
+  ]},
+  {v:"v2.17（2026-10-22）",items:[
+    "新增 5 章权威真题（含答案解析）：⑫ 2024 春考机电真题·卷二计算简答 11 题（齿轮传动/铰链四杆机构/剩磁法判绕组/万用表操作/电机机械特性/基尔霍夫定律/RLC串联/变压器/轮系/瓶盖冲孔SFC/盘盖零件图）；⑬ 2025 电气自动化高职单招技能考试参考题 30 题（传感器/PLC指令/电机转向/无线通信/运放/变压器/梯形图等全带答案）；⑭ 2025 春考电气技术类专业知识真题 17 题（原卷未附答案，如实标注）；㉒ 2024 山东单招语文整卷（单选10+默写5+说明文阅读3+作文1附范文）；㉓ 2025 烟台城市科技职院单招数学（单选10+填空3+解答2带评卷答案）；2025 春考数学可转写真题 5 题（分布列概率/社团排法/等比数列/概率比较/系统抽样带答案解析）。",
+    "新增「📅 每日一练」：每天固定抽 10 题（优先带答案），做完自动打卡计入连续学习天数，统计页新增「近 7 日做题趋势」柱状图。",
+    "全部内联脚本语法加固：新增全脚本检查脚本，修复 1 处嵌套模板括号错误（此前「点不动/页面不渲染」潜在根因之一）。",
+  ]},
+  {v:"v2.16（2026-10-22）",items:[
+    "新增 2026 山东春考英语真题全卷（AI职教全文公开+答案解析）56 题/空+写作：知识运用单选 25 题、阅读理解 3 篇 15 题（植物文化/种竹学书法/中国电动汽车产业）、补全对话 5 空、短文填空 10 空、写作 1 篇（附官方例文）。",
+    "新增单招英语 26 题：㉑ 2025 潍坊工商职业学院高职单招英语历年频考点（原创力试读页公开部分，定语从句/虚拟语气/主谓一致/情景交际/完形单空/读音辨析等）。",
+    "新增技能考试·三菱 PLC 编程实训 15 题（⑪ 章节）：反应炉控制/拣球控制/汽车喷漆/双工作台加工/数码拨盘显示/人机界面 3 题/模拟量采样输出，每题含工艺流程图要求与 I/O 分配表（实训题无固定答案，答案以实际调试结果为准，如实标注）。",
+    "「检查更新」已修正：更新源改用 GitHub raw 官方直链；旧版 exe 替换新版即可，进度自动保留。",
+  ]},
+  {v:"v2.15（2026-10-22）",items:[
+    "更新地址修正：改为 GitHub raw 官方直链（实测可用），「检查更新」恢复正常。",
+    "新增单招/春考题库 3 章 85 题（全部权威源转写、带答案与解析）：⑱ 2025 临沂单招语文卷 37 题（字音字形/成语/病句/文学常识/修辞/标点/简答讨论）；⑲ 2026 山东春考英语《词汇与交际》专项（豆丁版）25 题；⑳ 2025 潍坊护理职业学院单招英语频考点 23 题（定语从句/完形单空/时态语态/情景交际/读音辨析等）。",
+    "新增「📤 导出 TXT」：错题本、收藏夹一键导出为文本文件，方便打印复习。",
+    "新增「✍️ 听写自测」：背单词页看释义写单词，自动判对错，错词自动进生词本。" ]},
+  {v:"v2.14（2026-10-22）",items:[
+    "新增「中职·单招·春考英语2500词」词库：教育部课标附录5（2490词）+参考词汇141词=2609词条，约90%带音标词义；口径=山东省春季高考考试标准（2025年版）规定的英语词汇；背单词页三词库一键切换，默认切到2500词。",
+    "题库去重：修复13组重复题（2026山东单招英语卷与综合题同源10题、单招语文1题、枣庄/商务职院英语1题、技能·PLC章内2题）；随机刷题全局去重不撞题。",
+    "春考数学考点专题章恢复完整（集合8/不等式36/函数13/指数对数14/三角函数12/数列6/向量6/解析几何15/立体几何10/计数原理8/概率4=132题），与整卷章为同一批真题按考点归类。",
+    "本版为可分发的绿色单文件 App：发给别人双击即用（Windows 10/11，无需安装）；软件内新增本「更新日志」，对方收到新版 exe 替换后打开即看到更新内容。" ]},
+  {v:"v2.13（2026-10-21）",items:[
+    "修复 PLC 视频讲解链接（原指向数学课，已替换为 3 条真实三菱 PLC 视频）。",
+    "设置新增「快捷键」开关；错题本筛选+搜索；收藏夹、字号调节、深色模式、随机刷题。",
+    "新增单招英语⑯商务职院机考真题20题、⑰潍坊职院频考点25题。" ]},
+  {v:"v2.12（2026-10-21）",items:[
+    "新增评分系统：每章完成后按正确率评级 S/A/B/C/D，统计页显示评级分布与平均分。",
+    "整卷模拟考试：按真题原卷顺序作答、实时计时、交卷评分（S/A/B/C/D+用时）。",
+    "通关难度可设置：题量 10/20/40/60 道、通过率 ≥50/60/70/80%。" ]},
+  {v:"v2.11（2026-10-21）",items:[
+    "新增「单招」「技能·PLC」「总结」三个专栏。",
+    "PLC 写程序/梯形图编程题、2026 中级电工题库43题、PLC程序设计10题（含2020/2022春考真题）。",
+    "背单词：每日固定背 N 词（可设）、生词本、打卡天数与进度自动保存。" ]}
+];
+function renderLog(){
+  $("#main").innerHTML=`<h2 class="pg">📣 更新日志</h2>
+  <div class="card"><p class="muted">当前版本：<b>${APP_VERSION}</b><br>更新方式：拿到新版 exe 直接替换旧文件即可（无需重装、进度不丢）。对方打开新版会自动提示本版更新内容。</p>
+  <div class="brow"><button class="btn pri" id="updBtn">🔄 检查更新</button></div>
+  <div id="updStatus" style="margin-top:8px"></div></div>
+  ${APP_LOG.map(g=>`<div class="card"><h3>${g.v}</h3><ul style="margin:8px 0 0;padding-left:20px;line-height:1.7">${g.items.map(x=>`<li>${x}</li>`).join("")}</ul></div>`).join("")}
+  <div class="brow"><button class="btn pri" id="logBack">← 返回学习路径</button></div>`;
+  $("#updBtn").onclick=checkUpdate;
+  $("#logBack").onclick=renderPath;
+}
+function verNum(v){const m=String(v).match(/(\d+)(?:\.(\d+))?(?:\.(\d+))?/);return m?(+m[1])*10000+(+(m[2]||0))*100+(+(m[3]||0)):0}
+async function checkUpdate(){
+  const st=$("#updStatus");if(!st)return;
+  if(!UPDATE_URL){
+    st.innerHTML=`<span class="muted">⚠️ 更新源尚未配置。不用买服务器也能部署：按项目内 <b>更新部署\\如何部署更新服务器.txt</b> 的 5 分钟教程，把 update.json 传到免费托管，把直链填进软件即可。对方之后点这里就能收到更新内容与下载链接。</span>`;
+    return;
+  }
+  st.innerHTML="正在检查更新…";
+  const j=await fetchUpdJson();
+  if(!j){st.innerHTML=`<span class="muted">⚠️ 检查失败（主源与备用源均不可达；需要联网，离线不影响其他功能）。下载新版本可直接让发件人 QQ 发你安装包。</span>`;return}
+  if(!j.ver){st.innerHTML=`<span class="muted">⚠️ 更新源文件格式不正确（缺 ver 字段）。</span>`;return}
+    const lv=verNum(APP_VERSION),nv=verNum(j.ver);
+    if(nv>lv){
+      st.innerHTML=`<div style="border:1px solid var(--accent);border-radius:10px;padding:10px;background:var(--accent)22"><b style="color:var(--accent)">🎉 发现新版本 ${esc(j.ver)}</b><ul style="margin:6px 0;padding-left:18px;line-height:1.6">${(j.log||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>${j.dl?`<a class="btn sm" href="${esc(j.dl)}" target="_blank" rel="noopener">⬇ 下载新版（主）</a>`:""}${j.dl2?`<a class="btn sm" href="${esc(j.dl2)}" target="_blank" rel="noopener">🔄 备用下载（CDN）</a>`:""}<div class="muted">下载新版 exe 替换旧文件即可更新（进度不丢）。若下载慢或打不开，直接让发件人把最新版发你（QQ 直发最快）。</div></div>`;
+    }else{
+      st.innerHTML=`<span class="muted">✅ 已是最新版本（${APP_VERSION}）。${nv<lv?"服务器 update.json 里是旧版本 "+esc(j.ver)+"，请同步服务器上的文件。":""}</span>`;
+    }
+}
+async function fetchUpdJson(){
+  for(const u of [UPDATE_URL, UPDATE_URL_ALT, UPDATE_URL_ALT2]){
+    if(!u)continue;
+    try{
+      const r=await fetch(u+"?t="+Date.now());if(!r.ok)throw 0;
+      const txt=await r.text();
+      // 兼容 UTF-8 BOM 等前导空白，避免 JSON 解析失败
+      const j=JSON.parse(txt.replace(/^\uFEFF/,"").trim());
+      if(j&&j.ver)return j;
+    }catch(e){}
+  }
+  return null;
+}
+function vidsAll(){
+  let h="";
+  const vsrc0=vsrc();
+  const order=MODE==="jn"?[["jn","🔧 技能/PLC 视频"]]:MODE==="dz"?[["chinese","📖 单招语文视频"],["math","➗ 数学课"],["en","🇬🇧 英语课"]]:MODE==="zz"?[["chinese","📖 语文课"],["math","➗ 数学课"],["en","🇬🇧 英语课"]]:[["phonetics","🎙️ 音标视频"],["vocabulary","🔤 词汇课"],["grammar","📐 语法课"],["math","➗ 数学课"],["chinese","📖 语文课"],["en","🇬🇧 春考英语课"]];
+  for(const [k,t] of order){const vs=(vsrc0||{})[k]||(k==="chinese"?(vsrc0||{}).cn:null)||[];if(vs.length)h+=`<div class="card"><h3>${t}</h3><div class="vidgrid">${vs.map(v=>`<a class="vidcard" href="${v.url}" target="_blank" rel="noopener"><b>▶ ${esc(v.t)}</b><span>${esc(v.src)} · 跳转观看</span></a>`).join("")}</div></div>`}
+  return h;
+}
+function subjectHtml(name,list,subj){
+  let done=0;list.forEach(c=>{if(prog(c.id).state===2)done++});
+  const rows=list.map((c,i)=>{
+    const p=prog(c.id);
+    const unlocked=unlockOf(c);
+    let cls="chap",st;
+    if(!unlocked){cls+=" lock";st=`<span class="st lock">🔒 未解锁</span>`}
+    else if(p.state===2){cls+=" done";st=chapterGrade(c.id)}
+    else if(p.state===1){cls+=" cur";st=`<span class="st">进行中 ${p.done}/${p.total}</span>`}
+    else{cls+=" cur";st=`<span class="st">▶ 开始学习</span>`}
+    const num=String(i+1).padStart(2,"0");
+    const hasAns=c.kind==="pool"&&c.pool.some(x=>x.ans);
+    const pct=p.done?Math.round(p.done/(p.total||1)*100):0;
+    const mini=(p.done&&p.total)?`<div class="chapmini"><i style="width:${pct}%"></i></div>`:"";
+    return `<div class="${cls}" data-id="${c.id}"><div class="no">${p.state===2?"✓":num}</div><div class="ct"><b>${esc(c.title)}</b><span>${esc(c.desc)}</span>${mini}</div>${hasAns?`<button class="btn sm exam" data-exam="${c.id}">📝 整卷</button>`:""}${st}</div>`;
+  }).join("");
+  return `<div class="subject"><div class="shead"><span class="ic">${subj==="en"?"🇬🇧":subj==="math"?"🧮":"📖"}</span><b>${name}</b><span class="prog">${done}/${list.length} 章完成</span></div>${rows}</div>`;
+}
+
+/* ============ 章节进入 ============ */
+document.addEventListener("click",e=>{
+  const nav=e.target.closest("[data-nav]");
+  if(nav){$("#sideNav").classList.remove("open");nav==="path"?renderPath():nav==="wrong"?renderWrong():nav==="fav"?renderFav():nav==="stats"?renderStats():renderSettings();return}
+  const exb=e.target.closest("[data-exam]");
+  if(exb){e.stopPropagation();const c=curMap()[exb.dataset.exam];if(c&&c.kind==="pool")renderExam(c);return}
+  const chap=e.target.closest(".chap");
+  if(chap){const c=curMap()[chap.dataset.id];if(c&&unlockOf(c))openChapter(c.id);return}
+  const vid=e.target.closest(".vidcard");if(vid){return}
+});
+function openChapter(id){
+  const c=curMap()[id];if(!c)return;OPEN_ID=id;
+  if(c.kind==="phon")renderPhon();
+  else if(c.kind==="vocab")startVocab(c);
+  else if(c.kind==="grammar")renderGrammar();
+  else if(c.kind==="cloze")startCloze(c);
+  else if(c.kind==="ensub")renderEnSub(c);
+  else if(c.kind==="read")startRead(c);
+  else if(c.kind==="pool")startPool(c);
+  else if(c.kind==="wenyan")openWenyan(c);
+  else if(c.kind==="learn")renderLearn(c);
+}
+
+/* ============ 词汇章节做题 ============ */
+let quiz=null;
+function startVocab(c){
+  const p=prog(c.id);
+  const target=p.state===1?Math.max(5,p.total):Math.min(cfgTarget(),c.words?c.words.length:cfgTarget());
+  quiz={c,items:[],idx:0,score:0,done:0,total:target,locked:false};
+  $("#main").innerHTML=`<h2 class="pg">${esc(c.title)}</h2>
+  <p class="dsc">本章 ${c.words.length} 个${c.freq}词，做满 <b>${target}</b> 题（答对 ${cfgPass()}% 及以上视为通过）即解锁下一章。题型随机：看英文选义/看义选词/看音标选词/词性。</p>
+  <div class="card" id="qzone"></div>`;
+  renderQuizHead();
+  nextVocabQ();
+}
+function renderQuizHead(){
+  if(!quiz)return;
+  return `<div class="progress-line"><i style="width:${Math.round(quiz.done/quiz.total*100)}%"></i></div><div class="muted">第 ${quiz.done+1}/${quiz.total} 题 · 答对 ${quiz.score} 题（${Math.round(quiz.done/quiz.total*100)}%）</div>`;
+}
+function nextVocabQ(){
+  const q=quiz,qz=$("#qzone");if(!qz)return;
+  const words=q.c.words;
+  const w=pick(words);
+  const W=esc(strip(w.w)),M=strip(w.m),P=w.p||"";
+  let mode=pick(["zh","en","ph","pos"]);
+  if(mode==="ph"&&!P)mode=pick(["zh","en","pos"]); // 修复：无音标的词不抽「看音标」题型，避免递归卡死
+  const posMap={"n.":"名词 n.","v.":"动词 v.","vt.":"及物动词 vt.","vi.":"不及物动词 vi.","a.":"形容词 a.","ad.":"副词 ad.","prep.":"介词 prep.","art.":"冠词 art.","pron.":"代词 pron.","num.":"数词 num.","conj.":"连词 conj.","interj.":"感叹词 int.","aux.":"助动词 aux."};
+  let stem,opts,answer;
+  const dis=shuffle(words.filter(x=>x.w!==w.w)).slice(0,3);
+  if(mode==="zh"){stem=`<b>${W}</b> ${P?`<span class="muted">${esc(P)}</span>`:""}`;opts=shuffle([M,...dis.map(x=>strip(x.m))]);answer=M;q.type="看英文选释义"}
+  else if(mode==="en"){stem=esc(M.split(/[；;]/)[0]);opts=shuffle([W,...dis.map(x=>strip(x.w))]);answer=W;q.type="看释义选单词"}
+  else if(mode==="ph"){stem=`<span style="font-size:19px">${esc(P)}</span>`;opts=shuffle([W,...dis.map(x=>strip(x.w))]);answer=W;q.type="看音标选单词"}
+  else{const k=Object.keys(posMap).find(k=>M.startsWith(k))||"";stem=`<b>${W}</b>`;opts=shuffle([posMap[k]||"其他词性",...Object.values(posMap).filter(p=>p!==(posMap[k]||"其他词性")).slice(0,3)]);answer=posMap[k]||"其他词性";q.type="词性判断"}
+  q.cur={stem,opts,answer,w,mode};
+  const ansIdx=opts.indexOf(answer);
+  qz.innerHTML=renderQuizHead()+`<div class="qbox"><div class="qstem">${stem}</div>
+  <div class="brow">${opts.map((o,i)=>`<button class="btn" data-i="${i}">${esc(o)}</button>`).join("")}</div>
+  <div class="qans" id="qa"></div></div>`;
+  $$("#qzone .btn[data-i]").forEach(b=>b.onclick=()=>answerVocab(+b.dataset.i,ansIdx));
+}
+function answerVocab(i,ansIdx){
+  const q=quiz,qz=$("#qzone");
+  const btns=$$("#qzone .btn[data-i]");
+  const st=stLoad();
+  if(i===ansIdx){btns[i].classList.add("correct");q.score++;st.right++}
+  else{
+    btns[i].classList.add("wrong");btns[ansIdx].classList.add("correct");
+    wbAdd("en",q.type,q.cur.w.w+" / "+(q.cur.w.p||""),q.cur.opts[i],q.cur.opts[ansIdx],"词条："+q.cur.w.w+" "+q.cur.w.p+" — "+q.cur.w.m+"（词频："+q.cur.w.f+"）");
+  }
+  st.done++;stSave(st);
+  btns.forEach(b=>b.classList.add("dis"));
+  const a=$("#qa");a.innerHTML=`<b>答案：</b>${esc(q.cur.opts[ansIdx])}　<b>解析：</b>${esc(q.cur.w.w)} ${esc(q.cur.w.p||"")} — ${esc(q.cur.w.m)}`;
+  a.classList.add("show");
+  q.done++;q.idx++;
+  if(q.done>=q.total)finishQuiz();
+  else{
+    const n=document.getElementById("qnxt");
+    if(!n){
+      const b=document.createElement("button");
+      b.id="qnxt";b.className="btn pri sm";b.style.marginTop="10px";
+      b.textContent="下一个 →";
+      b.onclick=()=>nextVocabQ();
+      a.appendChild(b);
+    }
+  }
+}
+function finishQuiz(){
+  const q=quiz;
+  const pass=q.score>=Math.ceil(q.total*cfgPass()/100);
+  setProg(q.c.id,q.done,q.total,q.score);
+  const gr=gradeOf({done:q.done,total:q.total,right:q.score});
+  const st=stLoad();
+  const html=`<div class="card"><h3>✅ 本章完成</h3>
+  <p>共做 ${q.done} 题，答对 <b>${q.score}</b> 题（正确率 ${Math.round(q.score/q.done*100)}%）。<b>本章评级：${gr?gr.g+"级 ("+gr.pct+"%)":""}</b></p>
+  <p class="muted" style="margin-top:6px">${pass?"通过！下一章已解锁。":"未达 60%，可再练一组（已记录进度）。"}</p>
+  <div class="brow"><button class="btn pri" id="back">返回学习路径</button>${pass?"":"<button class='btn' id='again'>再练一组</button>"}</div></div>`;
+  $("#qzone").innerHTML=html;
+  $("#back").onclick=renderPath;
+  const ag=$("#again");if(ag)ag.onclick=()=>startVocab(q.c);
+}
+
+/* ============ 古文章节 ============ */
+function openWenyan(c){
+  const p=prog(c.id);
+  const sents=c.book.sents||[];
+  let total=0;
+  sents.forEach(s=>{const chars=[...(s.meta&&s.meta["原文"]||s.text||"").replace(/[，。；、！？：“”‘’（）\s]/g,"")];if(chars.length)total+=Math.min(3,chars.length)});
+  const html=`<h2 class="pg">📖 《${esc(c.book.title)}》</h2>
+  <p class="dsc">本篇文章精读 + ${sents.length} 句必背句默写（每句 2-3 个易错字空，共约 ${total} 空）。先读全文，再做默写（提示译文→选字补句）。</p>
+  ${vidsPanel("chinese")}
+  ${c.book.read?`<div class="card"><h3>📜 原文精读（注释·译文·主旨见文内）</h3><div class="wy">${esc(c.book.read)}</div></div>`:""}
+  <div class="card"><h3>🖋️ 必背句默写（${sents.length} 句 · ${total} 空）</h3><div id="reczone"></div></div>`;
+  $("#main").innerHTML=html;
+  quiz={c,idx:0,score:0,done:0,total:total||1,sents};
+  nextRec();
+}
+function nextRec(){
+  const q=quiz,qz=$("#reczone");if(!qz||!q)return;
+  if(q.done>=q.total){finishRec();return}
+  const s=q.sents[q.idx];
+  const meta=s.meta||{};
+  const full=meta["原文"]||s.text;
+  const chars=[...full.replace(/[，。；、！？：“”‘’（）\s]/g,"")];
+  if(!chars.length){q.idx++;q.done++;nextRec();return}
+  // 每句随机挖 2-3 个易错位置（含字母数字则多挖，纯汉字句挖 min(3) 个）
+  const nBlanks=Math.max(2,Math.min(3,chars.length));
+  const blanks=shuffle(chars.map((c,i)=>i).slice(0,Math.max(nBlanks,chars.length))).slice(0,nBlanks).sort((a,b)=>a-b);
+  q.curBlank={full,chars,blanks,bi:0,hint:meta["主旨/译文"]||meta["定位"]||"",wrong:[]};
+  const b=q.curBlank;
+  const k=b.blanks[0];
+  const correct=chars[k];
+  const wrongPool=[...new Set(chars.filter(c=>c!==correct&&!/[a-zA-Z0-9]/.test(c)))];
+  const opts=shuffle([correct,...wrongPool.slice(0,3)]);
+  let masked="",i=0,shown=0;
+  for(const ch of full){
+    if(/[，。；、！？：“”‘’（）\s]/.test(ch)){masked+=ch;continue}
+    masked+=(b.blanks.includes(i)?"＿＿":ch);i++;
+  }
+  qz.innerHTML=`<div class="qbox"><div class="qstem"><b>篇目：</b>《${esc(q.c.book.title)}》<br><b>提示：</b>${esc(b.hint)}<br><br>${esc(masked)}</div>
+  <div class="brow">${opts.map((o,oi)=>`<button class="btn" data-i="${oi}">${esc(o)}</button>`).join("")}</div>
+  <div class="qans" id="ra"><b>整句：</b>${esc(b.full)}<br><b>译文：</b>${esc(b.hint)}${meta["易错点"]?`<br><b>易错点：</b>${esc(meta["易错点"])}`:""}</div></div>
+  <div class="progress-line"><i style="width:${Math.round(q.done/q.total*100)}%"></i></div><div class="muted">第 ${q.done+1}/${q.total} 空 · 本句第 ${b.bi+1}/${b.blanks.length} 空</div>`;
+  $$("#reczone .btn[data-i]").forEach(x=>x.onclick=()=>answerRec(+x.dataset.i,correct,opts));
+}
+function answerRec(i,correct,opts){
+  const q=quiz,b=q.curBlank;
+  const btns=$$("#reczone .btn[data-i]");
+  const st=stLoad();
+  if(opts[i]===correct){btns[i].classList.add("correct");q.score++;st.right++}
+  else{
+    btns[i].classList.add("wrong");
+    btns[opts.indexOf(correct)].classList.add("correct");
+    wbAdd("cn","默写·"+q.c.book.title.split("（")[0],"挖空句（第"+(q.idx+1)+"句·第"+(b.bi+1)+"空）",opts[i],correct,"整句："+b.full);
+  }
+  st.done++;stSave(st);
+  btns.forEach(x=>x.classList.add("dis"));
+  b.bi++;
+  if(b.bi>=b.blanks.length){
+    q.done++;
+    q.idx++;
+    $("#ra").classList.add("show");
+    const n=document.getElementById("rnx2");
+    if(!n&&q.done<q.total){
+      const bb=document.createElement("button");
+      bb.id="rnx2";bb.className="btn pri sm";bb.style.marginTop="10px";
+      bb.textContent="下一句 →";
+      bb.onclick=()=>nextRec();
+      $("#ra").appendChild(bb);
+    }
+  }else{
+    // 同句下一个空：重新生成当前空选项
+    const k=b.blanks[b.bi];
+    const correct2=b.chars[k];
+    const wrongPool=[...new Set(b.chars.filter(c=>c!==correct2&&!/[a-zA-Z0-9]/.test(c)))];
+    const opts2=shuffle([correct2,...wrongPool.slice(0,3)]);
+    const qz=$("#reczone");
+    const brow=qz.querySelector(".brow");
+    brow.innerHTML=opts2.map((o,oi)=>`<button class="btn" data-i="${oi}">${esc(o)}</button>`).join("");
+    const m=qz.querySelector(".muted");
+    if(m)m.textContent=`第 ${q.done+1}/${q.total} 空 · 本句第 ${b.bi+1}/${b.blanks.length} 空`;
+    $$("#reczone .btn[data-i]").forEach(x=>x.onclick=()=>answerRec(+x.dataset.i,correct2,opts2));
+  }
+}
+function finishRec(){
+  const q=quiz;
+  setProg(q.c.id,q.done,q.total,q.score);
+  const pass=q.score>=Math.ceil(q.total*cfgPass()/100);
+  const gr=gradeOf({done:q.done,total:q.total,right:q.score});
+  $("#reczone").innerHTML=`<div class="card"><h3>✅ 默写完成</h3><p>${q.done} 句，答对 <b>${q.score}</b> 句（${Math.round(q.score/q.done*100)}%）。<b>本章评级：${gr?gr.g+"级 ("+gr.pct+"%)":""}</b></p><p class="muted">${pass?"通过，下一章已解锁。":"可再练一遍巩固。"}</p><div class="brow"><button class="btn pri" id="rb">返回路径</button>${pass?"":"<button class='btn' id='ra2'>再练一遍</button>"}</div></div>`;
+  $("#rb").onclick=renderPath;
+  const b=$("#ra2");if(b)b.onclick=()=>openWenyan(q.c);
+}
+
+/* ============ 春考英语阅读理解（真题，官方未公开答案，不判分） ============ */
+function startRead(c){
+  const all=c.passages||[];
+  const items=[];
+  all.forEach(p=>p.items.forEach(it=>items.push({passage:p,it:it})));
+  const p=prog(c.id);
+  const target=Math.min(cfgTarget(),Math.max(5,p.state===1?p.total:cfgTarget()),items.length);
+  quiz={c,items,idx:0,done:0,total:target};
+  $("#main").innerHTML=`<h2 class="pg">${esc(c.title)}</h2>
+  <p class="dsc">共 ${items.length} 题（${all.length} 篇文章，2017—2021 山东春考英语真题）。官方未公开答案：作答后显示“来源未提供”，不计对错、不进错题本；做满 ${target} 题即解锁下一章。</p>
+  <div class="card" id="rzone"></div>`;
+  nextReadQ();
+}
+function nextReadQ(){
+  const q=quiz,qz=$("#rzone");if(!qz||!q)return;
+  if(q.done>=q.total){finishRead();return}
+  const it=pick(q.items);
+  const opts=it.it.opts||{};
+  q.cur=it;
+  qz.innerHTML=`<div class="progress-line"><i style="width:${Math.round(q.done/q.total*100)}%"></i></div><div class="muted">第 ${q.done+1}/${q.total} 题 · 阅读题（不判分）</div>
+  <div class="card"><h3>📄 ${esc(it.passage.yr)} 春考 · ${esc(it.passage.title)}</h3><div class="wy" style="max-height:340px;overflow:auto">${esc(it.passage.passage)}</div></div>
+  <div class="qbox"><div class="qstem">${esc(it.it.q)}</div>
+  <div class="brow">${Object.entries(opts).map(([k,v],i)=>`<button class="btn" data-i="${i}">${esc(k)}. ${esc(v)}</button>`).join("")}</div>
+  <div class="qans" id="ra3"></div></div>`;
+  $$("#rzone .btn[data-i]").forEach(b=>b.onclick=()=>answerRead(+b.dataset.i));
+}
+function answerRead(i){
+  const q=quiz,qz=$("#rzone");
+  const btns=$$("#rzone .btn[data-i]");
+  const st=stLoad();
+  btns[i].classList.add("wrong");
+  btns.forEach(b=>b.classList.add("dis"));
+  $("#ra3").innerHTML=`<b>真题未附答案（来源未提供）</b>：本题为 <b>${q.cur.passage.yr}</b> 山东春考英语阅读理解真题，官方及收录方（菁优网）均未公开答案。请对照原文自己判断，或在错题本中记下本篇标题、去对照原卷/老师讲解。`;
+  $("#ra3").classList.add("show");
+  st.done++;stSave(st);
+  q.done++;
+  const n=document.getElementById("rnxt");
+  if(!n&&q.done<q.total){
+    const b=document.createElement("button");
+    b.id="rnxt";b.className="btn pri sm";b.style.marginTop="10px";
+    b.textContent="下一题 →";
+    b.onclick=()=>nextReadQ();
+    $("#ra3").appendChild(b);
+  }
+}
+function finishRead(){
+  const q=quiz;
+  setProg(q.c.id,q.done,q.total,q.done);
+  $("#rzone").innerHTML=`<div class="card"><h3>✅ 本组阅读完成</h3><p>共 ${q.done} 题（阅读题不计对错，按完成计评级）。</p><p class="muted">通过，下一章已解锁（阅读题按完成计，不要求正确率）。</p><div class="brow"><button class="btn pri" id="rb3">返回路径</button><button class="btn" id="ra4">再练一组</button></div></div>`;
+  $("#rb3").onclick=renderPath;
+  $("#ra4").onclick=()=>startRead(q.c);
+}
+
+/* ============ 真题池章节（数学考点/语文真题） ============ */
+function gNormQ(s){return String(s||"").replace(/[\s\u3000＿_]+/g,"").replace(/[，。？！、；：\u201c\u201d\u2018\u2019\u0022\u0027\u300c\u300d（）()《》〈〉【】·×]/g,"").replace(/\d+分/g,"").slice(0,60)}
+function startPool(c){
+  const _g=window._gSeenQ||(window._gSeenQ={});
+  let dup=0;
+  const pool=c.pool.filter(q=>q.typ==="choice"?(q.opts&&Object.keys(q.opts).length>=2):Boolean(q.q)).filter(q=>{
+    const k=gNormQ(q.q);
+    if(!k)return true;
+    if(_g[k]){dup++;return false}
+    _g[k]=1;return true;
+  });
+  const p=prog(c.id);
+  const target=Math.min(cfgTarget(),Math.max(5,p.state===1?p.total:cfgTarget()),pool.length||cfgTarget());
+  quiz={c,pool,idx:0,score:0,done:0,total:target};
+  $("#main").innerHTML=`<h2 class="pg">${esc(c.title)}</h2>
+  <p class="dsc">本章可做题 ${pool.length} 题${dup?`（已自动跳过 ${dup} 道与前面章节重复的题）`:""}（未附答案的真题按主观题作答，对照答案区如实显示"来源未提供"），做满 ${target} 题、正确率 ${cfgPass()}% 解锁下一章。</p>
+  ${vidsPanel(MODE==="jn"?"math":c.subj==="math"?"math":c.subj==="en"?"en":"chinese")}
+  <div class="card" id="pzone"></div>`;
+  nextPoolQ();
+}
+function nextPoolQ(){
+  const q=quiz,qz=$("#pzone");if(!qz)return;
+  if(q.done>=q.total){finishPool();return}
+  const item=pick(q.pool);
+  q.cur=item;
+  let body=`<div class="qbox"><div class="qstem"><span class="qno">${q.done+1}.</span>${richQ(item.q)}</div>`;
+  if(item.opts&&Object.keys(item.opts).length>=2){
+    const opts=Object.entries(item.opts);
+    body+=opts.map(([k,v])=>`<button class="qopt" data-i="${opts.findIndex(o=>o[0]===k)}">${k}. ${esc(v)}</button>`).join("");
+    $("#pzone").innerHTML=body+`<div class="qans" id="pa"></div></div>
+    <div class="progress-line"><i style="width:${Math.round(q.done/q.total*100)}%"></i></div><div class="muted">第 ${q.done+1}/${q.total} 题 · 答对 ${q.score}${item.ans?"（点选项即判分）":"（官方未附答案，点选项查看说明，不判分）"}</div>
+    <div class="brow"><button class="btn sm" id="favT">${favHas(item.q)?"★ 已收藏":"⭐ 收藏本题"}</button></div>`;
+    $$("#pzone .qopt").forEach(b=>b.onclick=()=>answerPoolQ(+b.dataset.i,opts));
+  }else{
+    body+=`<input class="qin" id="pin" placeholder="写下你的答案或思路，回车或点按钮对照答案…"><div class="qans" id="pa"></div></div>
+    <div class="progress-line"><i style="width:${Math.round(q.done/q.total*100)}%"></i></div><div class="muted">第 ${q.done+1}/${q.total} 题 · 主观题：先作答 → 点“对照答案/解析”</div>
+    <div class="brow"><button class="btn pri sm" id="pshow">📖 对照答案/解析</button></div>
+    <div class="brow"><button class="btn sm" id="favT">${favHas(item.q)?"★ 已收藏":"⭐ 收藏本题"}</button></div>`;
+    $("#pzone").innerHTML=body;
+    $("#pin").onkeydown=ev=>{if(ev.key==="Enter")showPoolAns()};
+    $("#pshow").onclick=showPoolAns;
+  }
+  const ft=$("#favT");if(ft)ft.onclick=()=>favToggle(q.c.title,q.cur);
+}
+function selfJudge(item,v,subject,type){
+  const q=quiz;  // 必须在此绑定，否则点自评/下一题抛 ReferenceError（历史"点不动"根因）
+  // 官方未附答案（或无标准对错）的题：展示参考答案/来源说明后，由用户自评。
+  // 自评答错 → 收录错题本（明确标注“自评记录”，不冒充官方答案）。
+  const pa=$("#pa");
+  pa.innerHTML=`<b>参考答案：</b>${esc(item.ans||"来源未提供（官方未附答案）")}${item.note?`<br><b>解析：</b>${esc(item.note)}`:""}
+  <br><span class="muted">请自评本题（可跳过，直接点下一题）：</span>
+  <div class="brow" style="margin-top:8px"><button class="btn sm" id="sjR">✅ 我答对了</button><button class="btn sm" id="sjW">❌ 我答错了</button>
+  <button class="btn pri sm" id="pnxt" style="margin-left:10px">下一题 →</button></div>`;
+  pa.classList.add("show");
+  const fin=ok=>{
+    const st=stLoad();
+    if(ok){q.score++;if(q.c.id==="redo"&&wbRemoveByQ(item.q))toast("✅ 已掌握，移出错题本")}
+    if(!ok){
+      if(q.c.id==="redo")toast("❌ 答错，保留错题继续巩固");
+      else wbAdd(subject,type,item.q,v,item.ans||"来源未提供","自评答错收录（官方未附答案，此条为自评记录）"+(item.note?"；"+item.note:""));
+    }
+    st.done++;stSave(st);
+    q.done++;renderPoolProg();
+    const r=$("#sjR"),w=$("#sjW");
+    if(r)r.remove();if(w)w.remove();
+  };
+  const n=document.getElementById("pnxt");
+  if(n)n.onclick=()=>{
+    // 若尚未自评：直接点下一题时，本题按“已做”计入完成数（不计对错）
+    if($("#sjR")){
+      const st=stLoad();
+      st.done++;stSave(st);
+      q.done++;renderPoolProg();
+    }
+    nextPoolQ();
+  };
+  const r=$("#sjR"),w=$("#sjW");
+  if(r)r.onclick=()=>{fin(true);toast("已记录：自评答对")};
+  if(w)w.onclick=()=>{fin(false);toast("已加入错题本")};
+}
+function showPoolAns(){
+  const q=quiz,item=q.cur;
+  const v=$("#pin").value.trim();
+  const ps=$("#pshow");
+  if(ps)ps.disabled=true;  // 防重复点击导致界面状态错乱
+  if(v)selfJudge(item,v,item._subj||"math",(item._t||"数学")+"·"+(item.typ==="fill"?"填空":"解答"));
+  else { if(ps)ps.disabled=false; toast("请先写下你的答案或思路，再对照参考答案"); }
+}
+function answerPoolQ(i,opts){
+  const q=quiz,item=q.cur;
+  const btns=$$("#pzone .qopt");
+  const st=stLoad();
+  const showAns=()=>{
+    $("#pa").innerHTML=`<b>答案：</b>${esc(item.ans||"未提供")}${item.note?`<br><b>解析：</b>${esc(item.note)}`:""}`;
+    $("#pa").classList.add("show");
+    const n=document.getElementById("pnxt");
+    if(!n&&q.done<q.total){
+      const b=document.createElement("button");
+      b.id="pnxt";b.className="btn pri sm";b.style.marginTop="10px";
+      b.textContent="下一题 →";
+      b.onclick=()=>{renderPoolProg();nextPoolQ()};
+      $("#pa").appendChild(b);
+    }
+  };
+  if(!item.ans){
+    // 官方未公开答案：不判分，但提供自评 → 答错可进错题本
+    btns[i].classList.add("wrong");
+    btns.forEach(b=>b.classList.add("dis"));
+    selfJudge(item,opts[i]&&opts[i][1],item._subj||"math",(item._t||"数学")+"·选择题");
+    return;
+  }
+  const correct=item.ans.toUpperCase()===opts[i][0];
+  if(correct){btns[i].classList.add("correct");q.score++;st.right++;if(q.c.id==="redo"&&wbRemoveByQ(item.q))toast("✅ 已掌握，移出错题本");else if(q.c.id!=="redo")toast("✅ 回答正确")}
+  else{
+    btns[i].classList.add("wrong");
+    const ri=opts.findIndex(o=>item.ans&&o[0].toUpperCase()===item.ans.toUpperCase());
+    if(ri>=0)btns[ri].classList.add("correct");
+    if(q.c.id==="redo"){toast("❌ 答错，保留错题继续巩固")}
+    else{wbAdd(item._subj||"math",(item._t||"数学")+"·选择题",item.q,opts[i]&&opts[i][1],item.ans,"正确答案："+item.ans+(item.note?"；"+item.note:""));toast("❌ 答错了，已加入错题本")}
+  }
+  st.done++;stSave(st);
+  btns.forEach(b=>b.classList.add("dis"));
+  showAns();
+  q.done++;
+  renderPoolProg();
+}
+function renderPoolProg(){
+  const q=quiz,qz=$("#pzone");
+  if(!qz)return;
+  const pl=qz.querySelector(".progress-line");
+  if(pl)pl.innerHTML=`<i style="width:${Math.round(q.done/q.total*100)}%"></i>`;
+}
+function finishPool(){
+  const q=quiz;
+  if(q.c.id==="redo"){  // 重做错题：不占章节进度，答对已实时移出错题本
+    dayAdd(q.done,q.score);
+    const gr=gradeOf({done:q.done,total:q.total,right:q.score});
+    const left=wbLoad().length;
+    $("#pzone").innerHTML=`<div class="card"><h3>🎯 错题重做完成</h3><p>共 ${q.done} 题，答对 <b>${q.score}</b>（${Math.round(q.score/q.done*100)}%）。<b>评级：${gr?gr.g+"级 ("+gr.pct+"%)":""}</b></p><p class="muted">答对的题已自动移出错题本（标记已掌握），答错的题保留继续巩固。当前错题本剩余 <b>${left}</b> 道。</p><div class="brow"><button class="btn pri" id="pb">返回错题本</button><button class="btn" id="pa3">🔁 再来一轮</button></div></div>`;
+    $("#pb").onclick=renderWrong;
+    const b=$("#pa3");if(b)b.onclick=redoWrong;
+    return;
+  }
+  if(q.c.id==="random"||q.c.id==="daily"){  // 随机刷题/每日一练：不占章节进度、不写解锁，只打卡
+    dayAdd(q.done,q.score);
+    const gr=gradeOf({done:q.done,total:q.total,right:q.score});
+    const daily=q.c.id==="daily";
+    $("#pzone").innerHTML=`<div class="card"><h3>${daily?"📅 今日打卡完成":"🎲 随机刷题完成"}</h3><p>共 ${q.done} 题，答对 <b>${q.score}</b>（${Math.round(q.score/q.done*100)}%）。<b>评级：${gr?gr.g+"级 ("+gr.pct+"%)":""}</b></p><p class="muted">${daily?`已计入「连续学习天数」，今天已做 <b>${(dayLoad()[dayKey()]||{}).n||0}</b> 题、连续学习 <b>${dayStreak()}</b> 天。`:""}题目来自当前专栏全部章节随机抽取，答错的已自动进错题本，不占用章节通关进度。</p><div class="brow"><button class="btn pri" id="pb">返回路径</button><button class="btn" id="pa3">${daily?"📅 再做一组":"🎲 再刷一组"}</button></div></div>`;
+    $("#pb").onclick=renderPath;
+    const b=$("#pa3");if(b)b.onclick=daily?startDaily:startRandom;
+    return;
+  }
+  setProg(q.c.id,q.done,q.total,q.score);
+  dayAdd(q.done,q.score);
+  const pass=q.score>=Math.ceil(q.total*cfgPass()/100);
+  const gr=gradeOf({done:q.done,total:q.total,right:q.score});
+  $("#pzone").innerHTML=`<div class="card"><h3>✅ 本章完成</h3><p>${q.done} 题，答对 <b>${q.score}</b>（${Math.round(q.score/q.done*100)}%）。<b>本章评级：${gr?gr.g+"级 ("+gr.pct+"%)":""}</b></p><p class="muted">${pass?"通过，下一章已解锁。":"未达 60%，可再练一组。"}</p><div class="brow"><button class="btn pri" id="pb">返回路径</button>${pass?"":"<button class='btn' id='pa3'>再练一组</button>"}</div></div>`;
+  $("#pb").onclick=renderPath;
+  const b=$("#pa3");if(b)b.onclick=()=>startPool(q.c);
+}
+/* 错题本·一键重做：做对的题自动移出错题本（标记已掌握），做错的保留继续巩固 */
+function wbRemoveByQ(q){
+  const all=wbLoad();
+  const k=String(q||"").replace(/\s+/g,"").slice(0,80);
+  const idx=all.findIndex(x=>String(x.q||"").replace(/\s+/g,"").slice(0,80)===k);
+  if(idx>=0){all.splice(idx,1);wbSave(all);return true}
+  return false;
+}
+function redoWrong(){
+  const all=wbLoad();
+  const wb=all.filter(x=>{
+    const m=x.mode||"other";
+    if(wbFilt!=="all"&&m!==wbFilt)return false;
+    if(wbKW&&!(String(x.q||"").includes(wbKW)||String(x.type||"").includes(wbKW)))return false;
+    return true;
+  });
+  if(!wb.length){toast("当前筛选下没有错题可重做");return}
+  // 优先从五模式题库找回原题（带选项/解析），找不到的按主观题自评
+  const bank={};
+  const chapters=[].concat(ALLCH||[]).concat(CKCH?CKCH.en.concat(CKCH.math).concat(CKCH.cn):[]).concat(DZCH?DZCH.en.concat(DZCH.math).concat(DZCH.cn):[]).concat(JNCH?JNCH.en.concat(JNCH.math).concat(JNCH.cn):[]).concat(ZZCH?ZZCH.en.concat(ZZCH.math).concat(ZZCH.cn):[]);
+  chapters.forEach(c=>{if(c.kind==="pool"&&c.pool)c.pool.forEach(q=>{if(q&&q.q){const k=String(q.q).replace(/\s+/g,"").slice(0,80);if(!bank[k])bank[k]=q}})});
+  const items=wb.map(x=>{
+    const k=String(x.q||"").replace(/\s+/g,"").slice(0,80);
+    const src=bank[k];
+    return src?Object.assign({},src,{_redo:true}):Object.assign({},x,{_redo:true});
+  }).filter(x=>x&&x.q);
+  if(!items.length){toast("当前筛选下没有可重做的错题");return}
+  for(let i=items.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=items[i];items[i]=items[j];items[j]=t}
+  const pool=items.slice(0,40);
+  quiz={c:{id:"redo",title:"🎯 重做错题",pool},pool,idx:0,score:0,done:0,total:pool.length};
+  $("#main").innerHTML=`<h2 class="pg">🎯 重做错题</h2>
+  <p class="dsc">从当前筛选错题中随机抽 ${pool.length} 道重做（已从题库找回原题，带选项）：<b>答对的题自动移出错题本（标记已掌握），答错的题保留继续巩固</b>。不占章节通关进度，进度自动保存。</p>
+  <div class="card" id="pzone"></div>`;
+  nextPoolQ();
+}
+/* 随机刷题：从当前专栏全部章节题库随机抽题（题量可在设置中调整，默认 20，优先带答案的题），不占章节进度 */
+function startRandom(){
+  const all=curAll();
+  let items=[];const seenQ={};
+  all.forEach(c=>{if(c.kind==="pool"&&c.pool&&c.pool.length)c.pool.forEach(q=>{
+    const k=gNormQ(q.q);if(!k||seenQ[k])return;seenQ[k]=1;
+    items.push(Object.assign({},q,{_t:c.title,_subj:c.subj||"zsb"}));
+  })});
+  items=items.filter(q=>q.typ==="choice"?(q.opts&&Object.keys(q.opts).length>=2):Boolean(q.q));
+  const withAns=items.filter(q=>q.ans),noAns=items.filter(q=>!q.ans);
+  const pool=withAns.concat(noAns);
+  for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=pool[i];pool[i]=pool[j];pool[j]=t}
+  const N=Math.min(cfgLoad().randN||20,pool.length);
+  const picked=pool.slice(0,N);
+  if(!picked.length){toast("当前专栏暂无题目");return}
+  quiz={c:{id:"random",title:"🎲 随机刷题",pool:picked},pool:picked,idx:0,score:0,done:0,total:N};
+  $("#main").innerHTML=`<h2 class="pg">🎲 随机刷题</h2>
+  <p class="dsc">从当前专栏全部章节题库随机抽取 ${N} 题（优先带答案的题），答错自动进错题本，不占章节通关进度。按 1-4/A-D 选答案、N 下一题。</p>
+  <div class="card" id="pzone"></div>`;
+  nextPoolQ();
+}
+/* ============ 每日一练（每天固定 10 题·完成自动打卡计入连续天数） ============ */
+function startDaily(){
+  const all=curAll();
+  let items=[];const seenQ={};
+  all.forEach(c=>{if(c.kind==="pool"&&c.pool&&c.pool.length)c.pool.forEach(q=>{
+    const k=gNormQ(q.q);if(!k||seenQ[k])return;seenQ[k]=1;
+    items.push(Object.assign({},q,{_t:c.title,_subj:c.subj||"zsb"}));
+  })});
+  items=items.filter(q=>q.typ==="choice"?(q.opts&&Object.keys(q.opts).length>=2):Boolean(q.q));
+  const withAns=items.filter(q=>q.ans&&q.ans!=="来源未提供"),noAns=items.filter(q=>!q.ans||q.ans==="来源未提供");
+  const pool=withAns.concat(noAns);
+  for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=pool[i];pool[i]=pool[j];pool[j]=t}
+  const N=Math.min(10,pool.length);
+  const picked=pool.slice(0,N);
+  if(!picked.length){toast("当前专栏暂无题目");return}
+  const today=dayKey().replace(/-/g,".");
+  quiz={c:{id:"daily",title:"📅 每日一练",pool:picked},pool:picked,idx:0,score:0,done:0,total:N};
+  $("#main").innerHTML=`<h2 class="pg">📅 每日一练（${today}）</h2>
+  <p class="dsc">从当前专栏题库随机抽 <b>10 题</b>（优先带答案的题），做完自动打卡，计入「连续学习天数」。答错自动进错题本，不占章节通关进度。今天已做 ${(dayLoad()[dayKey()]||{}).n||0} 题、连续学习 ${dayStreak()} 天。</p>
+  <div class="card" id="pzone"></div>`;
+  nextPoolQ();
+}
+
+/* ============ 整卷模拟考试（真题卷顺序作答·计时·交卷评分） ============ */
+let exam=null,examTimer=null;
+function fmtTime(s){return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+function renderExam(c){
+  const items=c.pool.filter(x=>x.q);
+  if(!items.length){toast("本章暂无可作答题目");return}
+  exam={c,items,idx:0,right:0,locked:false,start:Date.now(),over:false};
+  $("#main").innerHTML=`<h2 class="pg">📝 整卷模拟 · ${esc(c.title)}</h2>
+  <p class="dsc">按原卷顺序作答，共 ${items.length} 题：选择题点选项立即判分；主观题先写下答案→对照参考答案→自评对错。答完最后一题点「交卷评分」。用时 <b id="exTime">0:00</b> · 已答对 <b id="exRight">0</b> 题</p>
+  <div class="card" id="ezone"></div>`;
+  if(examTimer){clearInterval(examTimer)}
+  examTimer=setInterval(()=>{const el=$("#exTime");if(el)el.textContent=fmtTime((Date.now()-exam.start)/1000|0)},1000);
+  nextExamQ();
+}
+function nextExamQ(){
+  if(!exam||exam.over)return;
+  if(exam.idx>=exam.items.length){finishExam();return}
+  const item=exam.items[exam.idx],i=exam.idx;
+  exam.cur=item;
+  exam.locked=false;
+  let body=`<div class="qbox"><div class="qstem"><span class="qno">${i+1}.</span>${richQ(item.q)}</div>`;
+  if(item.opts&&Object.keys(item.opts).length>=2){
+    const opts=Object.entries(item.opts);
+    body+=opts.map(([k,v])=>`<button class="qopt" data-i="${opts.findIndex(o=>o[0]===k)}">${k}. ${esc(v)}</button>`).join("");
+    body+=`<div class="qans" id="ea"></div></div><div class="brow"><button class="btn pri" id="enx">${i+1>=exam.items.length?"交卷评分":"下一题"} ▶</button><button class="btn" id="eqt">⏻ 退出整卷</button></div><div class="brow"><button class="btn sm" id="favT">${favHas(item.q)?"★ 已收藏":"⭐ 收藏本题"}</button></div>`;
+    exam.curOpts=opts;
+  }else{
+    body+=`<input class="qin" id="ein" placeholder="写下你的答案或思路，点对照参考答案…"><div class="qans" id="ea"></div></div>
+    <div class="brow"><button class="btn sm" id="esh">📖 对照答案/解析</button><span class="muted">主观题：对照后自评，答对计 1 分</span></div>
+    <div class="brow"><button class="btn pri" id="enx">${i+1>=exam.items.length?"交卷评分":"下一题"} ▶</button><button class="btn" id="eqt">⏻ 退出整卷</button></div>
+    <div class="brow"><button class="btn sm" id="favT">${favHas(item.q)?"★ 已收藏":"⭐ 收藏本题"}</button></div>`;
+  }
+  $("#ezone").innerHTML=body;
+  const ft=$("#favT");if(ft)ft.onclick=()=>favToggle("整卷·"+exam.c.title,item);
+  if(item.opts&&Object.keys(item.opts).length>=2){
+    const opts=exam.curOpts;
+    $$("#ezone .qopt").forEach(b=>b.onclick=()=>{
+      if(exam.locked)return;exam.locked=true;
+      const idx=+b.dataset.i;
+      const ok=item.ans&&item.ans.trim().toUpperCase()===opts[idx][0].toUpperCase();
+      if(ok){exam.right++;b.classList.add("correct")}else{b.classList.add("wrong");const ri=opts.findIndex(o=>item.ans&&o[0].toUpperCase()===item.ans.toUpperCase());if(ri>=0)opts[ri]&&$$("#ezone .qopt")[ri]&&$$("#ezone .qopt")[ri].classList.add("correct");wbAdd("exam","整卷·"+exam.c.title,item.q,"选择："+(opts[idx]||[])[1],item.ans||"来源未提供",item.note||"")}
+      $$("#ezone .qopt").forEach(x=>x.classList.add("dis"));
+      $("#ea").innerHTML=`${item.ans?`<b>答案：${esc(item.ans)}</b>`:`<span class='muted'>来源未提供标准答案，作答后请自行核对。</span>`}${item.note?`<br><b>解析：</b>${esc(item.note)}`:""}`;
+      $("#ea").classList.add("show");
+      const r=$("#exRight");if(r)r.textContent=exam.right;
+      const n=$("#enx");if(n)n.disabled=false;
+    });
+  }else{
+    const i2=$("#ein");if(i2)i2.onkeydown=ev=>{if(ev.key==="Enter")examShowAns(item)};
+    const sh=$("#esh");if(sh)sh.onclick=()=>examShowAns(item);
+  }
+  const nx=$("#enx");if(nx)nx.onclick=()=>{
+    const it=exam.cur;
+    if(it&&it.opts&&Object.keys(it.opts).length>=2){ if(!exam.locked){toast("请先点击选项作答，再进入下一题");return} }
+    else{ const ea=$("#ea"); if(!ea||!ea.classList.contains("show")){toast("请先写下答案并点“对照答案/解析”");return} }
+    exam.idx++;nextExamQ()
+  };
+  const qt=$("#eqt");if(qt)qt.onclick=quitExam;
+}
+function examShowAns(item){
+  const v=$("#ein").value.trim();
+  if(!v){toast("请先写下你的答案或思路，再对照参考答案");return}
+  $("#ea").innerHTML=`${item.ans?`<b>答案：</b>${esc(item.ans)}`:`<span class='muted'>来源未提供标准答案，作答后请自行核对。</span>`}${item.note?`<br><b>解析：</b>${esc(item.note)}`:""}`;
+  $("#ea").classList.add("show");
+  const sh=$("#esh");if(sh)sh.disabled=true;
+  if(!$("#esk"))$("#ea").insertAdjacentHTML("afterend",`<div class="selfk" id="esk"><button class="btn sm" data-e="1">✅ 我答对了</button><button class="btn sm" data-e="0">❌ 我答错了</button></div>`);
+  $$("#esk [data-e]").forEach(b=>b.onclick=()=>{
+    if(b.dataset.e==="1"){exam.right++;const r=$("#exRight");if(r)r.textContent=exam.right}
+    else wbAdd("exam","整卷·"+exam.c.title,item.q,"自评：我的答案 "+v.slice(0,200),item.ans||"来源未提供",item.note||"");
+    $("#esk").innerHTML=`<span class="muted">已自评：${b.dataset.e==="1"?"✅ 答对":"❌ 答错"}，可进入下一题。</span>`;
+    const n=$("#enx");if(n)n.disabled=false;
+  });
+}
+function finishExam(){
+  if(exam.over)return;exam.over=true;
+  if(examTimer){clearInterval(examTimer);examTimer=null}
+  const done=exam.items.length,right=exam.right,miss=done-right;
+  const gr=gradeOf({done,total:done,right});
+  const sec=(Date.now()-exam.start)/1000|0;
+  const st=stLoad();st.done+=done;st.right+=right;stSave(st);
+  dayAdd(done,right);
+  $("#ezone").innerHTML=`<div class="card"><h3>🎉 整卷完成 · ${esc(exam.c.title)}</h3>
+  <p>用时 <b>${fmtTime(sec)}</b> · 共 ${done} 题，答对 <b>${right}</b>（${Math.round(right/done*100)}%）· 答错/未答 ${miss} 题。</p>
+  <p><b>本次评级：${gr?gr.g+"级（"+gr.pct+"%）":""}</b>${gr&&gr.g==="S"?" 🏆":""}</p>
+  <p class="muted">答错的题已自动加入错题本（四模式共用）。整卷模拟不计入章节通关进度，仅作整卷自测。</p>
+  <div class="brow"><button class="btn pri" id="exbk">返回路径</button><button class="btn" id="exag">再考一遍</button></div></div>`;
+  $("#exbk").onclick=renderPath;
+  $("#exag").onclick=()=>renderExam(exam.c);
+}
+function quitExam(){
+  if(examTimer){clearInterval(examTimer);examTimer=null}
+  exam=null;renderPath();
+}
+
+/* ============ 音标 / 语法 / 翻译写作 页 ============ */
+function renderPhon(){
+  const ph=D.chapters.phonetics||{vowels_single:[],vowels_double:[],cons:[]};
+  $("#main").innerHTML=`<h2 class="pg">🎙️ 音标与拼读</h2>
+  <p class="dsc">48 个国际音标：单元音12+双元音8+辅音28。背词时同步拼读效率更高。建议先看视频跟读。</p>
+  ${vidsPanel("phonetics")}
+  <div class="card"><h3>单元音（12）</h3><div class="phgrid">${(ph.vowels_single||[]).map(v=>`<div class="phitem"><div class="sym">${esc(v.sym)}</div><div class="demo">${esc(v.demo)}</div><div class="demo">${esc(v.cn)}</div></div>`).join("")}</div></div>
+  <div class="card"><h3>双元音（8）</h3><div class="phgrid">${(ph.vowels_double||[]).map(v=>`<div class="phitem"><div class="sym">${esc(v.sym)}</div><div class="demo">${esc(v.demo)}</div><div class="demo">${esc(v.cn)}</div></div>`).join("")}</div></div>
+  <div class="card"><h3>辅音（28）</h3><div class="phgrid">${(ph.cons||[]).map(v=>`<div class="phitem"><div class="sym">${esc(v.sym)}</div><div class="demo">${esc(v.demo)}</div><div class="demo">${esc(v.cn)}</div></div>`).join("")}</div></div>
+  <div class="brow"><button class="btn pri" id="phdone">✓ 学完本章，解锁下一章</button><button class="btn" id="pb2">返回路径（不标记）</button></div>`;
+  $("#phdone").onclick=()=>{setProg(OPEN_ID,1,1,1);toast("音标章完成，词汇章节已解锁");renderPath()};
+  $("#pb2").onclick=renderPath;
+}
+function renderGrammar(){
+  const g=D.chapters.grammar||{parts:[],pits:[],intro:""};
+  $("#main").innerHTML=`<h2 class="pg">📐 语法考点学习</h2>
+  <p class="dsc">${esc(g.intro||"专升本英语语法 = 词法 + 句法。")}</p>
+  ${vidsPanel("grammar")}
+  ${(g.parts||[]).map(p=>`<div class="card"><h3>${esc(p.t)}</h3><ul style="padding-left:18px">${p.items.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`).join("")}
+  <div class="card"><h3>⚠️ 高频易错点</h3><ul style="padding-left:18px">${(g.pits||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+  <div class="brow"><button class="btn pri" id="grdone">✓ 学完本章，解锁下一章</button><button class="btn" id="pb3">返回路径（不标记）</button></div>`;
+  $("#grdone").onclick=()=>{setProg(OPEN_ID,1,1,1);toast("语法章完成，真题章节已解锁");renderPath()};
+  $("#pb3").onclick=renderPath;
+}
+function renderEnSub(c){
+  const tr=c.trans||[],wr=c.write||[];
+  const isCk=MODE==="ck";
+  $("#main").innerHTML=`<h2 class="pg">✍️ 真题翻译与写作</h2>
+  <p class="dsc">${isCk?"2025春考英语真题·写作（考生回忆版）。先动笔，再对照范文模板自评。":"近10年真题翻译 ${tr.length} 道、作文 ${wr.length} 道。先动笔，再对照参考答案自评。"}</p>
+  ${vidsPanel("grammar")}
+  ${tr.length?`<div class="card"><h3>翻译真题</h3>${tr.map((q,i)=>subjCard("en",q.q,q.ans,"参考译文",i,q.note)).join("")}</div>`:""}
+  ${wr.length?`<div class="card"><h3>写作真题</h3>${wr.map((q,i)=>subjCard("en",q.q,q.ans,"参考范文",i,q.note)).join("")}</div>`:""}
+  <div class="brow"><button class="btn pri" id="ensdone">✓ 学完本章，解锁下一章</button><button class="btn" id="pb4">返回路径（不标记）</button></div>`;
+  $("#ensdone").onclick=()=>{setProg(OPEN_ID,1,1,1);toast("本章完成");renderPath()};
+  $("#pb4").onclick=renderPath;
+}
+function subjCard(subj,q,ans,label,i,note){
+  return `<div class="qbox"><div class="qstem"><span class="qno">${i+1}.</span>${esc(q)}</div>
+  <button class="btn sm" data-sa="${i}">📖 查看${label}</button>
+  <div class="qans" data-sa-box="${i}">${ans?`<b>${label}：</b><br>${esc(ans)}`:`<span class='muted'>来源未提供参考答案。</span>`}${note?`<br><span class="muted">${esc(note)}</span>`:""}</div>
+  <div class="selfk"><button class="btn sm" data-se="right">✅ 答对了</button><button class="btn sm" data-se="half">🟡 半对</button><button class="btn sm" data-se="wrong">❌ 答错了</button></div></div>`;
+}
+document.addEventListener("click",e=>{
+  const sa=e.target.closest("[data-sa]");
+  if(sa){const b=document.querySelector(`[data-sa-box="${sa.dataset.sa}"]`);if(b)b.classList.toggle("show");return}
+  const se=e.target.closest("[data-se]");
+  if(se){
+    const box=se.closest(".qbox");
+    const stem=box.querySelector(".qstem").innerText.slice(0,80);
+    const ansTxt=(box.querySelector(".qans")||{}).innerText?box.querySelector(".qans").innerText.slice(0,200):"";
+    const st=stLoad();
+    if(se.dataset.se==="right"){st.done++;st.right++}
+    else if(se.dataset.se==="half"){st.done++;wbAdd("en","自评半对","主观题："+stem,ansTxt,"（半对）","参考答案："+ansTxt)}
+    else{st.done++;wbAdd("en","自评答错","主观题："+stem,ansTxt,"（未答对）","参考答案："+ansTxt)}
+    stSave(st);toast(se.dataset.se==="right"?"已记录：答对":"已加入错题本");
+  }
+});
+
+/* ============ Cloze 章节 ============ */
+function startCloze(c){
+  const cl=c.cloze;
+  const ansMap=cl.ans||{};
+  const letters=shuffle(Object.keys(ansMap));
+  let html=`<h2 class="pg">✍️ 选词填空（${(cl.year||"").slice(0,4)}年真题）</h2>
+  <p class="dsc">从选项字母中选词填入空格（每个字母一次）。来源：${esc(cl.year)} 山东专升本英语真题（考生回忆版/文字版）。</p>
+  <div class="card">`;
+  let passage="";
+  (cl.passage||[]).forEach(line=>{
+    let l=line;
+    l=l.replace(/__\s*(\d{1,2})\s*__|＿\s*(\d{1,2})\s*＿|(\d{1,2})/g,(mm,g1,g2,g3)=>{
+      const n=+ (g1||g2||g3);if(n<1||n>12)return mm;
+      return `<span class="cblank" data-b="${n}" id="cb-${n}" style="display:inline-block;min-width:34px;border-bottom:2px solid #2563eb;text-align:center;margin:0 2px;font-weight:700;color:#2563eb;cursor:pointer">＿${n}</span>`;
+    });
+    passage+=`<div>${l}</div>`;
+  });
+  html+=`<div class="qstem">${passage}</div>
+  <div class="muted" style="margin:8px 0">选项：</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px">${letters.map(l=>`<span style="border:1px solid #e3e8ef;border-radius:8px;padding:4px 10px;font-size:14px;background:#fff"><b>${l}</b>. ${esc((cl.opts||[]).find(o=>o.includes(l))||"").replace(/^[A-L][\.、．]\s*/,"")}</span>`).join("")}</div>
+  <div class="brow"><button class="btn pri" id="csub">提交判分</button><button class="btn" id="cshow">查看答案</button><button class="btn" id="cbk">返回路径</button></div>
+  <div class="qans" id="cans"></div></div>`;
+  $("#main").innerHTML=html;
+  $("#cbk").onclick=renderPath;
+  $("#cshow").onclick=()=>{$("#cans").classList.add("show");$("#cans").innerHTML=`<b>参考答案：</b>${Object.keys(ansMap).sort((a,b)=>a-b).map(k=>k+"→"+ansMap[k]).join("　")}`};
+  $$(".cblank").forEach(b=>b.onclick=()=>{
+    const open=$$(".cblank").find(x=>!x.dataset.v);
+    if(open){open.dataset.v=b.dataset.l||"";open.textContent=b.dataset.l;open.style.background="#eaf1ff"}
+  });
+  $("#csub").onclick=()=>{
+    let right=0,total=0;
+    $$(".cblank").forEach(b=>{
+      total++;
+      const ok=b.dataset.v&&b.dataset.v.toUpperCase()===(ansMap[b.dataset.b]||"");
+      if(ok){right++;b.style.borderColor="#0a8a5f";b.style.color="#0a8a5f"}else{b.style.borderColor="#d93a3a";b.style.color="#d93a3a"}
+    });
+    const st=stLoad();st.done+=total;st.right+=right;stSave(st);
+    setProg(c.id,1,1,right>=Math.ceil(total*cfgPass()/100)?1:0);
+    $("#cans").classList.add("show");
+    $("#cans").innerHTML=`<b>得分：</b>${right}/${total}　<b>答案：</b>${Object.keys(ansMap).sort((a,b)=>a-b).map(k=>k+"="+ansMap[k]).join("，")}${right<total?"（错题已入错题本）":""}`;
+    if(right<total){
+      const bad=$$(".cblank").filter(b=>b.dataset.v&&b.dataset.v.toUpperCase()!==(ansMap[b.dataset.b]||"")).map(b=>b.dataset.b+"="+b.dataset.v).join("，");
+      wbAdd("en","Cloze·"+(cl.year||"").slice(0,4),cl.year+"选词填空",bad||"未填全",Object.keys(ansMap).map(k=>k+"="+ansMap[k]).join("，"),"答案为："+Object.keys(ansMap).map(k=>k+"="+ansMap[k]).join("， "));
+    }
+  };
+}
+
+/* ============ 错题本 / 统计 ============ */
+const tagC={"en":["en","英语"],"math":["math","数学"],"cn":["cn","语文"]};
+const WB_MODES=[["all","全部"],["zsb","专升本"],["ck","春考"],["dz","单招"],["jn","技能"],["exam","整卷"],["other","其他"]];
+let wbFilt="all",wbKW="";
+function renderWrong(){
+  const all=wbLoad();
+  const wb=all.filter(x=>{
+    const m=x.mode||"other";
+    if(wbFilt!=="all"&&m!==wbFilt)return false;
+    if(wbKW&&!(String(x.q||"").includes(wbKW)||String(x.type||"").includes(wbKW)))return false;
+    return true;
+  });
+  const html=`<h2 class="pg">❌ 错题本</h2>
+  <p class="dsc">共 ${all.length} 道（本机浏览器保存）。答对的题不会再自动收录；做错的题在此复习。可按科目筛选、按关键词搜索。</p>
+  <div class="brow">${WB_MODES.map(([v,l])=>`<button class="btn sm ${wbFilt===v?"pri":""}" data-wf="${v}">${l}</button>`).join("")}</div>
+  <div class="brow"><input class="qin" id="wbQ" placeholder="🔍 按题目/类型关键词搜索…" value="${esc(wbKW)}" style="max-width:360px"></div>
+  <div class="brow"><button class="btn pri" id="wbRedo">🎯 重做错题（${wb.length}）</button><button class="btn pri" id="wbt">返回路径</button><button class="btn" id="wbExp">📤 导出 TXT</button><button class="btn" id="wbc" style="border-color:#d93a3a;color:#d93a3a">清空全部</button></div>
+  <div id="wbl">${wb.length?wb.map(x=>{const ai=all.indexOf(x);return `<div class="wb"><span class="tag ${tagC[x.subject]?tagC[x.subject][0]:""}">${tagC[x.subject]?tagC[x.subject][1]:x.subject} · ${esc(x.type||"练习")}</span><span class="muted">${fmt(x.time)} · ${WB_MODES.find(m=>m[0]===(x.mode||"other"))?WB_MODES.find(m=>m[0]===(x.mode||"other"))[1]:"其他"}</span>
+  <div style="margin-top:6px"><b>题目：</b>${esc(x.q)}</div>
+  <div class="muted"><b>你的答案：</b>${esc(x.you)}</div>
+  <div style="color:#0a8a5f"><b>正确答案：</b>${esc(x.ans)}</div>
+  ${x.note?`<div class="muted"><b>解析：</b>${esc(x.note)}</div>`:""}
+  <div class="brow"><button class="btn sm" data-del="${ai}">🗑 删除</button></div></div>`}).join(""):`<div class="card"><p class="muted">${all.length?"没有符合条件的错题，换个筛选/关键词试试":"还没有错题，继续刷题吧 💪"}</p></div>`}</div>`;
+  $("#main").innerHTML=html;
+  $("#wbt").onclick=renderPath;
+  $("#wbExp").onclick=()=>{if(!wb.length){toast("当前筛选下没有错题可导出");return}downloadTxt("错题本-"+dayKey()+".txt",wbExportText(wb))};
+  $("#wbc").onclick=()=>{if(confirm("确定清空全部错题？")){wbSave([]);renderWrong();toast("已清空")}};
+  $$("[data-del]").forEach(b=>b.onclick=()=>{const w=wbLoad();w.splice(+b.dataset.del,1);wbSave(w);renderWrong()});
+  const rd=$("#wbRedo");if(rd)rd.onclick=redoWrong;
+  $$("[data-wf]").forEach(b=>b.onclick=()=>{wbFilt=b.dataset.wf;renderWrong()});
+  const q=$("#wbQ");if(q)q.oninput=()=>{wbKW=q.value.trim();renderWrong();q.value=wbKW};
+}
+function renderStats(){
+  const st=stLoad(),wb=wbLoad(),pg=pgLoad();
+  const all=curAll();
+  const done=all.filter(c=>pg[c.id]&&pg[c.id].state===2).length;
+  const gcnt={S:0,A:0,B:0,C:0,D:0};
+  const gp={};all.forEach(c=>{if(pg[c.id]&&pg[c.id].state===2){const gr=gradeOf(pg[c.id]);if(gr){gcnt[gr.g]=(gcnt[gr.g]||0)+1;gp[c.id]=gr}}});
+  const avgPct=all.length?Math.round(all.reduce((s,c)=>s+((gp[c.id]||{}).pct||0),0)/all.length):0;
+  const rows=all.map(c=>{const p=pg[c.id];const gr=p?gradeOf(p):null;return [c.subj,c.title.replace(/^[①-⑨]\s*/,""),p?`${p.done}/${p.total} · ${p.state===2?(gr?gr.g+"级 "+gr.pct+"%":"✓"):p.state===1?"进行中":"未开始"}`:"未开始"]});
+  const mi=MODEINFO();
+  const html=`<h2 class="pg">📊 学习统计</h2>
+  <div class="brow"><button class="btn pri" id="sbt">返回路径</button></div>
+  <div class="card"><h3>我的进度（${mi}）</h3>
+  <div class="statgrid">
+    <div class="stat"><div class="v">${(dayLoad()[dayKey()]||{}).n||0}</div><div class="k">今日做题</div></div>
+    <div class="stat"><div class="v">${dayWeek().n}</div><div class="k">本周做题</div></div>
+    <div class="stat"><div class="v">${dayStreak()}</div><div class="k">连续学习（天）</div></div>
+    <div class="stat"><div class="v">${st.done}</div><div class="k">累计做题</div></div>
+    <div class="stat"><div class="v ${st.done&&st.right/st.done>=0.8?"g":""}">${st.done?Math.round(st.right/st.done*100):0}%</div><div class="k">总体正确率</div></div>
+    <div class="stat"><div class="v">${done}/${all.length}</div><div class="k">完成章节</div></div>
+    <div class="stat"><div class="v">${avgPct}%</div><div class="k">章节平均分</div></div>
+    <div class="stat"><div class="v ${wb.length?"r":""}">${wb.length}</div><div class="k">错题数（四模式共用）</div></div>
+  </div></div>
+  <div class="card"><h3>📊 近 7 日做题趋势</h3>
+  <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end;min-height:110px">
+  ${(()=>{const m=dayLoad();const out=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=dayKey(d);const t=m[k]||{n:0};const max=Math.max(1,...Object.values(m).map(x=>x.n||0));const h=Math.round((t.n||0)/max*100);out.push(`<div style="text-align:center"><div style="height:${Math.max(h,4)}px;background:${(t.n||0)>0?"var(--blue)":"#dfe6f1"};border-radius:6px 6px 0 0"></div><div class="muted" style="font-size:11px;margin-top:4px">${String(d.getMonth()+1)+"/"+d.getDate()}</div><b style="font-size:12px">${t.n||0}</b></div>`)}return out.join("")})()}
+  </div>
+  <p class="muted" style="margin-top:6px">每日做题数（含章节/随机/每日一练/整卷，进度自动保存）。</p></div>
+  <div class="card"><h3>⭐ 章节评级分布（${done} 章已评级）</h3>
+  <div class="statgrid" style="grid-template-columns:repeat(5,1fr)">
+    ${["S","A","B","C","D"].map(g=>`<div class="stat"><div class="v" style="color:var(--ink)">${gcnt[g]||0}</div><div class="k"><span class="badge ${g}">${g}</span></div></div>`).join("")}
+  </div>
+  <p class="muted" style="margin-top:6px">评分规则：章节正确率 ≥90 为 S、≥80 为 A、≥70 为 B、≥60 为 C、<60 为 D。完成页与学习路径均显示评级。</p></div>
+  <div class="card"><h3>${mi}章节进度明细（评级）</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:13px">${rows.map(r=>`<tr><td style="padding:6px 8px;border-top:1px solid var(--line)">${r[1]}</td><td style="padding:6px 8px;border-top:1px solid var(--line);text-align:right">${r[2]}</td></tr>`).join("")}</table></div>
+  <div class="card"><h3>五模式总览</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:13px">
+    <tr><td style="padding:6px 8px;border-top:1px solid #eef2f8">📚 专升本（zsb）</td><td style="padding:6px 8px;border-top:1px solid #eef2f8;text-align:right">完成 ${ALLCH.filter(c=>pgLoad()[c.id]&&pgLoad()[c.id].state===2).length}/${ALLCH.length}</td></tr>
+    <tr><td style="padding:6px 8px;border-top:1px solid #eef2f8">🏫 山东春考（ck）</td><td style="padding:6px 8px;border-top:1px solid #eef2f8;text-align:right">完成 ${(()=>{let p={};try{p=JSON.parse(localStorage.getItem("ck_pg2"))||{}}catch(e){}return CKCH.en.concat(CKCH.math).concat(CKCH.cn).filter(c=>p[c.id]&&p[c.id].state===2).length})()}/${CKCH.en.concat(CKCH.math).concat(CKCH.cn).length}</td></tr>
+    <tr><td style="padding:6px 8px;border-top:1px solid #eef2f8">🎯 单招（dz）</td><td style="padding:6px 8px;border-top:1px solid #eef2f8;text-align:right">完成 ${(()=>{let p={};try{p=JSON.parse(localStorage.getItem("dz_pg2"))||{}}catch(e){}return DZCH.en.concat(DZCH.math).concat(DZCH.cn).filter(c=>p[c.id]&&p[c.id].state===2).length})()}/${DZCH.en.concat(DZCH.math).concat(DZCH.cn).length}</td></tr>
+    <tr><td style="padding:6px 8px;border-top:1px solid #eef2f8">🔧 技能·PLC（jn）</td><td style="padding:6px 8px;border-top:1px solid #eef2f8;text-align:right">完成 ${(()=>{let p={};try{p=JSON.parse(localStorage.getItem("jn_pg2"))||{}}catch(e){}return JNCH.en.concat(JNCH.math).concat(JNCH.cn).filter(c=>p[c.id]&&p[c.id].state===2).length})()}/${JNCH.en.concat(JNCH.math).concat(JNCH.cn).length}</td></tr>
+    <tr><td style="padding:6px 8px;border-top:1px solid #eef2f8">📋 总结（zz）</td><td style="padding:6px 8px;border-top:1px solid #eef2f8;text-align:right">完成 ${(()=>{let p={};try{p=JSON.parse(localStorage.getItem("zz_pg2"))||{}}catch(e){}return ZZCH.en.concat(ZZCH.math).concat(ZZCH.cn).filter(c=>p[c.id]&&p[c.id].state===2).length})()}/${ZZCH.en.concat(ZZCH.math).concat(ZZCH.cn).length}</td></tr>
+  </table>
+  <p class="muted" style="margin-top:6px">五模式进度分别存储（zsb_pg2/ck_pg2/dz_pg2/jn_pg2/zz_pg2），错题与统计共用；通关难度设置全局生效（zsb_cfg2）。在顶部切换模式查看各自章节。</p></div>
+  <div class="foot-note">专升本题库：英语词条 ${D.words.length}、Cloze ${D.chapters.en.cloze.length} 篇、翻译 ${D.chapters.en.trans.length}、作文 ${D.chapters.en.write.length}；数学题 ${D.math.choice.length+D.math.fill.length+D.math.calc.length}；语文真题 ${D.cn.choice.length+D.cn.fill.length+D.cn.word.length+D.cn.trans.length+D.cn.read.length+D.cn.write.length}、必背句 ${D.cn_sents.reduce((s,b)=>s+b.sents.length,0)}。<br>春考专栏题库：数学 ${CK.math_chapters.reduce((s,c)=>s+c.pool.length,0)} 题（2019/2021/2022/2023/2024/2025春考真题+2026回忆版+专题）、英语 ${CK.en_single.length} 单选（2025/2026真题）+2025春考全卷33题+2026二模55题+写作2+阅读${CK.en_read.length}篇、语文默写96句+知识运用93题+2025真题全卷29题+字音字形等基础训练 ${(CK.cn_pool||[]).reduce((s,c)=>s+c.pool.length,0)} 题。<br>单招专栏：共 ${DZ.cn_chapters.length} 章 ${DZ.cn_chapters.reduce((s,c)=>s+(c.pool?c.pool.length:0),0)} 题（2024山东单招语文整卷/2025临沂单招语文卷/2025-2026单招数学/英语2025-2026卷+词汇交际+潍坊护理·工商·曲阜·枣庄·畜牧等职院频考点）、高频核心词63个。<br>技能·PLC专栏：${JN.cn_chapters.reduce((s,c)=>s+(c.pool?c.pool.length:0),0)} 题（PLC单选/多选/指令卷/维修电工样题/中级电工题库/2024机电真题卷二/2025电气单招技能30题/2025春考电气真题/PLC编程实训15题）。<br>总结专栏：${GZ.cn_chapters.length} 个复习手册章节（文言文篇目/作文/阅读/英语题型/数学公式，依据课标与教材整理）。<br>通关难度：每章 ${cfgTarget()} 题、正确率 ≥${cfgPass()}% 解锁（可在「⚙️ 设置」调整）；「📅 每日一练」每天 10 题自动打卡。</div>`;
+  $("#main").innerHTML=html;
+  $("#sbt").onclick=renderPath;
+}
+function renderSettings(){
+  const cfg=cfgLoad();
+  const html=`<h2 class="pg">⚙️ 设置 · 通关难度</h2>
+  <div class="brow"><button class="btn pri" id="setBack">返回路径</button></div>
+  <div class="card"><h3>📝 每章通关题量（默认 40 道）</h3>
+  <div class="brow" style="flex-wrap:wrap">${[10,20,40,60].map(n=>`<button class="btn${cfg.target===n?" pri":""}" data-t="${n}">${n} 道</button>`).join("")}</div>
+  <p class="muted">刷题/词汇/阅读/PLC 等章节按此目标抽题，做满即判本章；章节题数不足时按实际题数。当前：${cfg.target} 道。进行中的章节保持原目标不中途变动。</p></div>
+  <div class="card"><h3>🎯 通过正确率（默认 60%）</h3>
+  <div class="brow" style="flex-wrap:wrap">${[50,60,70,80].map(n=>`<button class="btn${cfg.pass===n?" pri":""}" data-p="${n}">≥${n}%</button>`).join("")}</div>
+  <p class="muted">做满目标题数后正确率达到该比例即解锁下一章并按正确率评级（S/A/B/C/D）。当前：${cfg.pass}%。</p></div>
+  <div class="card"><h3>📖 每日背词数量（默认 20 词）</h3>
+  <div class="brow" style="flex-wrap:wrap">${[10,20,30,40,50].map(n=>`<button class="btn${cfg.dailyN===n?" pri":""}" data-vn="${n}">${n} 词</button>`).join("")}</div>
+  <p class="muted">「背单词」专栏每天固定背多少个新词，随时可调，已学进度不受影响。当前：${cfg.dailyN||20} 词/天。</p></div>
+  <div class="card"><h3>🎲 随机刷题题量（默认 20 题）</h3>
+  <div class="brow" style="flex-wrap:wrap">${[10,20,40,60].map(n=>`<button class="btn${(cfg.randN||20)===n?" pri":""}" data-rn="${n}">${n} 题</button>`).join("")}</div>
+  <p class="muted">学习路径页「🎲 随机刷题」每次抽取的题量，随时可调。当前：${cfg.randN||20} 题。</p></div>
+  <div class="card"><h3>⌨️ 答题快捷键</h3>
+  <div class="brow" style="flex-wrap:wrap"><button class="btn${cfg.hotkeys===false?"":" pri"}" id="setHK">${cfg.hotkeys===false?"🖱️ 当前：已关闭（点击启用）":"⌨️ 当前：已开启（点击关闭）"}</button></div>
+  <ul style="padding-left:18px;margin:8px 0 0;color:var(--mut)">
+    <li><b>1-4 / A-D</b>：选择题直接选答案</li>
+    <li><b>N 或 →</b>：进入下一题</li>
+    <li><b>Esc</b>：退出整卷模拟</li>
+  </ul>
+  <p class="muted">在输入框打字时快捷键自动不干扰，可随时在此开关。</p></div>
+  <div class="card"><h3>🗂️ 数据与保存</h3>
+  <div class="brow" style="flex-wrap:wrap"><button class="btn" id="setBackup">💾 立即备份到文件</button></div>
+  <p class="muted">进度/错题/统计/设置 双保险保存（本机浏览器 + 程序数据目录文件），每 30 秒自动备份，退出时保存；重进软件自动恢复，不丢失。</p></div>
+  <div class="card"><h3>🌙 界面主题</h3>
+  <div class="brow" style="flex-wrap:wrap"><button class="btn${cfg.dark?" pri":""}" id="setDark">${cfg.dark?"🌙 当前：深色模式 · 点击切换浅色":"☀️ 当前：浅色模式 · 点击切换深色"}</button></div>
+  <p class="muted">深色模式适合夜间/护眼学习，切换即时生效并自动保存。</p></div>
+  <div class="card"><h3>🔠 字号（默认 17）</h3>
+  <div class="brow" style="flex-wrap:wrap">${[16,17,18,20].map(n=>`<button class="btn${(cfg.fs||17)===n?" pri":""}" data-fs="${n}">${n}px</button>`).join("")}</div>
+  <p class="muted">调节题目/解析文字大小，即时生效并自动保存，重进保留。当前：${cfg.fs||17}px。</p></div>
+  <div class="card"><h3>🤖 作文 AI 深度评分（可选，不填也能用本地评分）</h3>
+  <div class="brow" style="flex-wrap:wrap;gap:6px">
+    <button class="btn${(cfg.wzAiProvider||"deepseek")==="deepseek"?" pri":""}" id="wzProvDs">DeepSeek</button>
+    <button class="btn${(cfg.wzAiProvider||"deepseek")==="qwen"?" pri":""}" id="wzProvQw">通义千问</button>
+  </div>
+  <div class="brow" style="margin-top:8px;flex-wrap:wrap">
+    <input id="wzAiKey" type="password" value="${esc(cfg.wzAiKey||"")}" placeholder="粘贴你的 API Key（只保存在本机）" style="flex:1;min-width:220px;border:1px solid #c6cbd4;border-radius:8px;padding:8px 10px">
+    <button class="btn pri" id="wzKeySave">💾 保存</button>
+    <button class="btn" id="wzKeyTest">🧪 测试连接</button>
+  </div>
+  <p class="muted" style="margin-top:8px">填写后，「✍️ 作文评分」会调用该接口联网深度评分（更接近真人批改），不填则用内置客观指标评分。Key 获取：<b>DeepSeek</b> 在 platform.deepseek.com 注册（手机号即可，送免费额度）→ API Keys 创建；<b>通义千问</b> 在 bailian.console.aliyun.com 开通 DashScope 获取。当前：${(cfg.wzAiKey||"").trim()?"已配置（"+((cfg.wzAiKey||"").length>6?(cfg.wzAiKey.slice(0,3)+"****"+cfg.wzAiKey.slice(-3)):"已配置")+"）":"未配置"}。</p></div>
+  <div class="foot-note">评分规则：章节正确率 ≥90 为 S、≥80 为 A、≥70 为 B、≥60 为 C、<60 为 D（评级不受通过率设置影响，通过率只决定是否解锁下一章）。</div>`;
+  $("#main").innerHTML=html;
+  $("#setBack").onclick=renderPath;
+  $$("[data-t]").forEach(b=>b.onclick=()=>{cfg.target=+b.dataset.t;cfgSave(cfg);toast("通关题量已设为 "+cfg.target+" 道");renderSettings()});
+  $$("[data-p]").forEach(b=>b.onclick=()=>{cfg.pass=+b.dataset.p;cfgSave(cfg);toast("通过率已设为 ≥"+cfg.pass+"%");renderSettings()});
+  $$("[data-vn]").forEach(b=>b.onclick=()=>{cfg.dailyN=+b.dataset.vn;cfgSave(cfg);toast("每日背词已设为 "+cfg.dailyN+" 词");renderSettings()});
+  $$("[data-rn]").forEach(b=>b.onclick=()=>{cfg.randN=+b.dataset.rn;cfgSave(cfg);toast("随机刷题题量已设为 "+cfg.randN+" 题");renderSettings()});
+  const sd=$("#setDark");if(sd)sd.onclick=()=>{cfg.dark=!cfg.dark;cfgSave(cfg);applyDark(cfg.dark);toast(cfg.dark?"已切换深色模式🌙":"已切换浅色模式☀️");renderSettings()};
+  $$("[data-fs]").forEach(b=>b.onclick=()=>{cfg.fs=+b.dataset.fs;cfgSave(cfg);applyFs(cfg.fs);toast("字号已设为 "+cfg.fs+"px");renderSettings()});
+  const hk=$("#setHK");if(hk)hk.onclick=()=>{cfg.hotkeys=cfg.hotkeys===false?true:false;cfgSave(cfg);toast(cfg.hotkeys===false?"快捷键已关闭":"快捷键已开启");renderSettings()};
+  const pd=$("#wzProvDs");if(pd)pd.onclick=()=>{cfg.wzAiProvider="deepseek";cfgSave(cfg);toast("已选择 DeepSeek");renderSettings()};
+  const pq=$("#wzProvQw");if(pq)pq.onclick=()=>{cfg.wzAiProvider="qwen";cfgSave(cfg);toast("已选择 通义千问");renderSettings()};
+  const kx=$("#wzAiKey");
+  const ks=$("#wzKeySave");if(ks)ks.onclick=()=>{cfg.wzAiKey=(kx&&kx.value||"").trim();cfgSave(cfg);toast("AI Key 已保存（仅本机）");renderSettings()};
+  const kt=$("#wzKeyTest");if(kt)kt.onclick=()=>{
+    const key=(kx&&kx.value||"").trim();
+    if(!key){toast("请先粘贴 Key 再测试");return}
+    kt.textContent="⏳ 测试中…";kt.disabled=true;
+    fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({provider:cfg.wzAiProvider||"deepseek",key,prompt:"请只回复两个字：正常"})})
+      .then(x=>x.json()).then(d=>{kt.textContent="🧪 测试连接";kt.disabled=false;toast(d.ok&&/正常/.test(d.reply||"")?"✅ AI 接口连接正常":"接口已通但回复异常："+(d.err||(d.reply||"").slice(0,40)))})
+      .catch(e=>{kt.textContent="🧪 测试连接";kt.disabled=false;toast("❌ 连接失败："+e.message)});
+  };
+  $("#setBackup").onclick=()=>{
+    try{
+      const p=JSON.parse(localStorage.getItem(pgKey()));
+      if(p)cloudSave(pgKey(),p);
+      cloudSave(K_WB,wbLoad());
+      cloudSave(K_ST,stLoad());
+      for(const k in VW_LIBS){cloudSave(VW_LIBS[k].pg,vwPgOf(k));cloudSave(VW_LIBS[k].wb,vwWbOf(k))}
+      cloudSave(CFG_KEY,cfg);
+      toast("已手动备份：进度/错题/统计/设置/全部背词词库");
+    }catch(e){toast("备份失败："+e.message)}
+  };
+}
+function renderLearn(c){
+  const vk=MODE==="jn"?"jn":MODE==="zz"?(c.id.indexOf("zz-c-6")===0?"math":(c.id.indexOf("zz-c-4")===0||c.id.indexOf("zz-c-5")===0)?"en":"chinese"):"chinese";
+  $("#main").innerHTML=`<h2 class="pg">${esc(c.title)}</h2>
+  <p class="dsc">${esc(c.desc||"考点框架学习卡")}（本节为考点框架，真题题源收集到位后补充专属练习，不编题）</p>
+  ${vids(vk)}
+  <div class="card"><h3>📘 考点框架</h3><ul style="padding-left:18px">${c.items.map(x=>`<li style="margin-bottom:6px">${esc(x)}</li>`).join("")}</ul></div>
+  <div class="brow"><button class="btn pri" id="ckdone">✓ 已学习本章，解锁下一章</button><button class="btn" id="ckbk">返回学习路径</button></div>`;
+  $("#ckdone").onclick=()=>{setProg(OPEN_ID,1,1,1);toast("已记录本章学习");renderPath()};
+  $("#ckbk").onclick=renderPath;
+}
+function wbAdd(subject,type,q,you,ans,note){
+  const w=wbLoad();
+  w.push({subject,type,q:String(q).slice(0,500),you:String(you).slice(0,200),ans:String(ans).slice(0,500),note:String(note).slice(0,500),mode:(typeof MODE!=="undefined"?MODE:"zsb"),time:Date.now()});
+  if(w.length>800)w.splice(0,w.length-800);
+  wbSave(w);
+}
+/* 收藏夹：标记想反复看的题（题库题目本身），本地保存 */
+const favLoad=()=>{try{return JSON.parse(localStorage.getItem(K_FAV))||[]}catch(e){return[]}};
+const favSave=f=>{localStorage.setItem(K_FAV,JSON.stringify(f));try{cloudSave(K_FAV,f)}catch(e){}};
+function favToggle(type,item){
+  let f=favLoad();
+  const i=f.findIndex(x=>String(x.q).slice(0,200)===String(item.q).slice(0,200));
+  if(i>=0){f.splice(i,1);favSave(f);toast("已取消收藏");}
+  else{
+    f.push({subject:(typeof MODE!=="undefined"?MODE:"zsb"),type,q:String(item.q).slice(0,500),ans:item.ans?String(item.ans).slice(0,500):"",note:item.note?String(item.note).slice(0,500):"",time:Date.now()});
+    if(f.length>500)f.splice(0,f.length-500);
+    favSave(f);toast("⭐ 已收藏本题");
+  }
+  const t=document.getElementById("favT");if(t)t.textContent=favHas(item.q)?"★ 已收藏":"⭐ 收藏本题";
+}
+function favHas(q){return favLoad().some(x=>String(x.q).slice(0,200)===String(q).slice(0,200))}
+function renderFav(){
+  const f=favLoad();
+  const html=`<h2 class="pg">⭐ 收藏夹</h2>
+  <p class="dsc">共 ${f.length} 道（本机浏览器保存）。刷题时点「⭐ 收藏本题」收录想反复看的题，可删除。</p>
+  <div class="brow"><button class="btn pri" id="favBack">返回路径</button><button class="btn" id="favExp">📤 导出 TXT</button><button class="btn" id="favClear" style="border-color:#d93a3a;color:#d93a3a">清空全部</button></div>
+  <div id="favL">${f.length?f.map(x=>`<div class="wb"><span class="tag">${WB_MODES.find(m=>m[0]===(x.mode||"other"))?WB_MODES.find(m=>m[0]===(x.mode||"other"))[1]:"其他"} · ${esc(x.type||"练习")}</span><span class="muted">${fmt(x.time)}</span>
+  <div style="margin-top:6px"><b>题目：</b>${esc(x.q)}</div>
+  ${x.ans?`<div style="color:#0a8a5f"><b>答案：</b>${esc(x.ans)}</div>`:""}
+  ${x.note?`<div class="muted"><b>解析：</b>${esc(x.note)}</div>`:""}
+  <div class="brow"><button class="btn sm" data-fdel="${f.indexOf(x)}">🗑 删除</button></div></div>`).join(""):`<div class="card"><p class="muted">还没有收藏的题，刷题时点「⭐ 收藏本题」即可加入 ⭐</p></div>`}</div>`;
+  $("#main").innerHTML=html;
+  $("#favBack").onclick=renderPath;
+  $("#favExp").onclick=()=>{if(!f.length){toast("还没有收藏可导出");return}downloadTxt("收藏夹-"+dayKey()+".txt",favExportText(f))};
+  $("#favClear").onclick=()=>{if(confirm("确定清空全部收藏？")){favSave([]);renderFav();toast("已清空")}};
+  $$("[data-fdel]").forEach(b=>b.onclick=()=>{const f0=favLoad();f0.splice(+b.dataset.fdel,1);favSave(f0);renderFav()});
+}
+function strip(s){return String(s).replace(/<[^>]*>/g,"").trim()}
+function downloadTxt(name,text){
+  try{
+    const blob=new Blob(["\ufeff"+text],{type:"text/plain;charset=utf-8"});
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download=name;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},2000);
+    toast("已导出："+name);
+  }catch(err){toast("导出失败："+err.message)}
+}
+function wbExportText(wb){
+  let t=`专升本三科刷题软件 · 错题本导出\n导出时间：${new Date().toLocaleString("zh-CN")} · 共 ${wb.length} 题\n${"=".repeat(50)}\n\n`;
+  wb.forEach((x,i)=>{t+=`【${i+1}】${x.q||"(题目)"}\n类型：${WB_MODES.find(m=>m[0]===(x.mode||"other"))?WB_MODES.find(m=>m[0]===(x.mode||"other"))[1]:"其他"} · ${x.subject?tagC[x.subject]?tagC[x.subject][1]:x.subject:""}${x.type?" · "+x.type:""}\n你的答案：${x.you||"—"}\n正确答案：${x.ans||"—"}\n${x.note?("解析："+x.note+"\n"):""}\n${"-".repeat(50)}\n`});
+  return t;
+}
+function favExportText(f){
+  let t=`专升本三科刷题软件 · 收藏夹导出\n导出时间：${new Date().toLocaleString("zh-CN")} · 共 ${f.length} 题\n${"=".repeat(50)}\n\n`;
+  f.forEach((x,i)=>{t+=`【${i+1}】${x.q||"(题目)"}\n类型：${WB_MODES.find(m=>m[0]===(x.mode||"other"))?WB_MODES.find(m=>m[0]===(x.mode||"other"))[1]:"其他"}${x.type?" · "+x.type:""}\n${x.ans?("答案："+x.ans+"\n"):""}${x.note?("解析："+x.note+"\n"):""}\n${"-".repeat(50)}\n`});
+  return t;
+}
+function applyDark(d){document.body.classList.toggle("dark",!!d)}
+function applyFs(fs){const m=document.getElementById("main");if(m)m.style.fontSize=(fs||17)+"px"}
+/* 键盘快捷键：答题页按 1-4 / A-D 选答案，N 或 → 下一题，Esc 退出整卷 */
+let _kbdReady=false;
+function kbdInit(){
+  if(_kbdReady)return;_kbdReady=true;
+  document.addEventListener("keydown",e=>{
+    if((cfgLoad()).hotkeys===false)return;
+    const t=e.target;
+    if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"))return;
+    const k=(e.key||"").toUpperCase();
+    if(/^[1-4]$/.test(k)||/^[A-D]$/.test(k)){
+      const bs=[...document.querySelectorAll("#pzone .qopt, #ezone .qopt")];
+      if(bs.length){
+        const idx=/^[1-4]$/.test(k)?(+k-1):(k.charCodeAt(0)-65);
+        if(bs[idx]){e.preventDefault();bs[idx].click()}
+      }
+    }else if(k==="N"||k==="ARROWRIGHT"){
+      const n=document.getElementById("pnxt")||document.getElementById("enx");
+      if(n&&!n.disabled){e.preventDefault();n.click()}
+    }else if(k==="ESCAPE"){
+      if(typeof quitExam==="function"&&document.getElementById("ezone")){e.preventDefault();quitExam()}
+    }
+  });
+}
+
+/* ============ 启动 ============ */
+let _booted=false; // 用户已进入页面后，启动异步兜底渲染不再覆盖当前页
+$("#menuBtn").onclick=()=>{$("#sideNav").classList.toggle("open")};
+applyDark((cfgLoad()).dark);
+applyFs((cfgLoad()).fs||17);
+kbdInit();
+$$("#modeTabs .mtab").forEach(b=>b.onclick=()=>{_booted=true;MODE=b.dataset.mode;updateTabs();renderTotal();renderPath()});
+updateTabs();
+renderTotal();
+exitBtnSetup();
+(async function(){
+  await restoreAll();
+  try{
+    const seen=localStorage.getItem("app_ver")||"";
+    if(seen!==APP_VERSION){
+      localStorage.setItem("app_ver",APP_VERSION);
+      setTimeout(()=>{toast("📣 已更新到 "+APP_VERSION+"（详见「📣 更新日志」）",5000)},700);
+    }
+  }catch(e){}
+  const qs=new URLSearchParams(location.search);
+  let h=qs.get("go")||"";
+  if(!h){h=(location.hash||"").replace(/^#\/?/,"")}
+  if(h){const mPre=h.split("-")[0];if(mPre==="ck"||mPre==="dz"||mPre==="jn"||mPre==="zz"){MODE=mPre;updateTabs();renderTotal()}}
+  renderTotal();
+  if(_booted)return; // 用户已进入页面（如正在做模拟卷），不覆盖当前页
+  if(h&&curMap()[h])openChapter(h);
+  else if(h==="settings")renderSettings();
+  else if(h==="stats")renderStats();
+  else if(h==="wrong")renderWrong();
+  else renderPath();
+  // 心跳备份：每 30 秒把当前进度/错题/统计全量备份到云端文件，
+  // 保证中途关闭窗口也不丢（最后 30 秒内的进度可能丢失，其余全保）。
+  setInterval(()=>{
+    try{
+      const p=JSON.parse(localStorage.getItem(pgKey()));
+      if(p)cloudSave(pgKey(),p);
+      const w=JSON.parse(localStorage.getItem(K_WB));
+      if(w)cloudSave(K_WB,w);
+      const s=JSON.parse(localStorage.getItem(K_ST));
+      if(s)cloudSave(K_ST,s);
+      for(const k in VW_LIBS){
+        const vp2=JSON.parse(localStorage.getItem(VW_LIBS[k].pg));
+        if(vp2)cloudSave(VW_LIBS[k].pg,vp2);
+        const vw2=JSON.parse(localStorage.getItem(VW_LIBS[k].wb));
+        if(vw2)cloudSave(VW_LIBS[k].wb,vw2);
+      }
+    }catch(e){}
+  },30000);
+})();
+
+/* ============ 模拟卷专栏：仿正式试卷排版，随机组卷（题库出题，不编题） ============ */
+const SJ_DEF={
+  "ck-cn":   {name:"山东省2027年春季高考语文模拟试卷",full:100,time:"120分钟",choiceN:15,choiceP:3,fillN:3,fillP:3,readN:3,readP:6,essayN:1,essayP:28},
+  "ck-math": {name:"山东省2027年春季高考数学模拟试卷",full:100,time:"120分钟",choiceN:20,choiceP:3,fillN:5,fillP:4,solveN:2,solveP:10},
+  "ck-en":   {name:"山东省2027年春季高考英语模拟试卷",full:80,time:"60分钟",choiceN:25,choiceP:1,fillN:15,fillP:1,readChoiceN:15,readChoiceP:2,essayN:1,essayP:10},
+  "dz-cn":   {name:"山东省2027年单独招生语文模拟试卷",full:80,time:"60分钟",choiceN:10,choiceP:3,fillN:3,fillP:5,readN:3,readP:5,essayN:1,essayP:20},
+  "dz-math": {name:"山东省2027年单独招生数学模拟试卷",full:60,time:"60分钟",choiceN:10,choiceP:3,fillN:5,fillP:2,solveN:2,solveP:10},
+  "dz-en":   {name:"山东省2027年单独招生英语模拟试卷",full:40,time:"40分钟",choiceN:20,choiceP:1,readChoiceN:10,readChoiceP:2}
+};
+function sjBank(type){
+  const bySubj=(arr)=>{const out=[];const seen={};arr.forEach(c=>{if(!c.pool)return;(c.pool||[]).forEach(q=>{if(!q||!q.q)return;const k=gNormQ(q.q);if(!k||seen[k])return;seen[k]=1;out.push(Object.assign({_t:c.title},q))})});return out};
+  if(type==="ck"){
+    const math=[],cn=[],en=[];
+    CK.math_chapters.forEach(c=>{const t=String(c.title);if(t.indexOf("英语")>=0)en.push(c);else if(t.indexOf("语文")>=0)cn.push(c);else math.push(c)});
+    CK.cn_pool.forEach(c=>cn.push(c));
+    const enX=[CK.en_single,CK.en2023_single,CK.en_new1,CK.en_new2,CK.en_new3,CK.en_new4,CK.en2023_fill].filter(Boolean);
+    return {cn:bySubj(cn),en:bySubj(en.concat(enX)),math:bySubj(math)};
+  }
+  const cn=[],en=[],math=[];
+  (DZ.cn_chapters||[]).forEach(c=>{const t=String(c.title);if(t.indexOf("语文")>=0)cn.push(c);else if(t.indexOf("英语")>=0)en.push(c);else if(t.indexOf("数学")>=0)math.push(c)});
+  return {cn:bySubj(cn),en:bySubj(en),math:bySubj(math)};
+}
+function sjDraw(pool,pred,n,exclude){const list=pool.filter(q=>pred(q)&&(!exclude||!exclude[q.q]));const p=shuffle(list.slice()).slice(0,Math.min(n,list.length));if(exclude)p.forEach(q=>{exclude[q.q]=1});return p}
+function sjIsChoice(q){return q.typ==="choice"&&q.opts&&Object.keys(q.opts).length>=2}
+function sjIsPlainChoice(q){return sjIsChoice(q)&&!/【阅读|阅读理解|Passage/.test(q.q)}
+/* 内嵌选项的“的有（）/选项：A、…”多选或选择类题（选项写在题干里、opts 为空）：
+   这类题必须优先识别，否则会被作文/阅读/填空/解答判定误收（如“没有语病的有（）”题干含“写作水平”曾被误判成作文题）。 */
+function sjIsEmbedChoice(q){return q.typ==="calc"&&/(的有（\s*）|选项[：:]|多项选择)/.test(q.q)&&/[AＡ][、．.]/.test(q.q)}
+function sjIsFill(q){if(sjIsEmbedChoice(q))return false;if(q.typ!=="calc"||sjIsEssay(q)||sjIsReadQ(q))return false;if(/默写|____|填空|名句|短文填空|补全对话|对话/.test(q.q))return true;return !/解答|证明|求|计算|设/.test(q.q)}
+function sjIsReadChoice(q){return sjIsChoice(q)&&/【阅读|阅读理解|Passage/.test(q.q)}
+function sjIsEssay(q){if(sjIsEmbedChoice(q))return false;return q.typ==="calc"&&/(作文|写作题|写作要求|写一篇|不少于\s*\d+\s*字|不得少于|以[““「]|[””」]为(?:话题|题目)|文体不限|题目自拟|扩写)/.test(q.q)}
+function sjIsReadQ(q){if(sjIsEmbedChoice(q))return false;return q.typ==="calc"&&!sjIsEssay(q)&&/阅读|理解|赏析|简答|回答|分析/.test(q.q)}
+function sjIsSolve(q){if(sjIsEmbedChoice(q))return false;return q.typ==="calc"&&!sjIsEssay(q)&&!sjIsReadQ(q)&&!/默写|____|填空|名句|短文填空|补全对话|对话/.test(q.q)&&/解答|证明|求|计算|设/.test(q.q)}
+function renderSjHome(){
+  $("#main").innerHTML=`<h2 class="pg">📄 模拟卷 · 随机组卷</h2>
+  <div class="card"><h3>怎么用</h3><p class="muted">从本软件题库（全部真题/模拟卷，逐题标注来源，绝不编题）按正式试卷题型比例随机抽题组卷，仿真实试卷排版。每次点「再组一套」都是新的一套，可反复练。选择题点选项即判分；填空/解答/阅读/写作先自己作答，点「查看答案/解析」后自评对错；答错的自动进错题本。交卷后按卷面分值出总分和评级（S/A/B/C/D）。</p></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
+    ${["ck","dz"].map(type=>`<div class="card"><h3>${type==="ck"?"🏫 春考模拟卷":"🎯 单招模拟卷"}</h3>
+      <div class="muted" style="margin:6px 0 10px">${type==="ck"?"按山东春季高考卷面结构组卷（语文100分/数学100分/英语80分）":"按山东单独招生文化素质卷面结构组卷（语文80分/数学60分/英语40分）"}</div>
+      <div class="brow wrap">${["cn","math","en"].map(s=>`<button class="btn" data-sj="${type}-${s}">${s==="cn"?"📖 语文":s==="math"?"🔢 数学":"🇬🇧 英语"}</button>`).join("")}</div></div>`).join("")}
+  </div>
+  <div class="card"><p class="muted" style="margin:0">⚠️ 题库对应题型不足时，会按现有题量全数收录并在卷面如实标注「题库仅X题」，不凑数不编题。</p></div>`;
+  $$("[data-sj]").forEach(b=>b.onclick=()=>genSjPaper(b.dataset.sj));
+}
+function genSjPaper(key){
+  const [type,subj]=key.split("-");
+  const def=SJ_DEF[key];if(!def){toast("未定义的卷型："+key);return}
+  const bank=sjBank(type)[subj];
+  const ckType=type==="ck"?"春考":"单招";
+  const used={};
+  const choice=sjDraw(bank,sjIsPlainChoice,def.choiceN,used);
+  const embed=sjDraw(bank,sjIsEmbedChoice,Math.max(0,def.choiceN-choice.length),used);
+  const fill=sjDraw(bank,sjIsFill,def.fillN||0,used);
+  const read=sjDraw(bank,sjIsReadQ,def.readN||0,used);
+  const readChoice=sjDraw(bank,sjIsReadChoice,def.readChoiceN||0,used);
+  const solve=sjDraw(bank,sjIsSolve,def.solveN||0,used);
+  const essay=sjDraw(bank,sjIsEssay,def.essayN||0,used);
+  if(!choice.length&&!fill.length&&!read.length&&!readChoice.length&&!solve.length&&!essay.length){toast("该科目题库暂无可组卷的题");return}
+  window._sj={key,type,subj,def,ckType,bank,choice,embed,fill,read,readChoice,solve,essay,score:0,done:0,right:0,total:0,marked:{},seq:[]};
+  paintSj();
+}
+function paintSj(){
+  const s=window._sj,d=s.def;
+  // 构建顺序题目列表：选择题 → 填空 → 阅读问答 → 解答 → 写作
+  const seq=[];let qno=0;
+  const choiceItems=s.choice.map(it=>{it._pts=d.choiceP;return it}).concat(s.embed.map(it=>{it._pts=d.choiceP;return it})).concat(s.readChoice.map(it=>{it._pts=d.readChoiceP||d.choiceP;return it}));
+  choiceItems.forEach(item=>{seq.push({kind:"choice",item,no:++qno})});
+  s.fill.forEach(item=>{item._pts=d.fillP;seq.push({kind:"calc",item,no:++qno})});
+  s.read.forEach(item=>{item._pts=d.readP;seq.push({kind:"calc",item,no:++qno})});
+  s.solve.forEach(item=>{item._pts=d.solveP;seq.push({kind:"calc",item,no:++qno})});
+  s.essay.forEach(item=>{item._pts=d.essayP;seq.push({kind:"essay",item,no:++qno})});
+  s.seq=seq;
+  let total=0;seq.forEach(x=>total+=x.item._pts||0);
+  s.total=total;
+  const short=(arr,need)=>(need&&arr.length<need)?`<p class="muted" style="margin:4px 0">⚠️ 题库该题型现仅 ${arr.length} 题（不足 ${need} 题），已全数收录，不凑数不编题。</p>`:"";
+  const secs=[];
+  if(choiceItems.length){
+    secs.push(`<div class="card sjsec"><h3>一、选择题（共 ${choiceItems.length} 题，每题 ${d.choiceP} 分，共 ${choiceItems.length*d.choiceP} 分）</h3>${short(choiceItems,d.choiceN+(d.readChoiceN||0))}${choiceItems.map((item,i)=>`<div class="qbox sjq"><div class="qstem"><span class="qno">${seq[i].no}.</span>${richQ(item.q)}</div>${item.opts&&Object.keys(item.opts).length>=2?`<div class="brow wrap">${Object.entries(item.opts).map(([k,v])=>`<button class="qopt sjopt" data-i="${i}" data-k="${k}">${k}. ${esc(v)}</button>`).join("")}</div>`:`<p class="muted" style="margin:6px 0;font-size:12px">⚠️ 多选/内嵌选项题（选项见题干），作答后点「📖 查看答案」对照自评（官方未附逐项判分时按自评记录）</p><div class="brow"><button class="btn sm sjcalc" data-i="${i}">📖 查看答案/解析</button></div>`}<div class="qans sjans"></div></div>`).join("")}</div>`);
+  }
+  if(s.fill.length){
+    secs.push(`<div class="card sjsec"><h3>二、填空（默写/补全对话/短文填空等，共 ${s.fill.length} 题，每题 ${d.fillP} 分）</h3>${short(s.fill,d.fillN)}${s.fill.map((item,i)=>`<div class="qbox sjq"><div class="qstem"><span class="qno">${(choiceItems.length+i+1)}.</span>${richQ(item.q)}</div><div class="brow"><button class="btn sm sjcalc" data-i="${choiceItems.length+i}">📖 查看答案/解析</button></div><div class="qans sjans"></div></div>`).join("")}</div>`);
+  }
+  if(s.read.length){
+    secs.push(`<div class="card sjsec"><h3>三、阅读问答（共 ${s.read.length} 题，每题 ${d.readP} 分）</h3>${short(s.read,d.readN)}${s.read.map((item,i)=>`<div class="qbox sjq"><div class="qstem"><span class="qno">${(choiceItems.length+s.fill.length+i+1)}.</span>${richQ(item.q)}</div><div class="brow"><button class="btn sm sjcalc" data-i="${choiceItems.length+s.fill.length+i}">📖 查看答案/解析</button></div><div class="qans sjans"></div></div>`).join("")}</div>`);
+  }
+  if(s.solve.length){
+    secs.push(`<div class="card sjsec"><h3>四、解答题（共 ${s.solve.length} 题，每题 ${d.solveP} 分）</h3>${short(s.solve,d.solveN)}${s.solve.map((item,i)=>`<div class="qbox sjq"><div class="qstem"><span class="qno">${(choiceItems.length+s.fill.length+s.read.length+i+1)}.</span>${richQ(item.q)}</div><div class="sjwrite"></div><div class="brow"><button class="btn sm sjcalc" data-i="${choiceItems.length+s.fill.length+s.read.length+i}">📖 查看答案/解析</button></div><div class="qans sjans"></div></div>`).join("")}</div>`);
+  }
+  if(s.essay.length){
+    secs.push(`<div class="card sjsec"><h3>五、写作（共 ${s.essay.length} 题，每题 ${d.essayP} 分）</h3>${short(s.essay,d.essayN)}${s.essay.map((item,i)=>`<div class="qbox sjq"><div class="qstem"><span class="qno">${(choiceItems.length+s.fill.length+s.read.length+s.solve.length+i+1)}.</span>${richQ(item.q)}</div><div class="sjwrite"></div><div class="brow"><button class="btn sm sjcalc" data-i="${choiceItems.length+s.fill.length+s.read.length+s.solve.length+i}">📖 查看答案/范文</button></div><div class="qans sjans"></div></div>`).join("")}</div>`);
+  }
+  $("#main").innerHTML=`<h2 class="pg">📄 ${d.name}（随机组卷）</h2>
+  <div class="card sj-head"><div class="brow wrap" style="gap:14px">
+    <span><b>满分：</b>${d.full} 分（本卷实际 ${s.total} 分）</span><span><b>建议时间：</b>${d.time}</span><span><b>已得分：</b><b class="sj-sc">${s.score}</b> / ${s.total}</span>
+  </div>
+  <div class="muted" style="margin-top:6px">卷型：${s.ckType}·${subjName(s.subj)}；题目全部来自本软件题库（来源逐题标注）；答题过程中答错的题自动进错题本。</div></div>
+  ${secs.join("")}
+  <div class="card sj-foot"><div class="brow wrap">
+    <button class="btn pri" id="sjSubmit">📋 交卷评分</button>
+    <button class="btn" id="sjAgain">🎲 再组一套</button>
+    <button class="btn" id="sjBack">返回模拟卷首页</button>
+  </div></div>`;
+  window._sjChoiceItems=choiceItems;
+  $$("#main .sjopt").forEach(b=>b.onclick=()=>sjJudgeChoice(+b.dataset.i,b.dataset.k));
+  $$("#main .sjcalc").forEach(b=>b.onclick=()=>sjShowCalc(+b.dataset.i));
+  const ag=$("#sjAgain");if(ag)ag.onclick=()=>genSjPaper(s.key);
+  const bk=$("#sjBack");if(bk)bk.onclick=renderSjHome;
+  const sm=$("#sjSubmit");if(sm)sm.onclick=sjSubmit;
+}
+function subjName(s){return s==="cn"?"语文":s==="math"?"数学":"英语"}
+function sjJudgeChoice(i,k){
+  const s=window._sj;
+  if(s.marked["c"+i])return;
+  const item=window._sjChoiceItems[i];if(!item)return;
+  s.marked["c"+i]=1;
+  const card=$$("#main .sjq")[i];
+  const btns=card?card.querySelectorAll(".sjopt"):[];
+  const pts=item._pts||0;
+  if(item.ans){
+    const ok=k===item.ans;
+    btns.forEach(b=>{b.classList.add("dis");if(b.dataset.k===item.ans)b.classList.add("correct");});
+    if(ok){s.score+=pts;s.right++;}
+    else{btns.forEach(b=>{if(b.dataset.k===k)b.classList.add("wrong")});wbAdd(s.ckType,item._t||s.subj+"·选择题",item.q,item.opts[k]||k,item.opts[item.ans]||item.ans,"模拟卷答错收录"+(item.note?"；"+item.note:""));}
+    const a=card?card.querySelector(".sjans"):null;
+    if(a){a.innerHTML=`<b>${ok?"✅ 回答正确，+"+pts+" 分":"❌ 回答错误（已进错题本）"}</b> 答案：${esc(item.opts[item.ans]||item.ans)}${item.note?`<br>解析：${esc(item.note)}`:""}`;a.classList.add("show");}
+    s.done++;s.score=s.score;
+  }else{
+    // 官方未附答案：不判分，提示自评
+    btns.forEach(b=>{if(b.dataset.k===k)b.classList.add("sel")});
+    const a=card?card.querySelector(".sjans"):null;
+    if(a){a.innerHTML=`<span class="muted">本题官方未附答案（来源未提供），不做对错判定，请参考题面提示自行核对教材/原卷。</span><div class="brow" style="margin-top:6px"><button class="btn sm pri" data-sjok="1">✅ 我答对了</button><button class="btn sm" data-sjok="0">❌ 我答错了</button></div>`;a.classList.add("show");
+      a.querySelectorAll("[data-sjok]").forEach(b=>b.onclick=()=>{const ok=b.dataset.sjok==="1";if(ok){s.score+=pts;s.right++}else{wbAdd(s.ckType,item._t||s.subj+"·选择题",item.q,item.opts[k]||k,"来源未提供","模拟卷自评答错收录（官方未附答案，此条为自评记录）")}s.done++;a.innerHTML=`<b>${ok?"✅ 已自评答对，+"+pts+" 分":"❌ 已自评答错（已进错题本）"}</b>`;const sc=$(".sj-sc");if(sc)sc.textContent=s.score;});
+    }
+  }
+  const sc=$(".sj-sc");if(sc)sc.textContent=s.score;
+}
+function sjShowCalc(i){
+  const s=window._sj,row=s.seq[i];if(!row)return;
+  const item=row.item;
+  // 纯单选（选项按钮点选判分）不走自评；内嵌选项题（多选/选项在题干）走查看答案自评
+  if(row.kind==="choice"&&item.opts&&Object.keys(item.opts).length>=2)return;
+  if(s.marked["calc"+i])return;
+  s.marked["calc"+i]=1;
+  const card=$$("#main .sjq")[i];
+  const a=card?card.querySelector(".sjans"):null;
+  if(!a)return;
+  a.innerHTML=`<b>参考答案：</b>${esc(item.ans||"来源未提供（官方未附答案）")}${item.note?`<br><b>解析：</b>${esc(item.note)}`:""}
+  <br><span class="muted">自评本题（答错自动进错题本）：</span>
+  <div class="brow" style="margin-top:6px"><button class="btn sm pri" data-sjok="1">✅ 我答对了</button><button class="btn sm" data-sjok="0">❌ 我答错了</button></div>`;
+  a.classList.add("show");
+  a.querySelectorAll("[data-sjok]").forEach(b=>b.onclick=()=>{
+    const ok=b.dataset.sjok==="1";
+    if(ok){s.score+=item._pts||0;s.right++;}
+    else wbAdd(s.ckType,item._t||s.subj+"·主观",item.q,"（自评答错）",item.ans||"来源未提供","模拟卷自评答错收录（官方未附答案时此条为自评记录）"+(item.note?"；"+item.note:""));
+    s.done++;
+    a.innerHTML=`<b>${ok?"✅ 已自评答对，+"+(item._pts||0)+" 分":"❌ 已自评答错（已进错题本）"}</b>`;
+    const sc=$(".sj-sc");if(sc)sc.textContent=s.score;
+  });
+}
+function sjSubmit(){
+  const s=window._sj;
+  const pct=s.total?Math.round(s.score/s.total*100):100;
+  const g=pct>=90?"S":pct>=80?"A":pct>=70?"B":pct>=60?"C":"D";
+  $("#main").innerHTML=`<h2 class="pg">📄 交卷结果</h2>
+  <div class="card" style="text-align:center;padding:26px">
+    <div style="font-size:46px">${pct>=60?"🎉":"💪"}</div>
+    <h3>${s.ckType}·${subjName(s.subj)}模拟卷 · 得分 <b class="big">${s.score}</b> / ${s.total}</h3>
+    <p>正确率 ${pct}% · 本卷评级：<b>${g} 级</b></p>
+    <p class="muted">答错的题已自动进错题本；选择题点选项即判，填空/解答/写作按你的自评计分。</p>
+    <div class="brow" style="justify-content:center;margin-top:14px">
+      <button class="btn pri" id="sjAgain2">🎲 再组一套</button>
+      <button class="btn" id="sjBack2">返回模拟卷首页</button>
+      <button class="btn" id="sjWrong2">❌ 查看错题本</button>
+    </div>
+  </div>`;
+  const ag=$("#sjAgain2");if(ag)ag.onclick=()=>genSjPaper(s.key);
+  const bk=$("#sjBack2");if(bk)bk.onclick=renderSjHome;
+  const wr=$("#sjWrong2");if(wr)wr.onclick=renderWrong;
+}
+
+/* ============ 单词综合测试（每个词库通用：严格按单招/春考考纲词汇范围抽题，合格率判定并如实标注依据） ============ */
+const K_VWTEST="vw_test_hist";
+const VWTEST_PASS=80; // 合格线（自定义）：官方考纲仅规定词汇范围（春考/单招均为教育部《中职英语课程标准》2490词），未公布统一「合格率」数字，本测试合格线 80% 为自定义阈值，不冒充官方标准。
+const vwTestHist=()=>{try{return JSON.parse(localStorage.getItem(K_VWTEST))||[]}catch(e){return[]}};
+const vwTestHistSave=h=>{localStorage.setItem(K_VWTEST,JSON.stringify(h.slice(0,30)));cloudSave(K_VWTEST,h.slice(0,30))};
+function vwTestOpts(item,list,n){
+  // 生成 n 个释义选项（含正确答案，去重、避开相同释义）
+  const right=String(item.m||"").trim()||String(item.w||"");
+  const opts=[right];
+  const cand=list.filter(x=>x!==item&&String(x.m||"").trim()&&String(x.m||"").trim()!==right);
+  for(const c of cand){
+    const v=String(c.m||"").trim();
+    if(opts.indexOf(v)<0){opts.push(v);if(opts.length>=n)break}
+  }
+  while(opts.length<n){opts.push("释义待补充")}
+  const idx=Math.floor(Math.random()*opts.length);
+  return {right,list:opts,at:idx};
+}
+function startVwTest(){
+  const list=vwList();
+  if(list.length<4){toast("当前词库词太少，无法组测试");return}
+  const pool=shuffle(list.slice()).slice(0,20);
+  const items=pool.map(w=>{
+    const mode=Math.random();
+    if(mode<0.55)return{kind:"en2cn",w:w};   // 看英文选中文释义
+    if(mode<0.85)return{kind:"cn2en",w:w};   // 看中文选英文单词
+    return{kind:"spell",w:w};                // 看中文拼写英文
+  });
+  window._vwTest={list:pool,items,idx:0,right:0,wrong:0,wrongList:[],done:false};
+  paintVwTest();
+}
+function paintVwTest(){
+  const T=window._vwTest;if(!T)return;
+  const list=T.list,items=T.items,i=T.idx;
+  if(i>=items.length){vwTestFinish();return}
+  const it=items[i],w=it.w,idx=vwTestOpts(it.w,list,4);
+  const pct=Math.round(i/items.length*100);
+  let body;
+  if(it.kind==="en2cn"){
+    body=`<div class="muted" style="margin:8px 0">看英文选中文释义：</div>
+      <div class="vwword">${esc(w.w)}${w.p?` <span class="vwphon">${esc(w.p)}</span>`:""}${w.f?` <span class="vwfreq">${esc(w.f)}</span>`:""}<button class="snd" data-snd="${esc(w.w)}">🔊</button></div>
+      <div class="brow wrap">${idx.list.map((v,k)=>`<button class="qopt wt-opt" data-k="${k}">${"ABCD"[k]}. ${esc(v)}</button>`).join("")}</div>`;
+  }else if(it.kind==="cn2en"){
+    body=`<div class="muted" style="margin:8px 0">看中文释义选英文单词：</div>
+      <div class="vwword">${esc(w.m||"释义待补充")}</div>
+      <div class="brow wrap">${idx.list.map((v,k)=>`<button class="qopt wt-opt" data-k="${k}">${"ABCD"[k]}. ${esc(v)}</button>`).join("")}</div>`;
+  }else{
+    body=`<div class="muted" style="margin:8px 0">看中文释义，拼写英文单词：</div>
+      <div class="vwword">${esc(w.m||"释义待补充")}</div>
+      <input class="qin" id="wtIn" placeholder="请输入英文拼写，回车判定…" style="font-size:20px" autocomplete="off" spellcheck="false">
+      <div class="brow"><button class="btn pri" id="wtChk">✓ 判定</button><button class="btn" id="wtSkip">⏭ 跳过</button></div>`;
+  }
+  $("#main").innerHTML=`<h2 class="pg">🎯 单词综合测试 <span class="muted" style="font-size:14px">（${i+1}/${items.length} · 正确 ${T.right} · 错误 ${T.wrong}）</span></h2>
+  <div class="card vwcard">
+    <div class="pbar big"><i style="width:${pct}%"></i></div>
+    ${body}
+    <div class="qans wt-ans"></div>
+  </div>
+  <div class="brow"><button class="btn" id="wtQuit">⏹ 结束测试（返回背单词）</button></div>`;
+  const judge=(ok,you)=>{
+    if(T.done)return;
+    T.done=true;
+    if(ok)T.right++;else{T.wrong++;T.wrongList.push(it.w)}
+    const a=$("#main .wt-ans");
+    const ansText=it.kind==="en2cn"?`${esc(w.w)} ${esc(w.p||"")} → ${esc(w.m||"释义待补充")}`:it.kind==="cn2en"?`${esc(w.m||"")} → ${esc(w.w)} ${esc(w.p||"")}`:`${esc(w.m||"")} → ${esc(w.w)} ${esc(w.p||"")}`;
+    if(a){
+      a.innerHTML=`<b>${ok?"✅ 正确":"❌ 错误"}</b> ${ok?"":"答案："}${ansText}${ok?"":"（错词已进生词本）"}`;
+      a.classList.add("show");
+    }
+    if(!ok){
+      const wb=vwWb();
+      if(!wb.find(y=>y.w===it.w.w))wb.push({w:it.w.w,p:it.w.p||"",m:it.w.m||"",at:Date.now()});
+      vwWbSave(wb);
+    }
+    const nxt=document.createElement("button");
+    nxt.id="wtNxt";nxt.className="btn pri";nxt.style.marginTop="10px";nxt.textContent="下一题 →";
+    nxt.onclick=()=>{T.done=false;T.idx++;paintVwTest()};
+    if(a)a.appendChild(nxt);
+  };
+  if(it.kind==="spell"){
+    const inp=$("#wtIn");if(inp){inp.focus();inp.addEventListener("keydown",e=>{if(e.key==="Enter"){const c=$("#wtChk");if(c)c.click()}})}
+    const chk=$("#wtChk");if(chk)chk.onclick=()=>{
+      const given=(inp?inp.value.trim():"").toLowerCase().replace(/\s+/g," ");
+      const right=String(w.w).trim().toLowerCase().replace(/\s+/g," ");
+      if(!given){toast("先输入拼写再判定");return}
+      judge(given===right,given);
+      inp.disabled=true;
+    };
+    const sk=$("#wtSkip");if(sk)sk.onclick=()=>{if(!T.done)judge(false,"（跳过）")};
+  }else{
+    $$("#main .wt-opt").forEach(b=>b.onclick=()=>{
+      if(T.done)return;
+      const k=+b.dataset.k;
+      b.classList.add("dis");
+      const ok=k===idx.at;
+      if(ok)b.classList.add("correct");else b.classList.add("wrong");
+      judge(ok,idx.list[k]);
+    });
+  }
+  const q=$("#wtQuit");if(q)q.onclick=()=>{window._vwTest=null;renderVwHome()};
+}
+function vwTestFinish(){
+  const T=window._vwTest;if(!T)return;
+  const n=T.items.length,right=T.right;
+  const pct=Math.round(right/Math.max(1,n)*100);
+  const pass=pct>=VWTEST_PASS;
+  const hist=vwTestHist();
+  hist.push({lib:cfgLoad().vwlib||"zz2600",at:Date.now(),pct,pass,n});
+  vwTestHistSave(hist);
+  $("#main").innerHTML=`<h2 class="pg">🎯 单词综合测试 · 完成</h2>
+  <div class="card" style="text-align:center;padding:28px">
+    <div style="font-size:44px">${pass?"🎉":"💪"}</div>
+    <h3>共 ${n} 题 · 答对 ${right} · 答错 ${T.wrong}</h3>
+    <div class="big" style="font-size:30px;margin:10px 0">正确率 ${pct}%</div>
+    <div class="muted">合格线：${VWTEST_PASS}%（${pass?"✅ 达标":"❌ 未达标，错词已进生词本，建议复习后再测"}）</div>
+    <p class="muted" style="margin-top:6px">判定依据说明：单招/春考英语词汇范围均为教育部《中等职业学校英语课程标准》2490 词（山东省教育招生考试院《英语考试标准》PDF 明文规定）；官方考纲未公布统一「合格率」数字，本测试合格线 ${VWTEST_PASS}% 为自定义阈值。</p>
+    ${T.wrongList.length?`<div class="card" style="text-align:left"><b>本次答错的词（已进生词本）：</b><div style="margin-top:4px">${T.wrongList.map(x=>`<span class="vwtag no" style="margin:2px">${esc(x.w)} ${esc(x.p||"")} <button class="snd" data-snd="${esc(x.w)}">🔊</button></span>`).join("")}</div></div>`:""}
+    <div class="brow" style="justify-content:center;margin-top:12px">
+      <button class="btn pri" id="wtAgain">🔁 再测一轮</button><button class="btn" id="wtBack">返回背单词首页</button>
+    </div>
+  </div>`;
+  $$("#main .snd[data-snd]").forEach(b=>b.onclick=()=>speakWord(b.dataset.snd));
+  const a=$("#wtAgain");if(a)a.onclick=startVwTest;
+  const b=$("#wtBack");if(b)b.onclick=renderVwHome;
+}
+
+/* ============ 作文评分（✍️）============ */
+/* 手机端检测：安卓/iOS WebView 的 UA 必含 Android/iPhone/iPad/Mobile（Android Developers 官方：WebView 与 Chrome 同 UA 格式）；
+   电脑版 pywebview(Windows) 为桌面 UA，不会误判；?force-mobile=1 为调试参数（无副作用） */
+const IS_MOBILE=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent||"")||/force-mobile=1/i.test(location.search||"");
+const K_WZ="wz_hist";
+const wzHist=()=>{try{return JSON.parse(localStorage.getItem(K_WZ))||[]}catch(e){return[]}};
+const wzHistSave=h=>{localStorage.setItem(K_WZ,JSON.stringify(h.slice(0,30)));cloudSave(K_WZ,h.slice(0,30))};
+
+function renderWzHome(){
+  const cfg=cfgLoad();
+  const hist=wzHist();
+  const isEn=cfg.wzLang==="en";
+  const mbTip=IS_MOBILE?`<div style="margin-top:10px;padding:10px 12px;background:#fff3d9;border:1px solid #f0d48a;border-radius:10px;font-size:12.5px;color:#6b4a1f;line-height:1.8"><b>📱 手机版说明：</b>拍照识别需要电脑端本地识别引擎，手机版请直接点下方「✏️ 作文内容」栏<b>手动输入或粘贴作文</b>再点「💯 评分」；本地评分（语文45分制/英语10分制）正常可用；联网 AI 深度评分请在电脑版使用。</div>`:"";
+  const html=`<h2 class="pg">✍️ 作文评分（拍照识别 + AI评分）</h2>
+  ${mbTip}
+  <div class="card"><div class="brow wrap">
+    <button class="btn ${isEn?"":"pri"}" id="wzLangCn">📖 语文作文</button>
+    <button class="btn ${isEn?"pri":""}" id="wzLangEn">🇬🇧 英语写作</button>
+    <span class="muted" style="font-size:12px">${isEn?"英语写作评分（词数/句型/连接词等）":"语文作文评分（字数/结构/连接词/标点等）"}</span>
+  </div>
+  <p class="muted" style="margin-top:8px;font-size:13px">${IS_MOBILE?"直接输入":"拍下你的"}${isEn?"英语":"语文"}作文${IS_MOBILE?"后按":"（手写/打印均可），软件本地自动识别文字后按"}<b>山东春考标准</b>客观评分：${isEn?"英语职场写作满分 10 分（四档评分）":"语文作文满分 45 分（一/二/三/四等）"}；在「⚙️ 设置」填入 DeepSeek 或通义 API Key 后，可启用联网 AI 深度评分（更接近真人批改）。不填 Key 也能用本地评分。<br><span style="color:#8a6d3b;background:#fff8e6;padding:2px 8px;border-radius:6px;font-size:12px">注：单招（高职单独招生）文化素质为各院校自主命题，作文分值没有全省统一标准，本页按山东春考统一口径评分作参考（语文45 / 英语10）。</span><br><span style="color:#6b4a1f;background:#fff3d9;padding:2px 8px;border-radius:6px;font-size:12px">⚠️ 提示：${IS_MOBILE?"本页评分基于字数/结构/语言等客观指标，仅作":"手写照片识别受书写清晰度影响，可能只能读出大意、个别字识别不准——AI 评分仅作"}<b>学习参考</b>，不能替代老师的专业批阅；正式考试请以老师评分为准。</span></p>
+  ${IS_MOBILE?`<div class="brow wrap" style="margin-top:10px"><button class="btn pri" id="wzScore" style="flex:1">💯 评分</button></div>`:`<div class="brow wrap" style="margin-top:10px">
+    <label class="btn" style="cursor:pointer">📷 上传作文照片（可多张）<input type="file" accept="image/*" id="wzFile" multiple style="display:none"></label>
+    <button class="btn pri" id="wzOcr">🔍 识别文字</button>
+    <button class="btn pri" id="wzScore">💯 评分</button>
+    <button class="btn" id="wzSet">⚙️ 配置AI Key</button>
+  </div>
+  <div id="wzImg" class="muted" style="margin-top:10px;font-size:12px">未选择照片（可一次选多张 jpg / png / bmp，拍清晰、光线均匀识别更准；多张会按顺序自动拼接识别）</div>`}</div>
+  <div class="card"><h3>📋 作文要求 / 题目（选填）</h3>
+    <textarea id="wzReq" style="width:100%;height:64px;border:1px solid #c6cbd4;border-radius:8px;padding:10px;font-size:14px;line-height:1.6;box-sizing:border-box" placeholder="粘贴本次作文的题目与写作要求（如：请以「青春担当」为话题，写一篇不少于700字的文章）。填写后，AI 评分会核对你的作文是否切题、是否覆盖要求要点；不填也能评分，但无法核对切题度。"></textarea>
+  </div>
+  <div class="card"><h3>✏️ 作文内容（可修改校正后再评分）</h3>
+    <textarea id="wzText" style="width:100%;height:230px;border:1px solid #c6cbd4;border-radius:8px;padding:10px;font-size:15px;line-height:1.7;box-sizing:border-box" placeholder="上传照片后点「🔍 识别文字」自动填入（多张照片按顺序拼接）；也可以直接在这里打字或粘贴作文（不拍照也能评分）。${isEn?"参考：春考英语职场写作要求 80—120 词。":"参考：春考语文作文要求不少于 700 字；字数不足每少 50 字扣 1 分。"}"></textarea>
+  </div>
+  <div id="wzResult"></div>
+  ${hist.length?`<div class="card"><h3>📜 评分历史（最近 ${Math.min(hist.length,10)} 条）</h3><div>${hist.slice(0,10).map((h,i)=>`<div class="brow" style="justify-content:space-between;border-bottom:1px solid #eee;padding:6px 0"><span class="muted" style="font-size:13px;max-width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc((h.t||"").slice(0,46))}</span><b style="color:${((h.score!=null?h.score:h.total)||0)>=80?"#16a34a":((h.score!=null?h.score:h.total)||0)>=60?"#d97706":"#dc2626"}">${h.score!=null?h.score:(h.total!=null?h.total:"—")}分</b><button class="btn sm" data-wzh="${i}">查看</button></div>`).join("")}</div></div>`:""}
+  `;
+  $("#main").innerHTML=html;
+  const f=$("#wzFile");
+  if(f)f.onchange=e=>{
+    const files=[...e.target.files];if(!files.length)return;
+    window._wzImgs=[];let done=0;const box=$("#wzImg");
+    if(box)box.innerHTML="<span class='muted'>载入中…</span>";
+    files.forEach((file,idx)=>{
+      const rd=new FileReader();
+      rd.onload=()=>{
+        window._wzImgs[idx]=rd.result;
+        done++;
+        if(done===files.length){
+          if(box)box.innerHTML=window._wzImgs.map((d,i)=>`<img src="${d}" style="max-height:200px;max-width:45%;border-radius:8px;border:1px solid #c6cbd4;margin:4px" title="第${i+1}张"><span class="muted" style="font-size:11px;vertical-align:top">第${i+1}张</span>`).join("");
+          toast("已载入 "+files.length+" 张照片，点「🔍 识别文字」按顺序识别拼接");
+        }
+      };
+      rd.readAsDataURL(file);
+    });
+  };
+  const lc=$("#wzLangCn");if(lc)lc.onclick=()=>{cfg.wzLang="cn";cfgSave(cfg);renderWzHome()};
+  const le=$("#wzLangEn");if(le)le.onclick=()=>{cfg.wzLang="en";cfgSave(cfg);renderWzHome()};
+  const oc=$("#wzOcr");if(oc)oc.onclick=wzOcrRun;
+  const sc=$("#wzScore");if(sc)sc.onclick=wzScoreRun;
+  const st=$("#wzSet");if(st)st.onclick=()=>{MODE="zsb";renderPath();renderSettings()};
+  $$("[data-wzh]").forEach(b=>b.onclick=()=>{
+    const h=hist[+b.dataset.wzh];if(!h)return;
+    const ta=$("#wzText");if(ta)ta.value=h.t;
+    const rq=$("#wzReq");if(rq)rq.value=(h.req||"");
+    wzShowResult(h);
+  });
+}
+
+function wzOcrRun(){
+  if(IS_MOBILE){toast("手机版暂不支持拍照识别，请手动输入作文");return}
+  const imgs=window._wzImgs||[];
+  if(!imgs.length){toast("请先上传作文照片（可多张）");return}
+  const box=$("#wzText");const bt=$("#wzOcr");
+  if(bt){bt.textContent="⏳ 识别中…";bt.disabled=true}
+  const parts=[];
+  const ocrOne=(d,i)=>fetch("/api/ocr",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({img:d.split(",")[1]||""})}).then(r=>r.json());
+  (async()=>{
+    try{
+      for(let i=0;i<imgs.length;i++){
+        const d=await ocrOne(imgs[i],i);
+        const t0=d.text||"";
+        if(!d.ok){parts.push("【第"+(i+1)+"张】识别失败："+(d.err||"未知错误"));continue}
+        if(t0==="__NO_LANG__"){parts.push("【第"+(i+1)+"张】未识别到文字（系统缺中文OCR语言包，请手动输入该页）");continue}
+        if(t0==="__NO_ENGINE__"){parts.push("【第"+(i+1)+"张】未识别到文字（本机OCR引擎不可用，请手动输入该页）");continue}
+        if(t0.startsWith("__RAPID_ERR__")){parts.push("【第"+(i+1)+"张】识别异常（"+(t0.slice(13)||"未知")+"），请拍清晰些或手动输入该页");continue}
+        parts.push("【第"+(i+1)+"张】"+(t0.trim()||"（未识别到文字：请拍清晰、字迹工整，或手动输入）"));
+      }
+      if(bt){bt.textContent="🔍 识别文字";bt.disabled=false}
+      const merged=parts.join("\n\n");
+      if(box){
+        if(imgs.length===1&&parts.length===1&&parts[0].startsWith("【第1张】"))box.value=parts[0].slice(6);
+        else box.value=merged;
+      }
+      toast("识别完成（"+imgs.length+" 张已拼接），可修改校正后评分");
+    }catch(e){
+      if(bt){bt.textContent="🔍 识别文字";bt.disabled=false}
+      toast("识别服务不可用："+e.message);
+    }
+  })();
+}
+
+function wzScoreRun(){
+  const ta=$("#wzText");if(!ta)return;
+  const t=(ta.value||"").trim();
+  if(!t){toast("请先输入或识别出作文内容");return}
+  const cfg=cfgLoad();
+  const isEn=cfg.wzLang==="en";
+  const rq=$("#wzReq");const req=(rq&&rq.value||"").trim();
+  const r=isEn?wzScoreEn(t):wzScoreCn(t);
+  r.t=t;r.req=req;r.at=Date.now();r.lang=isEn?"en":"cn";
+  const hist=wzHist();hist.unshift(r);wzHistSave(hist);
+  wzShowResult(r);
+  if((cfg.wzAiKey||"").trim())wzAiScore(r);
+  else toast(req?"已按本地指标评分；在设置填入 AI Key 可启用含切题核对的深度评分":"已按本地指标评分；在设置填入 AI Key 可启用深度评分");
+}
+
+function wzShowResult(r){
+  const box=$("#wzResult");if(!box)return;
+  const isEn=r.lang==="en";
+  const dims=isEn?[["内容",r.content,30],["语言",r.langS,30],["结构",r.structure,20],["规范",r.std,20]]:[["内容",r.content,30],["结构",r.structure,25],["语言",r.langS,25],["规范",r.std,20]];
+  const ai=r.ai?`<div class="card" style="margin-top:10px;background:#f0fdf4"><h3>🤖 AI 深度评分</h3>
+    <div style="font-size:24px;color:#16a34a;font-weight:700">${r.ai.score||"—"} 分${r.ai.band?` <span style="font-size:14px">${esc(r.ai.band)}</span>`:""}</div>
+    ${r.ai.fit!=null?`<div style="margin-top:6px"><b>🎯 切题核对：</b><span style="color:${r.ai.fit>=8?"#16a34a":r.ai.fit>=6?"#d97706":"#dc2626"};font-weight:600">${r.ai.fit}/10</span><span class="muted" style="font-size:12px">（是否扣题、是否覆盖要求要点）</span><p class="muted" style="margin-top:4px">${esc(r.ai.fitNote||"")}</p></div>`:""}
+    <p class="muted">${esc(r.ai.comment||"")}</p>
+    ${r.ai.advice?`<p><b>提分建议：</b>${esc(r.ai.advice)}</p>`:""}</div>`:"";
+  // 评分口径：新记录按山东春考标准（语文45 / 英语10）；旧记录为百分制
+  const newStd=r.scale==="ck45"||r.scale==="ck10";
+  const maxV=newStd?(isEn?10:45):100;
+  const scaleLabel=newStd?(isEn?"英语职场写作 · 春考标准 10 分制":"语文作文 · 春考标准 45 分制"):(isEn?"英语写作 · 旧版百分制":"语文作文 · 旧版百分制");
+  const bandHtml=newStd&&r.band?`<span class="st ${r.total>=maxV*0.8?"ok":r.total>=maxV*0.6?"":"no"}">${esc(r.band)}</span>`:"";
+  const bandRef=!isEn?`<div style="margin-top:10px;font-size:12px;line-height:1.9;background:#f4f6fa;border-radius:8px;padding:8px 12px"><b>春考语文作文评分对照（满分45分）：</b>一等36—45（立意深刻·中心突出·内容充实·结构严谨·语言流畅）；二等30—35（立意明确·中心较突出·内容较充实·结构完整·语言通顺）；三等24—29（立意基本明确·中心不够突出·内容不够充实·结构基本完整·语言基本通顺）；四等23分以下（立意不明确·中心模糊·内容空洞·结构不完整·语言不通顺）。说明：字数不足700字每少50字扣1分；字迹潦草、卷面不整洁酌情扣1—3分。</div>`
+    :`<div style="margin-top:10px;font-size:12px;line-height:1.9;background:#f4f6fa;border-radius:8px;padding:8px 12px"><b>春考英语职场写作评分对照（满分10分）：</b>第一档10分（覆盖所有要点·内容充实·表达清楚·语法词汇准确·80—120词）；第二档7—9分（覆盖大部分要点·内容基本充实·错误较少·不少于60词）；第三档4—6分（覆盖部分要点·内容不够充实·错误较多·不少于40词）；第四档1—3分（覆盖很少要点·内容极不充实·表达不清楚）；0分（暴露真实身份或无有效信息）。说明：书写较差降一个档次。</div>`;
+  box.innerHTML=`<div class="card">
+    <h3>📊 评分结果 <span class="muted" style="font-weight:400;font-size:12px">${scaleLabel}（非真人批改，供自测参考）</span></h3>
+    <div style="display:flex;align-items:baseline;gap:10px;margin:8px 0"><span style="font-size:38px;font-weight:800;color:${r.total>=maxV*0.8?"#16a34a":r.total>=maxV*0.6?"#d97706":"#dc2626"}">${r.total}</span><span class="muted">/ ${maxV} 分</span>
+    ${bandHtml}
+    ${newStd?"":`<span class="st ${r.total>=80?"ok":r.total>=60?"":"no"}">${r.total>=80?"✅ 优秀":r.total>=60?"⚠️ 及格线附近":"❌ 需加强"}</span>`}</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px">
+      ${dims.map(([n,v,m])=>`<div style="background:#f4f6fa;border-radius:8px;padding:8px 10px;text-align:center"><div class="muted" style="font-size:12px">${n}</div><div style="font-size:20px;font-weight:700">${v}<span class="muted" style="font-size:12px">/ ${m}</span></div></div>`).join("")}
+    </div>
+    ${bandRef}
+    ${r.comment?`<p style="margin-top:10px">💬 ${esc(r.comment)}</p>`:""}
+    ${r.advice?`<p><b>提分建议：</b>${esc(r.advice)}</p>`:""}
+    ${ai}
+  </div>`;
+  box.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function wzAiScore(r){
+  if(IS_MOBILE){toast("手机版暂不支持联网AI评分（电脑版可用），已按本地评分显示");r.ai=null;wzShowResult(r);return}
+  const cfg=cfgLoad();
+  const key=(cfg.wzAiKey||"").trim();
+  const isEn=r.lang==="en";
+  const req=(r.req||"").trim();
+  const reqSeg=req?`【本次作文题目与要求】${req}\n请务必先对照题目要求核对作文：是否扣题、是否遗漏要求中的要点，并在“fit”（切题得分0-10）与“fitNote”（切题说明，指出是否跑题/漏要点，50字内）中体现。若作文明显跑题或遗漏关键要求，总得分必须相应下调。\n`:`【注意】未提供作文题目要求，无法核对切题度，请将“fit”置为0并在“fitNote”注明「未提供题目要求，未做切题核对」。\n`;
+  const prompt=(isEn
+    ?`你是一名山东春季高考英语阅卷老师。请按春考职场写作评分标准（满分10分，四档）给学生作文打分：第一档10分（覆盖所有要点、内容充实、表达清楚意思连贯、语法结构和词汇准确、80-120词）；第二档7-9分（覆盖大部分要点、内容基本充实、表达较清楚、语法拼写标点错误较少、不少于60词）；第三档4-6分（覆盖部分要点、内容不够充实、错误较多、不少于40词）；第四档1-3分（覆盖很少要点、内容极不充实、表达不清楚）；0分（暴露真实身份或无有效信息）。书写较差降一个档次。${reqSeg}请严格输出 JSON：{"score":0-10整数,"band":"第一档/第二档/第三档/第四档","content":整数,"lang":整数,"structure":整数,"std":整数,"fit":0-10整数,"fitNote":"切题说明(中文,50字内)","comment":"总体评语(中文,60-120字)","advice":"具体提分建议(中文,60-120字)"}。不要输出其他内容。作文：${r.t.slice(0,3000)}`
+    :`你是一名山东春季高考语文阅卷老师。请按春考语文作文评分标准（满分45分）给学生作文打分：一等36-45分（立意深刻、中心突出、内容充实、结构严谨、语言流畅、有文采）；二等30-35分（立意明确、中心较突出、内容较充实、结构完整、语言通顺）；三等24-29分（立意基本明确、中心不够突出、内容不够充实、结构基本完整、语言基本通顺）；四等23分以下（立意不明确、中心模糊、内容空洞、结构不完整、语言不通顺）。说明：字数不足700字每少50字扣1分；字迹潦草卷面不整洁酌情扣1-3分，不能进入一类卷。${reqSeg}请严格输出 JSON：{"score":0-45整数,"band":"一等/二等/三等/四等","content":整数,"structure":整数,"lang":整数,"std":整数,"fit":0-10整数,"fitNote":"切题说明(中文,50字内)","comment":"总体评语(中文,60-120字)","advice":"具体提分建议(中文,60-120字)"}。不要输出其他内容。作文：${r.t.slice(0,3000)}`);
+  fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({provider:cfg.wzAiProvider||"deepseek",key,prompt})})
+    .then(x=>x.json()).then(d=>{
+      if(!d.ok)throw new Error(d.err||"AI接口错误");
+      let obj=null;try{obj=JSON.parse(d.reply)}catch(e){const m=d.reply.match(/\{[\s\S]*\}/);if(m)try{obj=JSON.parse(m[0])}catch(e2){}}
+      if(!obj||!obj.score){throw new Error("AI返回格式异常")}
+      r.ai={score:obj.score,band:obj.band||"",fit:obj.fit!=null?obj.fit:null,fitNote:obj.fitNote||"",comment:obj.comment||"",advice:obj.advice||""};
+      const hist=wzHist();
+      const idx=hist.findIndex(h=>h.at===r.at&&h.t===r.t);
+      if(idx>=0){hist[idx]=r;wzHistSave(hist)}
+      wzShowResult(r);
+    }).catch(e=>toast("AI评分失败："+e.message+"（可在设置中检查 Key 与网络）"));
+}
+
+/* 语文作文本地评分：客观指标（字数/段落/连接词/标点）；最终分数按山东春考标准 45 分制换算 */
+function wzScoreCn(t){
+  const s=(t||"").trim();
+  const chars=(s.replace(/\s+/g,"")||"").length;
+  const paras=s.split(/\n+/).map(x=>x.trim()).filter(Boolean).length;
+  const sents=(s.match(/[。！？!?]+/g)||[]).length;
+  const connectors=["首先","其次","然后","接着","最后","总之","然而","但是","因此","所以","不仅","而且","一方面","另一方面"].filter(w=>s.includes(w)).length;
+  const punctErr=(s.match(/[，。；]{2,}/g)||[]).length;
+  let content=30,structure=25,lang=25,std=20;
+  if(chars<200){content=12}else if(chars<300){content=20}else if(chars<500){content=26}else{content=30}
+  if(chars>1000)content=28;
+  if(paras<=1){structure=14}else if(paras===2){structure=18}else if(paras<=5){structure=24}else{structure=21}
+  if(paras>1&&sents>=3)structure=Math.min(25,structure+1);
+  lang=15+Math.min(10,connectors*3);
+  if(chars>=300&&sents>=4)lang=Math.min(25,lang+2);
+  std=Math.max(8,20-punctErr*2);
+  if(sents===0)std=Math.max(6,std-4);
+  const percent=Math.max(0,Math.min(100,content+structure+lang+std));
+  // 春考换算：满分45；字数不足700字每少50字扣1分
+  let score45=Math.round(percent/100*45);
+  if(chars<700)score45=Math.max(0,score45-Math.floor((700-chars)/50));
+  const band=score45>=36?"一等（36—45分）":score45>=30?"二等（30—35分）":score45>=24?"三等（24—29分）":"四等（23分以下）";
+  const comment=`共约 ${chars} 字、${paras} 段、${sents} 句；连接词 ${connectors} 处${punctErr?"、标点连用 "+punctErr+" 处":""}。${chars<700?"字数不足700字（每少50字扣1分）；":""}${paras<=1?"全文只有一段，层次不清晰；":""}${connectors<2?"缺少过渡词，行文衔接生硬；":""}${std<18?"标点规范需要加强；":""}${chars>=700&&paras>=3&&connectors>=2?"字数、段落、过渡词均达标，注意打磨立意与文采冲一等卷；":""}`;
+  const advice=[];
+  if(chars<700)advice.push("春考要求不少于700字，当前"+chars+"字，务必补足到700字以上");
+  if(paras<=2)advice.push("分成 3—5 段：开头点题、中间分论、结尾总结");
+  if(connectors<2)advice.push("多用「首先/其次/然而/总之」等过渡词，让层次更清楚");
+  if(std<18)advice.push("检查标点，避免句号逗号连用，段末用句号");
+  if(paras>1&&sents>=3&&chars>=700)advice.push("整体结构完整，可进一步打磨开头与结尾的感染力");
+  return {total:score45,band,scale:"ck45",content,structure,langS:lang,std,comment,advice:advice.join("；")};
+}
+
+/* 英语写作本地评分：词数/句型/连接词/规范；最终分数按山东春考标准 10 分制（四档）换算 */
+function wzScoreEn(t){
+  const s=(t||"").trim();
+  const words=(s.match(/[a-zA-Z']+/g)||[]);
+  const nw=words.length;
+  const sents=s.split(/[.!?]+/).map(x=>x.trim()).filter(Boolean);
+  const ns=sents.length;
+  const capStart=sents.filter(x=>/^[A-Z]/.test(x)).length;
+  const connectors=["first","second","third","then","next","finally","however","therefore","but","and","because","in conclusion","in addition","on the other hand","what's more","moreover"].filter(w=>s.toLowerCase().includes(w)).length;
+  const avg=nw&&ns?Math.round(nw/ns*10)/10:0;
+  let content=30,structure=20,lang=30,std=20;
+  if(nw<50){content=14}else if(nw<80){content=22}else if(nw<130){content=27}else{content=30}
+  if(nw>250)content=28;
+  if(ns<=1){structure=10}else if(ns<=2){structure=14}else if(ns<=6){structure=19}else{structure=20}
+  lang=18+Math.min(12,connectors*2);
+  if(ns>=3&&avg>=6&&avg<=18)lang=Math.min(30,lang+2);
+  if(ns&&capStart!==ns)std-=Math.min(8,Math.round((ns-capStart)*3));
+  if(nw&&!s.trim().endsWith(".")&&!s.trim().endsWith("!")&&!s.trim().endsWith("?"))std=Math.max(6,std-2);
+  const percent=Math.max(0,Math.min(100,content+structure+lang+std));
+  // 春考四档换算：第一档10 / 第二档7-9（>=60词）/ 第三档4-6（>=40词）/ 第四档1-3
+  let score,band;
+  if(nw<40){score=percent>=60?3:percent>=40?2:1;band="第四档（1—3分）· 词数不足40，内容未展开";}
+  else if(nw<60){score=4+Math.round(percent/100*2);band="第三档（4—6分）";}
+  else if(nw<80){score=7+Math.round(percent/100*2);band="第二档（7—9分）";}
+  else if(nw<=120){score=percent>=85?10:percent>=70?9:8;band=score===10?"第一档（10分）":"第一档线内（10分封顶），语言/内容仍有瑕疵";}
+  else{score=Math.min(8,7+Math.round(percent/100*1));band="第二档（7—9分）· 词数超过120，超出范围酌情降档";}
+  const comment=`共 ${nw} 词、${ns} 句、平均每句 ${avg} 词；连接词 ${connectors} 处；句首大写 ${ns?capStart+"/"+ns:0}。${nw<80?"词数偏少，内容展开不足；":""}${ns<=2?"句子太短太少，结构单薄；":""}${connectors<2?"缺少连接词，行文跳跃；":""}${ns&&capStart!==ns?"有句首未大写或句末缺标点；":""}${nw>=80&&nw<=120&&ns>=4?"词数达标、结构完整，注意要点覆盖与书写工整（书写差会降档）；":""}`;
+  const advice=[];
+  if(nw<80)advice.push("春考写作要求80—120词，当前"+nw+"词，需补足到80词以上并覆盖题目要点");
+  if(ns<=3)advice.push("用 and/but/because/however 连接成 4—6 句的完整段落");
+  if(connectors<2)advice.push("加入 First/In addition/Finally 等过渡词");
+  if(ns&&capStart!==ns)advice.push("检查每句首字母大写与句末标点");
+  if(nw>=80&&ns>=4)advice.push("词数达标，可尝试使用定语从句等复杂句式、确保覆盖全部要点冲第一档");
+  return {total:score,band,scale:"ck10",content,structure,langS:lang,std,comment,advice:advice.join("；")};
+}
+</script>
+</body>
+</html>
