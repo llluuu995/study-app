@@ -977,7 +977,7 @@ function renderPath(){
   const qq=$("#qpQuit");if(qq)qq.onclick=quitApp;
   const gx=$("#guideX");if(gx)gx.onclick=()=>{localStorage.setItem("zsb_guide","1");const g=$("#guideCard");if(g)g.remove()};
 }
-const APP_VERSION="v2.49.2（2026-10-26）";
+const APP_VERSION="v2.49.3（2026-10-26）";
 // 更新源（免服务器方案）：把 update.json 上传到任一免费托管后，把「直链」填到这里。
 // 对方打开软件点「🔄 检查更新」→ 有新版本就显示更新内容+下载链接。
 // 部署指引见项目内：更新部署\如何部署更新服务器.txt（5分钟即可，无需买服务器）。
@@ -986,6 +986,9 @@ const UPDATE_URL_ALT="https://ghfast.top/https://raw.githubusercontent.com/llluu
 const UPDATE_URL_ALT2="https://gh-proxy.com/https://raw.githubusercontent.com/llluuu995/update/main/update.json"; // 镜像2（实时回源）
 /* 注：jsDelivr CDN 有缓存延迟（更新后最长数小时才刷新），会造成「检查更新」读到旧版本误报已最新，故不再作为更新源 */
 const APP_LOG=[
+  {v:"v2.49.3（2026-10-26）",items:[
+    "修复：拍照识别报「No module named 'ch_ppocr_v3_det'」识别异常——打包时遗漏新版 OCR 引擎的三个子模块（ch_ppocr_v2_cls/ch_ppocr_v3_det/ch_ppocr_v3_rec），已补入安装包，拍照识别恢复正常。",
+  ]},
   {v:"v2.49.2（2026-10-26）",items:[
     "作文评分加固：新增「🎯 切题核对」——在「作文要求/题目」栏填写题目后，评分会自动抽取题目关键词核对文章是否扣题；明显跑题/不符合题目要求的，总分按切题度自动下调，并给出重写建议（不填题目则不核对）。",
     "作文评分加固：英语评分新增语种检测——上传/粘贴中文文章会被识别为「不是英语作文」，直接判 0 分并提示切换语文评分，不再给错分。",
