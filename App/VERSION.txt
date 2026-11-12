@@ -1,0 +1,3 @@
+v2.57.0 (2026-11-12)
+index.html bytes=405190 md5=ab8d6c2402
+features: why-tags / wb-priority / battle / focus / heatmap / old-opponent / predict
