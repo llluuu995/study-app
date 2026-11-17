@@ -1410,7 +1410,7 @@ function renderPath(){
   const he=$("#hubSetExam");if(he)he.onclick=renderSettings;
   $$("[data-weak]").forEach(b=>b.onclick=()=>{const id=b.dataset.weak;if(id)openChapter(id)});
 }
-const APP_VERSION="v2.66.0（2026-11-17）";
+const APP_VERSION="v2.67.0（2026-11-17）";
 /* 全库题库快照（每次扩库后随打包同步更新，仅用于展示） */
 const BANK_SNAP={total:12344,ans:6533,noans:5811,src:491};
 // 更新源（免服务器方案）：把 update.json 上传到任一免费托管后，把「直链」填到这里。
@@ -1421,6 +1421,11 @@ const UPDATE_URL_ALT="https://ghfast.top/https://raw.githubusercontent.com/llluu
 const UPDATE_URL_ALT2="https://gh-proxy.com/https://raw.githubusercontent.com/llluuu995/update/main/update.json"; // 镜像2（实时回源）
 /* 注：jsDelivr CDN 有缓存延迟（更新后最长数小时才刷新），会造成「检查更新」读到旧版本误报已最新，故不再作为更新源 */
 const APP_LOG=[
+  {v:"v2.67.0（2026-11-17）",items:[
+    "⏱ 新增「全真考试模式」（模拟卷页一键开关）：做题时看不到答案按钮、点选项只标记不显示对错、可反复改选，倒计时结束自动交卷统一判分——和真考场完全一样。随机组卷和真题原卷都生效；多选/官方未附答案题考试模式下按 0 分计并如实提示。",
+    "🖨 新增「导出打印版」（卷面底部与交卷页都有）：一键把当前这套卷生成打印版——试题卷在前（主观题带作答横线）、参考答案与解析单独一页分页隔离，电脑版自动存到「文档/专升本打印卷」文件夹并打开，可直接打印或另存 PDF，纸质作答后对照答案页批改。",
+    "🧾 交卷结果页新增考试模式提示：多选/无答案题的计分口径如实写明，不藏口径。"],
+  },
   {v:"v2.66.0（2026-11-17）",items:[
     "🧭 结构大手术·错位题全归位：数学章节列表里混着的 3 个非数学卷共 118 题已各回各科——2024春考英语真题整卷（55题）、2027春考英语百套卷（40题）迁入英语专栏（新增⑫整卷章节），2027春考语文百套卷（23题）迁入语文。数学库里再也刷不到语文英语题。",
     "🔄 题库内部换位：B118 语文库里的 63 道数学题（分科关键词误判所致）已全部迁回数学库。",
@@ -4698,12 +4703,16 @@ function renderSjHome(){
       <div class="muted" style="margin-top:10px;font-size:12px">题量（${cfgLoad().sjLong==="1"?"加长卷":"真卷模板"}）：${["cn","math","en"].map(s=>{const d=sjVolOf(type,s);if(!d)return "";return (s==="cn"?"语":s==="math"?"数":"英")+" "+d.volNewN+" 题 / "+d.full+" 分"}).join(" · ")}</div></div>`).join("")}
   </div>
   ${(()=>{const fx=sjFixedList();if(!fx.length)return "";return `<div class="card"><h3>📜 历年真题原卷（整套原序作答）</h3><div class="muted" style="margin:4px 0 8px">不随机抽题、不打乱顺序——按官方原卷从头到尾整套做，交卷出分并记模考档案。共 ${fx.length} 套。</div><div class="brow wrap">${fx.map((f,i)=>`<button class="btn" data-fx="${i}">📜 ${f.ch.title}（${f.ch.pool.length}题）</button>`).join("")}</div></div>`})()}
+  <div class="card"><h3>⏱ 全真考试模式 ${cfgLoad().sjExam==="1"?"<b style='color:#0a8a5f'>已开启</b>":"（默认关闭）"}</h3>
+  <div class="brow wrap"><button class="btn${cfgLoad().sjExam==="1"?" pri":""}" data-exam="1">开启（严肃模考）</button><button class="btn${cfgLoad().sjExam==="1"?"":" pri"}" data-exam="0">关闭</button></div>
+  <p class="muted" style="margin:6px 0 0;font-size:12px">开启后做题时<b>看不到答案按钮、点选项不显示对错</b>，倒计时结束自动交卷统一判分——和真考场一样，随机组卷与真题原卷都生效。卷面新增「🖨 导出打印版」，可打印或另存 PDF 纸质作答。</p></div>
   <div class="card" id="sjHistCard" style="display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer">
     <div><b>📈 我的模考档案</b><div class="muted" style="font-size:12px;margin-top:4px">${sjHistTip()}</div></div><div style="color:var(--sub);font-size:18px">›</div>
   </div>
   <div class="card"><p class="muted" style="margin:0">⚠️ 题库对应题型不足时，会按现有题量全数收录并在卷面如实标注「题库仅X题」，不凑数不编题。</p></div>`;
   $$("[data-sj]").forEach(b=>b.onclick=()=>genSjPaper(b.dataset.sj));
   $$("[data-fx]").forEach(b=>b.onclick=()=>genSjPaperFixed(sjFixedList()[+b.dataset.fx]));
+  $$("[data-exam]").forEach(b=>b.onclick=()=>{const c=cfgLoad();c.sjExam=b.dataset.exam;cfgSave(c);renderSjHome()});
   const hc=$("#sjHistCard");if(hc)hc.onclick=renderSjHist;
 }
 /* 真题原卷：整卷原序作答（不抽题、不打乱），复用模拟卷渲染与判分管线 */
@@ -4720,7 +4729,7 @@ function genSjPaperFixed(src){
   const fill=pool.filter(sjIsFill),read=pool.filter(sjIsReadQ),solve=pool.filter(sjIsSolve),essay=pool.filter(sjIsEssay);
   const d={name:src.ch.title,fixed:true,choiceN:choice.length,choiceP:2,fillN:fill.length,fillP:2,readN:read.length,readP:4,readChoiceN:readChoice.length,readChoiceP:2,solveN:solve.length,solveP:6,essayN:essay.length,essayP:20,time:Math.max(60,Math.round(pool.length*1.5/5)*5)+"分钟",volUp:false,volOldN:pool.length,volNewN:pool.length};
   d.full=Math.round(((choice.length+embed.length+readChoice.length)*2+fill.length*2+read.length*4+solve.length*6+essay.length*20)*10)/10;
-  window._sj={key:"fixed-"+src.ch.id,type:"ck",subj:src.subj,def:d,ckType:"真题原卷",bank:pool,choice,embed,fill,read,readChoice,solve,essay,score:0,done:0,right:0,total:0,marked:{},seq:[],fixed:src};
+  window._sj={key:"fixed-"+src.ch.id,type:"ck",subj:src.subj,def:d,ckType:"真题原卷",bank:pool,choice,embed,fill,read,readChoice,solve,essay,score:0,done:0,right:0,total:0,marked:{},seq:[],fixed:src,exam:cfgLoad().sjExam==="1"};
   paintSj();
 }
 function genSjPaper(key){
@@ -4737,7 +4746,7 @@ function genSjPaper(key){
   const solve=sjDraw(bank,sjIsSolve,def.solveN||0,used);
   const essay=sjDraw(bank,sjIsEssay,def.essayN||0,used);
   if(!choice.length&&!fill.length&&!read.length&&!readChoice.length&&!solve.length&&!essay.length){toast("该科目题库暂无可组卷的题");return}
-  window._sj={key,type,subj,def,ckType,bank,choice,embed,fill,read,readChoice,solve,essay,score:0,done:0,right:0,total:0,marked:{},seq:[]};
+  window._sj={key,type,subj,def,ckType,bank,choice,embed,fill,read,readChoice,solve,essay,score:0,done:0,right:0,total:0,marked:{},seq:[],exam:cfgLoad().sjExam==="1"};
   paintSj();
 }
 function paintSj(){
@@ -4779,14 +4788,17 @@ function paintSj(){
   <div class="card sj-foot"><div class="brow wrap">
     <button class="btn pri" id="sjSubmit">📋 交卷评分</button>
     <button class="btn" id="sjAgain">🎲 再组一套</button>
+    <button class="btn" id="sjPrint">🖨 导出打印版</button>
     <button class="btn" id="sjBack">返回模拟卷首页</button>
   </div></div>`;
   applyMath($("#main"));
   window._sjChoiceItems=choiceItems;
+  if(s.exam){$$("#main .sjcalc").forEach(b=>{b.style.display="none"});}
   $$("#main .sjopt").forEach(b=>b.onclick=()=>sjJudgeChoice(+b.dataset.i,b.dataset.k));
   $$("#main .sjcalc").forEach(b=>b.onclick=()=>sjShowCalc(+b.dataset.i));
   const ag=$("#sjAgain");if(ag)ag.onclick=()=>window._sj.fixed?genSjPaperFixed(window._sj.fixed):genSjPaper(s.key);
   const bk=$("#sjBack");if(bk)bk.onclick=renderSjHome;
+  const pr=$("#sjPrint");if(pr)pr.onclick=sjPrint;
   const sm=$("#sjSubmit");if(sm)sm.onclick=sjSubmit;
   // v2.53.0 整卷计时：按卷面建议时间倒计时，最后 5 分钟转红，超时只提示不强制交卷
   if(window._sjTimer){clearInterval(window._sjTimer);window._sjTimer=null}
@@ -4799,7 +4811,10 @@ function paintSj(){
     const sec=Math.floor((Date.now()-s.start)/1000);
     if(!lim){el.textContent="⏱ "+fsec(sec);return}
     const left=lim-sec;
-    if(left<=0){el.textContent="⏰ 已超时 +"+fsec(-left);el.style.color="#d93a3a";return}
+    if(left<=0){
+      if(s.exam){clearInterval(window._sjTimer);window._sjTimer=null;toast("⏰ 时间到，自动交卷");sjSubmit();return}
+      el.textContent="⏰ 已超时 +"+fsec(-left);el.style.color="#d93a3a";return
+    }
     el.textContent="⏱ 剩余 "+fsec(left);
     el.style.color=left<=300?"#d93a3a":"var(--blue)";
   };
@@ -4808,6 +4823,17 @@ function paintSj(){
 function subjName(s){return s==="cn"?"语文":s==="math"?"数学":"英语"}
 function sjJudgeChoice(i,k){
   const s=window._sj;
+  /* 全真考试模式：只标记选择，不判分不显对错，交卷统一判 */
+  if(s.exam){
+    const item0=window._sjChoiceItems[i];if(!item0)return;
+    const card0=$$("#main .sjq")[i];
+    const btns0=card0?card0.querySelectorAll(".sjopt"):[];
+    s.examAns=s.examAns||{};s.examAns[i]=k;
+    btns0.forEach(b=>b.classList.toggle("sel",b.dataset.k===k));
+    const a0=card0?card0.querySelector(".sjans"):null;
+    if(a0){a0.innerHTML=`<span class="muted">已选 <b>${esc(k)}</b>（全真考试模式：交卷后统一判分，可改选）</span>`;a0.classList.add("show");}
+    return;
+  }
   if(s.marked["c"+i])return;
   const item=window._sjChoiceItems[i];if(!item)return;
   s.marked["c"+i]=1;
@@ -4939,8 +4965,41 @@ function renderSjHist(){
   const bk=$("#sjHistBack");if(bk)bk.onclick=renderSjHome;
   const cl=$("#sjHistClr");if(cl)cl.onclick=()=>{if(confirm("确定清空全部模考档案？此操作不可恢复。")){sjHistSave([]);renderSjHist()}};
 }
+/* 导出打印版：试题卷 + 分离答案解析页；电脑版走后端存盘并打开，其余端降级新窗口打印 */
+function sjPrint(){
+  const s=window._sj;if(!s||!s.seq||!s.seq.length){toast("请先生成一套卷");return}
+  const escH=t=>String(t==null?"":t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  let h="<!DOCTYPE html><html><head><meta charset='utf-8'><title>"+escH(s.def.name)+"</title><style>body{font-family:'SimSun',serif;font-size:14px;line-height:1.9;padding:28px;color:#000}h2{font-size:19px}.q{margin:12px 0}.opts{margin:6px 0 0 20px}.pb{page-break-before:always}.mut{color:#444;font-size:12px}@media print{.nop{display:none}}</style></head><body>";
+  h+="<div class='nop' style='margin-bottom:10px'><button onclick='window.print()' style='padding:8px 18px'>🖨 打印 / 另存 PDF</button></div>";
+  h+="<h2>"+escH(s.def.name)+"</h2><p class='mut'>满分："+s.total+" 分　建议时间："+escH(s.def.time)+"　　姓名：__________　班级：__________　得分：__________</p>";
+  s.seq.forEach((row,i)=>{const item=row.item;h+="<div class='q'><b>"+(i+1)+".</b> "+escH(item.q)+"</div>";if(item.opts&&Object.keys(item.opts).length>=2){h+="<div class='opts'>"+Object.entries(item.opts).map(([k,v])=>escH(k)+". "+escH(v)).join("　　")+"</div>"}else{h+="<div class='opts'>答：______________________________________________________</div>"}});
+  h+="<div class='pb'><h2>参考答案与解析</h2>";
+  s.seq.forEach((row,i)=>{const item=row.item;const a=item.ans?String(item.ans):"来源未提供";const av=item.opts&&item.opts[a]?escH(item.opts[a]):escH(a);h+="<div class='q'><b>"+(i+1)+".</b> "+av+(item.note?"<br><span class='mut'>"+escH(item.note)+"</span>":"")+"</div>"});
+  h+="</div></body></html>";
+  const nm=(s.def.name||"打印卷").replace(/[\\/:*?"<>|\s]+/g,"_");
+  fetch("/api/print",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:nm,html:h})}).then(r=>r.json()).then(o=>{
+    if(o&&o.ok){toast("已导出并打开打印版："+o.path)}
+    else{const w=window.open("","_blank");if(w){w.document.write(h);w.document.close();w.focus()}else toast("当前端不支持导出，请在电脑版使用")}
+  }).catch(()=>{const w=window.open("","_blank");if(w){w.document.write(h);w.document.close();w.focus()}else toast("当前端不支持导出，请在电脑版使用")});
+}
 function sjSubmit(){
   const s=window._sj;
+  /* 全真考试模式：交卷时统一判分（多选/官方未附答案题无法逐项自评，按 0 分计并如实提示） */
+  if(s.exam&&!s._examJudged){
+    s._examJudged=1;let unJudge=0;
+    (window._sjChoiceItems||[]).forEach((item,i)=>{
+      const k=(s.examAns||{})[i];if(!k)return;
+      const _a=item.ans?String(item.ans).trim():"";
+      const _ph=/^(来源未提供|未提供|答案未提供|暂无|略|—|-|无|官方样题未附答案.*)$/.test(_a);
+      const _multi=/^[A-E]{2,}$/.test(_a);
+      if(_a&&!_ph&&!_multi){
+        const ok=k===item.ans;s.res=s.res||{};s.res[i]=ok?1:0;
+        if(ok){s.score+=item._pts||0;s.right++}
+        else{wbAdd(s.ckType,item._t||s.subj+"·选择题",item.q,(item.opts||{})[k]||k,(item.opts||{})[item.ans]||item.ans,"全真模考答错收录"+(item.note?"；"+item.note:""))}
+      }else unJudge++;
+    });
+    if(unJudge>0)s._examNote="本卷有 "+unJudge+" 道多选/官方未附答案题，考试模式下无法逐项自评，已按 0 分计入（可回查答案）。";
+  }
   if(window._sjTimer){clearInterval(window._sjTimer);window._sjTimer=null}
   const used=s.start?Math.floor((Date.now()-s.start)/1000):0;
   const um=Math.floor(used/60),us=used%60;
@@ -4982,10 +5041,12 @@ function sjSubmit(){
     <p>正确率 ${pct}% · 本卷评级：<b>${g} 级</b></p>
     ${timeLine?`<p class="muted">${timeLine}</p>`:""}
     <p class="muted">${cmpLine}</p>
+    ${s._examNote?`<p class="muted">⚠️ ${s._examNote}</p>`:""}
     <p class="muted">该科目历史最高 ${bestSame}%（含本次）· 累计模考 ${hist.length} 次</p>
     <p class="muted">答错的题已自动进错题本；选择题点选项即判，填空/解答/写作按你的自评计分。</p>
     <div class="brow" style="justify-content:center;margin-top:14px">
       <button class="btn pri" id="sjAgain2">🎲 再组一套</button>
+      <button class="btn" id="sjPrint2">🖨 导出打印版</button>
       <button class="btn" id="sjHist2">📈 模考档案</button>
       <button class="btn" id="sjBack2">返回模拟卷首页</button>
       <button class="btn" id="sjWrong2">❌ 查看错题本</button>
@@ -4994,6 +5055,7 @@ function sjSubmit(){
   <div class="card"><h3>📊 本卷题型诊断</h3>${diagHtml}</div>`;
   const ag=$("#sjAgain2");if(ag)ag.onclick=()=>window._sj.fixed?genSjPaperFixed(window._sj.fixed):genSjPaper(s.key);
   const hi=$("#sjHist2");if(hi)hi.onclick=renderSjHist;
+  const pr2=$("#sjPrint2");if(pr2)pr2.onclick=sjPrint;
   const bk=$("#sjBack2");if(bk)bk.onclick=renderSjHome;
   const wr=$("#sjWrong2");if(wr)wr.onclick=renderWrong;
 }
