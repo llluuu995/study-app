@@ -410,6 +410,7 @@ h2.pg::after{content:"";flex:1;height:1px;margin-left:6px;background:linear-grad
 /* 数据兜底：任一数据文件加载失败（缺文件/语法错误/半途损坏）时，全局结构仍存在，界面不会白屏；
    各数据文件正常加载后会以真实数据覆盖下列默认空结构。 */
 window.CK_DATA=window.CK_DATA||{math_chapters:[],en_single:[],en_write:[],en_read:[],en2023_single:[],en2023_fill:[],en_new1:[],en_new2:[],en_new3:[],en_new4:[],cn_learn:[],cn_read:[],cn_modern:[],cn_write:[],cn_moxie:[],cn_pool:[],videos:{math:[],en:[],cn:[]}};
+window.CK_EN_PAPERS=window.CK_EN_PAPERS||[];
 window.DZ_DATA=window.DZ_DATA||{subj:"dz",cn_chapters:[]};
 window.JN_DATA=window.JN_DATA||{subj:"jn",cn_chapters:[]};
 window.APP_DATA=window.APP_DATA||{words:[],en:{cloze:[],trans:[],write:[]},math:{choice:[],fill:[],calc:[]},cn:{choice:[],fill:[],word:[],trans:[],read:[],write:[]},cn_sents:[],cn_wenyan:[],chapters:{vocab_chapters:[],phonetics:[],grammar:[],en:[],math_chapters:[],cn_chapters:[],videos:[]}};
@@ -836,6 +837,7 @@ function buildCkChapters(){
   en.push({id:"ck-e-mn20",subj:"en",title:"⑨ 英语知识运用·各地模拟34题",kind:"pool",desc:"34题·全带答案解析（学科网2027二轮专项卷B组：定语从句/固定搭配/情景交际/海报细节/特殊疑问词/日期/介词/There be/宾语从句/冠词/主动表被动/不定代词/副词/感叹句/并列连词/祈使句/非谓语/主谓一致/分数年龄/反意疑问/if主将从现）",n:0,target:10,pool:(CK.en_new2||[])});
   en.push({id:"ck-e-2026erm",subj:"en",title:"⑩ 2026春考英语二模·全卷（含答案）",kind:"pool",desc:"55题·全带答案解析（2026山东春季高考全省统一考试二模英语：单选25+阅读15+补全对话5+短文填空9+写作1附范文；原卷阅读第40题答案表转写缺失，如实标注『来源未提供』）",n:0,target:10,pool:(CK.en_new3||[])});
   en.push({id:"ck-e-2025full",subj:"en",title:"⑪ 2025春考英语真题·全卷（含答案）",kind:"pool",desc:"33题·全带答案解析（2025山东春考英语真题：单选25+阅读5+补全对话5+短文填空10+写作1；阅读B/C篇原卷图片材料未公开故未收录）",n:0,target:10,pool:(CK.en_new4||[])});
+  (window.CK_EN_PAPERS||[]).forEach((c,i)=>{en.push({id:"ck-e-paper-"+i,subj:"en",title:"⑫ "+c.title,kind:"pool",desc:(c.pool||[]).length+"题·整卷收录（"+(c.desc||"逐题标注来源")+"）",n:0,target:10,pool:c.pool||[]})});
   const math=[];
   const cn=CK.cn_learn.map((c,i)=>({id:c.id,subj:"cn",title:"⑦ 语文·"+c.title,kind:"learn",desc:"考点框架·按中职语文课标（专属题库已收录：见下文字音字形等真题训练卷）",n:0,items:c.items}));
   (CK.cn_pool||[]).forEach((c,i)=>cn.push({id:c.id,subj:"cn",title:"⑧ 语文·"+c.title,kind:"pool",desc:c.desc,n:0,target:10,pool:c.pool}));
@@ -1408,9 +1410,9 @@ function renderPath(){
   const he=$("#hubSetExam");if(he)he.onclick=renderSettings;
   $$("[data-weak]").forEach(b=>b.onclick=()=>{const id=b.dataset.weak;if(id)openChapter(id)});
 }
-const APP_VERSION="v2.65.2（2026-11-17）";
+const APP_VERSION="v2.66.0（2026-11-17）";
 /* 全库题库快照（每次扩库后随打包同步更新，仅用于展示） */
-const BANK_SNAP={total:12411,ans:6549,noans:5862,src:491};
+const BANK_SNAP={total:12344,ans:6533,noans:5811,src:491};
 // 更新源（免服务器方案）：把 update.json 上传到任一免费托管后，把「直链」填到这里。
 // 对方打开软件点「🔄 检查更新」→ 有新版本就显示更新内容+下载链接。
 // 部署指引见项目内：更新部署\如何部署更新服务器.txt（5分钟即可，无需买服务器）。
@@ -1419,6 +1421,12 @@ const UPDATE_URL_ALT="https://ghfast.top/https://raw.githubusercontent.com/llluu
 const UPDATE_URL_ALT2="https://gh-proxy.com/https://raw.githubusercontent.com/llluuu995/update/main/update.json"; // 镜像2（实时回源）
 /* 注：jsDelivr CDN 有缓存延迟（更新后最长数小时才刷新），会造成「检查更新」读到旧版本误报已最新，故不再作为更新源 */
 const APP_LOG=[
+  {v:"v2.66.0（2026-11-17）",items:[
+    "🧭 结构大手术·错位题全归位：数学章节列表里混着的 3 个非数学卷共 118 题已各回各科——2024春考英语真题整卷（55题）、2027春考英语百套卷（40题）迁入英语专栏（新增⑫整卷章节），2027春考语文百套卷（23题）迁入语文。数学库里再也刷不到语文英语题。",
+    "🔄 题库内部换位：B118 语文库里的 63 道数学题（分科关键词误判所致）已全部迁回数学库。",
+    "🧹 同章完全重复题清理 67 条（题干+选项+答案全同的冗余），题库 12411 → 12344，含答案 6533 / 无答案 5811，数字逐条可对。",
+    "📜 新增「历年真题原卷」整做模式（模拟卷页顶部）：不随机抽题、不打乱顺序，按官方原卷从头到尾整套作答——数学 2019/2021/2022/2023/2024/2025 六套真题 + 英语 2024 真题、2027 百套卷，交卷出分、评级、计入模考档案，做错的自动进错题本。"],
+  },
   {v:"v2.65.2（2026-11-17）",items:[
     "🧹 选项残文大清零：又有 430 条选项末尾混入「参考译文：」「答案详解：」「正确答案选项：」「【详解】【考点】【分析】」「故选：」等汇编解析文字（做选项时看着像小作文），已全部截断清掉；顺手剔除 1 条题干乱码的椭圆题。题库 12412 → 12411。",
     "📄 模拟卷题量改回「真卷模板」：之前按「题库越厚卷子越厚」规则组卷，语文一套能到 94 题，远超真实考卷。现默认严格按山东春考/单招正式卷面题量组卷；想刷厚卷可在「设置 → 模拟卷题量模式」一键切回「加长卷」。",
@@ -4648,6 +4656,7 @@ function sjBank(type){
     const enX=[CK.en_single,CK.en2023_single,CK.en_new1,CK.en_new2,CK.en_new3,CK.en_new4,CK.en2023_fill].filter(Boolean);
     /* 书面表达（邮件/演讲稿等写作题）并入英语作文池 */
     if(Array.isArray(CK.en_write)&&CK.en_write.length)enX.push({title:"春考英语书面表达真题",pool:CK.en_write});
+    if(Array.isArray(window.CK_EN_PAPERS))window.CK_EN_PAPERS.forEach(c=>{if(c&&(c.pool||[]).length)enX.push(c)});
     return SJ_BANK_CACHE[type]={cn:bySubj(cn,"cn"),en:bySubj(en.concat(enX),"en"),math:bySubj(math,"math")};
   }
   const cn=[],en=[],math=[];
@@ -4688,12 +4697,31 @@ function renderSjHome(){
       <div class="brow wrap">${["cn","math","en"].map(s=>`<button class="btn" data-sj="${type}-${s}">${s==="cn"?"📖 语文":s==="math"?"🔢 数学":"🇬🇧 英语"}</button>`).join("")}</div>
       <div class="muted" style="margin-top:10px;font-size:12px">题量（${cfgLoad().sjLong==="1"?"加长卷":"真卷模板"}）：${["cn","math","en"].map(s=>{const d=sjVolOf(type,s);if(!d)return "";return (s==="cn"?"语":s==="math"?"数":"英")+" "+d.volNewN+" 题 / "+d.full+" 分"}).join(" · ")}</div></div>`).join("")}
   </div>
+  ${(()=>{const fx=sjFixedList();if(!fx.length)return "";return `<div class="card"><h3>📜 历年真题原卷（整套原序作答）</h3><div class="muted" style="margin:4px 0 8px">不随机抽题、不打乱顺序——按官方原卷从头到尾整套做，交卷出分并记模考档案。共 ${fx.length} 套。</div><div class="brow wrap">${fx.map((f,i)=>`<button class="btn" data-fx="${i}">📜 ${f.ch.title}（${f.ch.pool.length}题）</button>`).join("")}</div></div>`})()}
   <div class="card" id="sjHistCard" style="display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer">
     <div><b>📈 我的模考档案</b><div class="muted" style="font-size:12px;margin-top:4px">${sjHistTip()}</div></div><div style="color:var(--sub);font-size:18px">›</div>
   </div>
   <div class="card"><p class="muted" style="margin:0">⚠️ 题库对应题型不足时，会按现有题量全数收录并在卷面如实标注「题库仅X题」，不凑数不编题。</p></div>`;
   $$("[data-sj]").forEach(b=>b.onclick=()=>genSjPaper(b.dataset.sj));
+  $$("[data-fx]").forEach(b=>b.onclick=()=>genSjPaperFixed(sjFixedList()[+b.dataset.fx]));
   const hc=$("#sjHistCard");if(hc)hc.onclick=renderSjHist;
+}
+/* 真题原卷：整卷原序作答（不抽题、不打乱），复用模拟卷渲染与判分管线 */
+function sjFixedList(){
+  const out=[];
+  (CK.math_chapters||[]).forEach(c=>{if(/真题·整卷|题面完整/.test(c.title||"")&&(c.pool||[]).length>=8)out.push({ch:c,subj:"math"})});
+  (window.CK_EN_PAPERS||[]).forEach(c=>{if((c.pool||[]).length>=8)out.push({ch:c,subj:"en"})});
+  return out;
+}
+function genSjPaperFixed(src){
+  if(!src||!src.ch){toast("未找到该套卷");return}
+  const pool=(src.ch.pool||[]).map(q=>Object.assign({_t:src.ch.title},q));
+  const choice=pool.filter(sjIsPlainChoice),embed=pool.filter(sjIsEmbedChoice),readChoice=pool.filter(sjIsReadChoice);
+  const fill=pool.filter(sjIsFill),read=pool.filter(sjIsReadQ),solve=pool.filter(sjIsSolve),essay=pool.filter(sjIsEssay);
+  const d={name:src.ch.title,fixed:true,choiceN:choice.length,choiceP:2,fillN:fill.length,fillP:2,readN:read.length,readP:4,readChoiceN:readChoice.length,readChoiceP:2,solveN:solve.length,solveP:6,essayN:essay.length,essayP:20,time:Math.max(60,Math.round(pool.length*1.5/5)*5)+"分钟",volUp:false,volOldN:pool.length,volNewN:pool.length};
+  d.full=Math.round(((choice.length+embed.length+readChoice.length)*2+fill.length*2+read.length*4+solve.length*6+essay.length*20)*10)/10;
+  window._sj={key:"fixed-"+src.ch.id,type:"ck",subj:src.subj,def:d,ckType:"真题原卷",bank:pool,choice,embed,fill,read,readChoice,solve,essay,score:0,done:0,right:0,total:0,marked:{},seq:[],fixed:src};
+  paintSj();
 }
 function genSjPaper(key){
   const [type,subj]=key.split("-");
@@ -4742,7 +4770,7 @@ function paintSj(){
   if(s.essay.length){
     secs.push(`<div class="card sjsec"><h3>五、写作（共 ${s.essay.length} 题，本卷每题按 ${d.essayP} 分计入）</h3>${short(s.essay,d.essayN)}<p class="muted" style="margin:4px 0;font-size:12px">说明：题库保留真题原题面分值（如真题75分/20分/10分），仅作题面原貌参考；本模拟卷统一按上方 ${d.essayP} 分计入总分。写作题为开放题，作答后对照「范文要点/参考立意」自评。</p>${s.essay.map((item,i)=>`<div class="qbox sjq"><div class="qstem"><span class="qno">${(choiceItems.length+s.fill.length+s.read.length+s.solve.length+i+1)}.</span>${richQ(item.q)}</div><div class="sjwrite"></div><div class="brow"><button class="btn sm sjcalc" data-i="${choiceItems.length+s.fill.length+s.read.length+s.solve.length+i}">📖 查看答案/范文要点</button></div><div class="qans sjans"></div></div>`).join("")}</div>`);
   }
-  $("#main").innerHTML=`<h2 class="pg">📄 ${d.name}（随机组卷）</h2>
+  $("#main").innerHTML=`<h2 class="pg">📄 ${d.name}${d.fixed?"（真题原卷·顺序作答）":"（随机组卷）"}</h2>
   <div class="card sj-head"><div class="brow wrap" style="gap:14px">
     <span><b>满分：</b>${d.full} 分（本卷实际 ${s.total} 分）</span><span><b>建议时间：</b>${d.time}</span><span id="sjClock" style="font-weight:700;color:var(--blue)">⏱ 00:00</span><span><b>已得分：</b><b class="sj-sc">${s.score}</b> / ${s.total}</span>
   </div>
@@ -4757,7 +4785,7 @@ function paintSj(){
   window._sjChoiceItems=choiceItems;
   $$("#main .sjopt").forEach(b=>b.onclick=()=>sjJudgeChoice(+b.dataset.i,b.dataset.k));
   $$("#main .sjcalc").forEach(b=>b.onclick=()=>sjShowCalc(+b.dataset.i));
-  const ag=$("#sjAgain");if(ag)ag.onclick=()=>genSjPaper(s.key);
+  const ag=$("#sjAgain");if(ag)ag.onclick=()=>window._sj.fixed?genSjPaperFixed(window._sj.fixed):genSjPaper(s.key);
   const bk=$("#sjBack");if(bk)bk.onclick=renderSjHome;
   const sm=$("#sjSubmit");if(sm)sm.onclick=sjSubmit;
   // v2.53.0 整卷计时：按卷面建议时间倒计时，最后 5 分钟转红，超时只提示不强制交卷
@@ -4950,7 +4978,7 @@ function sjSubmit(){
   $("#main").innerHTML=`<h2 class="pg">📄 交卷结果</h2>
   <div class="card" style="text-align:center;padding:26px">
     <div style="font-size:46px">${pct>=60?"🎉":"💪"}</div>
-    <h3>${s.ckType}·${subjName(s.subj)}模拟卷 · 得分 <b class="big">${s.score}</b> / ${s.total}</h3>
+    <h3>${s.ckType==="真题原卷"?s.def.name:s.ckType+"·"+subjName(s.subj)+"模拟卷"} · 得分 <b class="big">${s.score}</b> / ${s.total}</h3>
     <p>正确率 ${pct}% · 本卷评级：<b>${g} 级</b></p>
     ${timeLine?`<p class="muted">${timeLine}</p>`:""}
     <p class="muted">${cmpLine}</p>
@@ -4964,7 +4992,7 @@ function sjSubmit(){
     </div>
   </div>
   <div class="card"><h3>📊 本卷题型诊断</h3>${diagHtml}</div>`;
-  const ag=$("#sjAgain2");if(ag)ag.onclick=()=>genSjPaper(s.key);
+  const ag=$("#sjAgain2");if(ag)ag.onclick=()=>window._sj.fixed?genSjPaperFixed(window._sj.fixed):genSjPaper(s.key);
   const hi=$("#sjHist2");if(hi)hi.onclick=renderSjHist;
   const bk=$("#sjBack2");if(bk)bk.onclick=renderSjHome;
   const wr=$("#sjWrong2");if(wr)wr.onclick=renderWrong;
