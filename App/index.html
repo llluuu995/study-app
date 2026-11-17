@@ -5387,5 +5387,30 @@ function wzScoreEn(t,req){
   return {total:score,band,scale:"ck10",content,structure,langS:lang,std,comment,advice:advice.join("；"),noise,noiseWords:noise?wzNoiseWords().filter(w=>s.includes(w)).join("、"):"",langCheck:notEn,fit:fl.fit,fitNote:fl.note};
 }
 </script>
+<script>
+/* 后台自动更新状态条（只由桌面版 launcher 的 /api/update 驱动；浏览器直开时静默跳过） */
+(function(){
+  var el=null;
+  function bar(){
+    if(el) return el;
+    el=document.createElement("div");
+    el.id="updbar";
+    el.style.cssText="position:fixed;right:14px;bottom:14px;z-index:99999;background:#0f172a;color:#fff;padding:9px 13px;border-radius:10px;font-size:13px;line-height:1.55;box-shadow:0 8px 24px rgba(0,0,0,.28);max-width:330px;display:none";
+    document.body.appendChild(el);
+    return el;
+  }
+  function tick(){
+    fetch("/api/update").then(function(r){return r.json()}).then(function(d){
+      if(!d||!d.status) return;
+      var b=bar();
+      if(d.status==="downloading"){b.style.display="block";b.textContent="⬇ "+(d.msg||"正在下载新版本…");}
+      else if(d.status==="done"){b.style.display="block";b.textContent="✅ "+(d.msg||"已自动更新");setTimeout(function(){b.style.display="none"},5600);}
+      else if(d.status==="fail"){b.style.display="block";b.textContent="⚠ "+(d.msg||"更新失败，下次启动自动重试");setTimeout(function(){b.style.display="none"},6000);}
+    }).catch(function(){});
+  }
+  setTimeout(tick,2500);
+  setInterval(tick,4000);
+})();
+</script>
 </body>
 </html>
