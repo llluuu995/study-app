@@ -1,8 +1,8 @@
 {
-  "version": "v2.65.2",
+  "version": "v2.66.0",
   "zip": "update/data.zip",
-  "sha256": "59979e68bd2c0d58fffca1db0a4a0a8082dfdbc5b047e53bb23db4e39837bd6a",
-  "size": 4449923,
+  "sha256": "15d4848cb42abdc6d67c9d288f995a04c64c87c547a50baefa3eee92604058c5",
+  "size": 4440336,
   "files": 147,
-  "built": "v2.65.2（2026-11-17）"
+  "built": "v2.66.0（2026-11-17）"
 }
