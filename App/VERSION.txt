@@ -1,3 +1,4 @@
-v2.57.0 (2026-11-12)
-index.html bytes=405190 md5=ab8d6c2402
-features: why-tags / wb-priority / battle / focus / heatmap / old-opponent / predict
+v2.61.0 (2026-11-17)
+index.html bytes=419756 md5=b1186a3e0e
+features: bank-10165 / skill-chapter / sj-vol-dynamic / qgrid-ui
+题库: 10165 题（有答案 5949 / 无答案 4216）
