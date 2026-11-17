@@ -1407,9 +1407,9 @@ function renderPath(){
   const he=$("#hubSetExam");if(he)he.onclick=renderSettings;
   $$("[data-weak]").forEach(b=>b.onclick=()=>{const id=b.dataset.weak;if(id)openChapter(id)});
 }
-const APP_VERSION="v2.65.0（2026-11-17）";
+const APP_VERSION="v2.65.1（2026-11-17）";
 /* 全库题库快照（每次扩库后随打包同步更新，仅用于展示） */
-const BANK_SNAP={total:12428,ans:6604,noans:5824,src:491};
+const BANK_SNAP={total:12412,ans:6549,noans:5863,src:491};
 // 更新源（免服务器方案）：把 update.json 上传到任一免费托管后，把「直链」填到这里。
 // 对方打开软件点「🔄 检查更新」→ 有新版本就显示更新内容+下载链接。
 // 部署指引见项目内：更新部署\如何部署更新服务器.txt（5分钟即可，无需买服务器）。
@@ -1418,6 +1418,12 @@ const UPDATE_URL_ALT="https://ghfast.top/https://raw.githubusercontent.com/llluu
 const UPDATE_URL_ALT2="https://gh-proxy.com/https://raw.githubusercontent.com/llluuu995/update/main/update.json"; // 镜像2（实时回源）
 /* 注：jsDelivr CDN 有缓存延迟（更新后最长数小时才刷新），会造成「检查更新」读到旧版本误报已最新，故不再作为更新源 */
 const APP_LOG=[
+  {v:"v2.65.1（2026-11-17）",items:[
+    "🛠️ 第二轮深度排查，继续清数据层残瘤：又剔除 16 条 B118 里「选项两两重复」的乱码题（选项值只剩两种、根本没法选），总数 12428 → 12412。",
+    "🔧 占位答案再收口：技能/单招库里 65 条答案写成「官方样题未附答案」「来源未提供」这类占位文字，判分时会被当真实答案比对、永远判错。已统一置空，改为自评（和「无答案题」同一处理）。",
+    "🔠 多选答案规范化：36 条写成「A、B」「A、B、C」顿号分隔的多选题，判分系统认不出这种写法。统一转成「AB」「ABC」，并补上 E 选项的多选识别，现在多选题能正确提示「本题为多选，按自评计分」。",
+    "📏 同步修正统计口径：题库 12412 题，含答案 6549 / 无答案 5863，每个数都能在库里逐条对上。"],
+  },
   {v:"v2.65.0（2026-11-17）",items:[
     "🛠️ 这一版不加题，专门做一次全库体检和修复。把 13034 条题目逐条扫了一遍，查出四类真 bug，全部修掉。",
     "🧹 最大的一处：3828 条题的选项里混进了答案解析残留——本该是「D. 既不充分也不必要条件」，实际存成了「D. 既不充分也不必要条件 答案：A」。做题时选项里带着答案，等于白送分。已按「答案：」「【答案】」「考点」等标记统一截断，选项恢复干净。",
@@ -4761,8 +4767,8 @@ function sjJudgeChoice(i,k){
   const btns=card?card.querySelectorAll(".sjopt"):[];
   const pts=item._pts||0;
   const _a=item.ans?String(item.ans).trim():"";
-  const _ph=/^(来源未提供|未提供|答案未提供|暂无|略|—|-|无)$/.test(_a);
-  const _multi=/^[A-D]{2,}$/.test(_a);
+  const _ph=/^(来源未提供|未提供|答案未提供|暂无|略|—|-|无|官方样题未附答案.*)$/.test(_a);
+  const _multi=/^[A-E]{2,}$/.test(_a);
   if(_a&&!_ph&&!_multi){
     const ok=k===item.ans;
     s.res=s.res||{};s.res[i]=ok?1:0;
