@@ -1407,9 +1407,9 @@ function renderPath(){
   const he=$("#hubSetExam");if(he)he.onclick=renderSettings;
   $$("[data-weak]").forEach(b=>b.onclick=()=>{const id=b.dataset.weak;if(id)openChapter(id)});
 }
-const APP_VERSION="v2.64.0（2026-11-17）";
+const APP_VERSION="v2.65.0（2026-11-17）";
 /* 全库题库快照（每次扩库后随打包同步更新，仅用于展示） */
-const BANK_SNAP={total:12759,ans:6725,noans:6034,src:491};
+const BANK_SNAP={total:12428,ans:6604,noans:5824,src:491};
 // 更新源（免服务器方案）：把 update.json 上传到任一免费托管后，把「直链」填到这里。
 // 对方打开软件点「🔄 检查更新」→ 有新版本就显示更新内容+下载链接。
 // 部署指引见项目内：更新部署\如何部署更新服务器.txt（5分钟即可，无需买服务器）。
@@ -1418,6 +1418,15 @@ const UPDATE_URL_ALT="https://ghfast.top/https://raw.githubusercontent.com/llluu
 const UPDATE_URL_ALT2="https://gh-proxy.com/https://raw.githubusercontent.com/llluuu995/update/main/update.json"; // 镜像2（实时回源）
 /* 注：jsDelivr CDN 有缓存延迟（更新后最长数小时才刷新），会造成「检查更新」读到旧版本误报已最新，故不再作为更新源 */
 const APP_LOG=[
+  {v:"v2.65.0（2026-11-17）",items:[
+    "🛠️ 这一版不加题，专门做一次全库体检和修复。把 13034 条题目逐条扫了一遍，查出四类真 bug，全部修掉。",
+    "🧹 最大的一处：3828 条题的选项里混进了答案解析残留——本该是「D. 既不充分也不必要条件」，实际存成了「D. 既不充分也不必要条件 答案：A」。做题时选项里带着答案，等于白送分。已按「答案：」「【答案】」「考点」等标记统一截断，选项恢复干净。",
+    "🗑️ 17 条题含乱码符号（如「若a > ，c ∈R，则ac > 」），字符在 PDF 里就丢了，无法还原，直接剔除；另有 3 条截断后选项变空的也一并剔除，宁可少题不留废题。",
+    "🔁 311 条同章节内的完全重复题（题干、选项、答案三样全同）做了去重，同一道题不会在同一个章节里出现两次。题库总数因此从 12759 变为 12428（-331），这个数是清干净之后的真实值。",
+    "🐞 判分 bug 三处，以前会让题「怎么做都错」：一是答案写成「来源未提供」这种占位文本时，练习页会把它当有效答案去比对，结果永远判错并塞进错题本；二是多选题（参考答案 BCD）在随机组卷里按单选严格比对，点任何一个都算错。现在统一改成：答案不是有效选项字母时走自评，多选题明确标注「本题为多选题，参考答案 BCD，按自评计分」。",
+    "📏 统计口径也修了：以前「来源未提供」被算作「有答案」，导致含答案数虚高。现在只统计真正有答案的题——题库 12428 题，含答案 6604 / 无答案 5824，这个数字和题库内实际内容逐条对得上。",
+    "✅ 修复后重跑四端核验，绿色版/安装版/APK/zip 四份内嵌文件 md5 仍完全一致，30 项运行时自检全过。"],
+  },
   {v:"v2.64.0（2026-11-17）",items:[
     "🚀 题库再上一层：12637 → 12759 题（+122 题）。当前实测有参考答案 6725 题、无答案 6034 题；无答案题照收，答案栏留空不伪造。",
     "📈 这轮加 13 份有效卷（478 → 491 份源卷），切出 13658 条选项完整的原始题，按题干指纹去重掉 6713 条，净入库 122 条（语文 2617 / 数学 819 / 英语 1171 / 职业技能 2334）。",
@@ -2201,14 +2210,14 @@ function answerPoolQ(i,opts){
       $("#pa").appendChild(b);
     }
   };
-  if(!item.ans){
-    // 官方未公开答案：不判分，但提供自评 → 答错可进错题本
+  const ansStr=String(item.ans||"").toUpperCase().replace(/[^A-Z]/g,"");
+  if(!item.ans||!ansStr.length){
+    // 官方未公开答案（含「来源未提供」等占位文本）：不判分，但提供自评 → 答错可进错题本
     btns[i].classList.add("wrong");
     btns.forEach(b=>b.classList.add("dis"));
     selfJudge(item,opts[i]&&opts[i][1],item._subj||"math",(item._t||"数学")+"·选择题");
     return;
   }
-  const ansStr=String(item.ans||"").toUpperCase().replace(/[^A-Z]/g,"");
   const correct=ansStr.includes(String(opts[i][0]).toUpperCase());
   if(correct){btns[i].classList.add("correct");q.score++;st.right++;if(q.c.id==="redo"&&wbRemoveByQ(item.q))toast("✅ 已掌握，移出错题本");else if(q.c.id!=="redo")toast(ansStr.length>1?"✅ 答对（本题为多选，答案 "+ansStr+"）":"✅ 回答正确")}
   else{
@@ -2428,7 +2437,7 @@ function nextExamQ(){
         const pick=+b.dataset.i;
         btns.forEach(x=>x.classList.add("dis"));
         const ea=$("#ea");
-        if(!item.ans){   // 官方未附答案的选择题：不判分，走自评，避免被误记答错
+        if(!item.ans||!ansS){   // 官方未附答案/答案无有效字母（如「来源未提供」占位）的选择题：不判分，走自评，避免被误记答错
           ea.innerHTML=`<span class="muted">你选的是 <b>${opts[pick][0]}</b>。</span>${item.note?`<div class="muted" style="margin-top:4px">${esc(item.note)}</div>`:`<div class="muted" style="margin-top:4px">本题官方未附答案（来源未提供），请自行核对。</div>`}<div class="selfk" id="esk"><button class="btn sm" data-e="1">✅ 我答对了</button><button class="btn sm" data-e="0">❌ 我答错了</button></div>`;
           ea.classList.add("show");
           $$("#esk [data-e]").forEach(eb=>eb.onclick=()=>{
@@ -4751,7 +4760,10 @@ function sjJudgeChoice(i,k){
   const card=$$("#main .sjq")[i];
   const btns=card?card.querySelectorAll(".sjopt"):[];
   const pts=item._pts||0;
-  if(item.ans){
+  const _a=item.ans?String(item.ans).trim():"";
+  const _ph=/^(来源未提供|未提供|答案未提供|暂无|略|—|-|无)$/.test(_a);
+  const _multi=/^[A-D]{2,}$/.test(_a);
+  if(_a&&!_ph&&!_multi){
     const ok=k===item.ans;
     s.res=s.res||{};s.res[i]=ok?1:0;
     btns.forEach(b=>{b.classList.add("dis");if(b.dataset.k===item.ans)b.classList.add("correct");});
@@ -4761,10 +4773,10 @@ function sjJudgeChoice(i,k){
     if(a){a.innerHTML=`<b>${ok?"✅ 回答正确，+"+pts+" 分":"❌ 回答错误（已进错题本）"}</b> 答案：${esc(item.opts[item.ans]||item.ans)}${item.note?`<br>解析：${esc(item.note)}`:""}`;applyMath(a);a.classList.add("show");}
     s.done++;s.score=s.score;
   }else{
-    // 官方未附答案：不判分，提示自评
+    // 多选题 / 官方未附答案：不自动判分，提示自评
     btns.forEach(b=>{if(b.dataset.k===k)b.classList.add("sel")});
     const a=card?card.querySelector(".sjans"):null;
-    if(a){a.innerHTML=`<span class="muted">本题官方未附答案（来源未提供），不做对错判定，请参考题面提示自行核对教材/原卷。</span><div class="brow" style="margin-top:6px"><button class="btn sm pri" data-sjok="1">✅ 我答对了</button><button class="btn sm" data-sjok="0">❌ 我答错了</button></div>`;a.classList.add("show");
+    if(a){a.innerHTML=`<span class="muted">${_multi?`本题为多选题（参考答案：<b>${esc(_a)}</b>），单项点选无法自动判分`:"本题官方未附答案（来源未提供）"}，不做对错判定，请对照自评（答错自动进错题本）。</span><div class="brow" style="margin-top:6px"><button class="btn sm pri" data-sjok="1">✅ 我答对了</button><button class="btn sm" data-sjok="0">❌ 我答错了</button></div>`;a.classList.add("show");
       a.querySelectorAll("[data-sjok]").forEach(b=>b.onclick=()=>{const ok=b.dataset.sjok==="1";s.res=s.res||{};s.res[i]=ok?1:0;if(ok){s.score+=pts;s.right++}else{wbAdd(s.ckType,item._t||s.subj+"·选择题",item.q,item.opts[k]||k,"来源未提供","模拟卷自评答错收录（官方未附答案，此条为自评记录）")}s.done++;a.innerHTML=`<b>${ok?"✅ 已自评答对，+"+pts+" 分":"❌ 已自评答错（已进错题本）"}</b>`;const sc=$(".sj-sc");if(sc)sc.textContent=s.score;});
     }
   }
