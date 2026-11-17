@@ -513,6 +513,7 @@ if(window.B118_ZT && window.B118_ZT.chapters){
   window.B118_ZT.chapters.forEach(function(c){
     c.kind="pool"; c.n=c.n||0; c.target=c.target||10;
     if(c.id==="ck-b18-sk"){
+      c.desc=(c.desc||"")+"（本章为单招/对口升学「职业适应性·职业技能」通识测试题，含生物、科学、人文、计算机、职业道德等综合常识——这是该类考试的真实题型范围，不是放错科目）";
       JN.cn_chapters = JN.cn_chapters || [];
       JN.cn_chapters.push(c);
     } else if(c.id==="ck-b18-cn"){ CK.cn_pool.push(c); } else { CK.math_chapters.push(c); }
@@ -1407,9 +1408,9 @@ function renderPath(){
   const he=$("#hubSetExam");if(he)he.onclick=renderSettings;
   $$("[data-weak]").forEach(b=>b.onclick=()=>{const id=b.dataset.weak;if(id)openChapter(id)});
 }
-const APP_VERSION="v2.65.1（2026-11-17）";
+const APP_VERSION="v2.65.2（2026-11-17）";
 /* 全库题库快照（每次扩库后随打包同步更新，仅用于展示） */
-const BANK_SNAP={total:12412,ans:6549,noans:5863,src:491};
+const BANK_SNAP={total:12411,ans:6549,noans:5862,src:491};
 // 更新源（免服务器方案）：把 update.json 上传到任一免费托管后，把「直链」填到这里。
 // 对方打开软件点「🔄 检查更新」→ 有新版本就显示更新内容+下载链接。
 // 部署指引见项目内：更新部署\如何部署更新服务器.txt（5分钟即可，无需买服务器）。
@@ -1418,6 +1419,13 @@ const UPDATE_URL_ALT="https://ghfast.top/https://raw.githubusercontent.com/llluu
 const UPDATE_URL_ALT2="https://gh-proxy.com/https://raw.githubusercontent.com/llluuu995/update/main/update.json"; // 镜像2（实时回源）
 /* 注：jsDelivr CDN 有缓存延迟（更新后最长数小时才刷新），会造成「检查更新」读到旧版本误报已最新，故不再作为更新源 */
 const APP_LOG=[
+  {v:"v2.65.2（2026-11-17）",items:[
+    "🧹 选项残文大清零：又有 430 条选项末尾混入「参考译文：」「答案详解：」「正确答案选项：」「【详解】【考点】【分析】」「故选：」等汇编解析文字（做选项时看着像小作文），已全部截断清掉；顺手剔除 1 条题干乱码的椭圆题。题库 12412 → 12411。",
+    "📄 模拟卷题量改回「真卷模板」：之前按「题库越厚卷子越厚」规则组卷，语文一套能到 94 题，远超真实考卷。现默认严格按山东春考/单招正式卷面题量组卷；想刷厚卷可在「设置 → 模拟卷题量模式」一键切回「加长卷」。",
+    "🏷️ 模拟卷第三板块改名「简答与赏析」：原名「阅读问答」名不副实——题源是课文理解/人物形象/名句赏析这类主观简答题，卷面本来就没有配套阅读文章，现按实际内容标注，不再误导。",
+    "🔌 技能·PLC 专栏的「职业适应性」章加说明：该章含生物/科学/人文/计算机/职业道德等通识题，这是山东单招职业适应性测试的真实题型范围，不是放错科目，章节描述里已写清。",
+    "🔢 修卷面分数显示小数尾巴：选择题板块「共 77.200000000000007 分」这类浮点显示，已修为正常一位小数。"],
+  },
   {v:"v2.65.1（2026-11-17）",items:[
     "🛠️ 第二轮深度排查，继续清数据层残瘤：又剔除 16 条 B118 里「选项两两重复」的乱码题（选项值只剩两种、根本没法选），总数 12428 → 12412。",
     "🔧 占位答案再收口：技能/单招库里 65 条答案写成「官方样题未附答案」「来源未提供」这类占位文字，判分时会被当真实答案比对、永远判错。已统一置空，改为自评（和「无答案题」同一处理）。",
@@ -4241,6 +4249,9 @@ function renderSettings(){
   <div class="card"><h3>🎲 随机刷题题量（默认 20 题）</h3>
   <div class="brow" style="flex-wrap:wrap">${[10,20,40,60].map(n=>`<button class="btn${(cfg.randN||20)===n?" pri":""}" data-rn="${n}">${n} 题</button>`).join("")}</div>
   <p class="muted">学习路径页「🎲 随机刷题」每次抽取的题量，随时可调。当前：${cfg.randN||20} 题。</p></div>
+  <div class="card"><h3>📄 模拟卷题量模式</h3>
+  <div class="brow" style="flex-wrap:wrap"><button class="btn${cfg.sjLong==="1"?"":" pri"}" data-sl="0">真卷模板（默认）</button><button class="btn${cfg.sjLong==="1"?" pri":""}" data-sl="1">加长卷</button></div>
+  <p class="muted">真卷模板：严格按山东春考/单招正式卷面题量组卷（如语文约 26 题），贴近实战；加长卷：题量随题库扩容（每 120 道可用题 +1 题），一套可达 90+ 题，适合刷题训练。当前：${cfg.sjLong==="1"?"加长卷":"真卷模板"}。</p></div>
   <div class="card"><h3>⌨️ 答题快捷键</h3>
   <div class="brow" style="flex-wrap:wrap"><button class="btn${cfg.hotkeys===false?"":" pri"}" id="setHK">${cfg.hotkeys===false?"🖱️ 当前：已关闭（点击启用）":"⌨️ 当前：已开启（点击关闭）"}</button></div>
   <ul style="padding-left:18px;margin:8px 0 0;color:var(--mut)">
@@ -4288,6 +4299,7 @@ function renderSettings(){
   $$("[data-p]").forEach(b=>b.onclick=()=>{cfg.pass=+b.dataset.p;cfgSave(cfg);toast("通过率已设为 ≥"+cfg.pass+"%");renderSettings()});
   $$("[data-vn]").forEach(b=>b.onclick=()=>{cfg.dailyN=+b.dataset.vn;cfgSave(cfg);toast("每日背词已设为 "+cfg.dailyN+" 词");renderSettings()});
   $$("[data-rn]").forEach(b=>b.onclick=()=>{cfg.randN=+b.dataset.rn;cfgSave(cfg);toast("随机刷题题量已设为 "+cfg.randN+" 题");renderSettings()});
+  $$("[data-sl]").forEach(b=>b.onclick=()=>{cfg.sjLong=b.dataset.sl;cfgSave(cfg);Object.keys(SJ_DEF_CACHE).forEach(k=>delete SJ_DEF_CACHE[k]);toast(b.dataset.sl==="1"?"模拟卷已切换为「加长卷」（题量随题库扩容）":"模拟卷已切换为「真卷模板」（按正式卷面题量）");renderSettings()});
   const sd=$("#setDark");if(sd)sd.onclick=()=>{cfg.dark=!cfg.dark;cfgSave(cfg);applyDark(cfg.dark);toast(cfg.dark?"已切换深色模式🌙":"已切换浅色模式☀️");renderSettings()};
   $$("[data-fs]").forEach(b=>b.onclick=()=>{cfg.fs=+b.dataset.fs;cfgSave(cfg);applyFs(cfg.fs);toast("字号已设为 "+cfg.fs+"px");renderSettings()});
   const hk=$("#setHK");if(hk)hk.onclick=()=>{cfg.hotkeys=cfg.hotkeys===false?true:false;cfgSave(cfg);toast(cfg.hotkeys===false?"快捷键已关闭":"快捷键已开启");renderSettings()};
@@ -4572,16 +4584,24 @@ const SJ_VOL={
 const SJ_BANK_CACHE={};
 function sjVolCalc(base,bank){
   const preds={choice:sjIsPlainChoice,fill:sjIsFill,read:sjIsReadQ,readChoice:sjIsReadChoice,solve:sjIsSolve,essay:sjIsEssay};
+  /* 题量模式：默认「真卷模板」= 严格按山东春考/单招正式卷面题量（base 定义）组卷；
+     设置里可开「加长卷」= 旧规则，题量随题库扩容（每 120 道可用题 +1 题），适合刷题训练 */
+  const longMode=cfgLoad().sjLong==="1";
   const out={};
   Object.keys(SJ_VOL).forEach(k=>{
     const nk=k+"N";
     if(!base[nk])return;
     const avail=bank.filter(preds[k]).length;
     const cfg=SJ_VOL[k];
-    const cap=cfg[1]+Math.floor(avail/120);
-    let n=Math.round(avail*cfg[0]);
-    n=Math.min(n,cap,avail);
-    if(avail>=cfg[2])n=Math.max(n,cfg[2]);
+    let n;
+    if(longMode){
+      const cap=cfg[1]+Math.floor(avail/120);
+      n=Math.round(avail*cfg[0]);
+      n=Math.min(n,cap,avail);
+      if(avail>=cfg[2])n=Math.max(n,cfg[2]);
+    }else{
+      n=Math.min(base[nk],avail);  /* 题库充足时凑满真卷题量，不足时全收并在卷面如实标注 */
+    }
     out[nk]=Math.max(0,n);
   });
   return out;
@@ -4664,9 +4684,9 @@ function renderSjHome(){
   <div class="card"><details class="foldq"><summary>❓ 怎么用（点开看评分与自评规则）</summary><p class="muted">从本软件题库（全部真题/模拟卷，逐题标注来源，绝不编题）按正式试卷题型比例随机抽题组卷，仿真实试卷排版。每次点「再组一套」都是新的一套，可反复练。选择题点选项即判分；填空/解答/阅读/写作先自己作答，点「查看答案/解析」后自评对错；答错的自动进错题本。交卷后按卷面分值出总分和评级（S/A/B/C/D）。</p></details></div>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
     ${["ck","dz"].map(type=>`<div class="card"><h3>${type==="ck"?"🏫 春考模拟卷":"🎯 单招模拟卷"}</h3>
-      <div class="muted" style="margin:6px 0 10px">${type==="ck"?"按山东春季高考卷面结构组卷（标准卷面：语文100 / 数学100 / 英语80 分）；题库扩容后题量与满分自动加厚，下表为当前题库规模下的实际卷面":"按山东单独招生文化素质卷面结构组卷（标准卷面：语文80 / 数学60 / 英语40 分）；题库扩容后题量与满分自动加厚，下表为当前题库规模下的实际卷面"}</div>
+      <div class="muted" style="margin:6px 0 10px">${type==="ck"?"按山东春季高考卷面结构组卷（标准卷面：语文100 / 数学100 / 英语80 分）":"按山东单独招生文化素质卷面结构组卷（标准卷面：语文80 / 数学60 / 英语40 分）"}${cfgLoad().sjLong==="1"?"；当前为「加长卷」模式，题量随题库自动加厚":"；当前为「真卷模板」模式，严格按正式卷面题量（可在设置中切换加长卷）"}</div>
       <div class="brow wrap">${["cn","math","en"].map(s=>`<button class="btn" data-sj="${type}-${s}">${s==="cn"?"📖 语文":s==="math"?"🔢 数学":"🇬🇧 英语"}</button>`).join("")}</div>
-      <div class="muted" style="margin-top:10px;font-size:12px">题量（随题库自动加厚）：${["cn","math","en"].map(s=>{const d=sjVolOf(type,s);if(!d)return "";return (s==="cn"?"语":s==="math"?"数":"英")+" "+d.volNewN+" 题 / "+d.full+" 分"}).join(" · ")}</div></div>`).join("")}
+      <div class="muted" style="margin-top:10px;font-size:12px">题量（${cfgLoad().sjLong==="1"?"加长卷":"真卷模板"}）：${["cn","math","en"].map(s=>{const d=sjVolOf(type,s);if(!d)return "";return (s==="cn"?"语":s==="math"?"数":"英")+" "+d.volNewN+" 题 / "+d.full+" 分"}).join(" · ")}</div></div>`).join("")}
   </div>
   <div class="card" id="sjHistCard" style="display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer">
     <div><b>📈 我的模考档案</b><div class="muted" style="font-size:12px;margin-top:4px">${sjHistTip()}</div></div><div style="color:var(--sub);font-size:18px">›</div>
@@ -4708,13 +4728,13 @@ function paintSj(){
   const short=(arr,need)=>(need&&arr.length<need)?`<p class="muted" style="margin:4px 0">⚠️ 题库该题型现仅 ${arr.length} 题（不足 ${need} 题），已全数收录，不凑数不编题。</p>`:"";
   const secs=[];
   if(choiceItems.length){
-    secs.push(`<div class="card sjsec"><h3>一、选择题（共 ${choiceItems.length} 题，每题 ${d.choiceP} 分，共 ${choiceItems.length*d.choiceP} 分）</h3>${short(choiceItems,d.choiceN+(d.readChoiceN||0))}${choiceItems.map((item,i)=>`<div class="qbox sjq"><div class="qstem"><span class="qno">${seq[i].no}.</span>${richQ(item.q)}</div>${item.opts&&Object.keys(item.opts).length>=2?`<div class="brow wrap">${Object.entries(item.opts).map(([k,v])=>`<button class="qopt sjopt" data-i="${i}" data-k="${k}">${k}. ${esc(v)}</button>`).join("")}</div>`:`<p class="muted" style="margin:6px 0;font-size:12px">⚠️ 多选/内嵌选项题（选项见题干），作答后点「📖 查看答案」对照自评（官方未附逐项判分时按自评记录）</p><div class="brow"><button class="btn sm sjcalc" data-i="${i}">📖 查看答案/解析</button></div>`}<div class="qans sjans"></div></div>`).join("")}</div>`);
+    secs.push(`<div class="card sjsec"><h3>一、选择题（共 ${choiceItems.length} 题，每题 ${d.choiceP} 分，共 ${Math.round(choiceItems.length*d.choiceP*10)/10} 分）</h3>${short(choiceItems,d.choiceN+(d.readChoiceN||0))}${choiceItems.map((item,i)=>`<div class="qbox sjq"><div class="qstem"><span class="qno">${seq[i].no}.</span>${richQ(item.q)}</div>${item.opts&&Object.keys(item.opts).length>=2?`<div class="brow wrap">${Object.entries(item.opts).map(([k,v])=>`<button class="qopt sjopt" data-i="${i}" data-k="${k}">${k}. ${esc(v)}</button>`).join("")}</div>`:`<p class="muted" style="margin:6px 0;font-size:12px">⚠️ 多选/内嵌选项题（选项见题干），作答后点「📖 查看答案」对照自评（官方未附逐项判分时按自评记录）</p><div class="brow"><button class="btn sm sjcalc" data-i="${i}">📖 查看答案/解析</button></div>`}<div class="qans sjans"></div></div>`).join("")}</div>`);
   }
   if(s.fill.length){
     secs.push(`<div class="card sjsec"><h3>二、填空（默写/补全对话/短文填空等，共 ${s.fill.length} 题，每题 ${d.fillP} 分）</h3>${short(s.fill,d.fillN)}${s.fill.map((item,i)=>`<div class="qbox sjq"><div class="qstem"><span class="qno">${(choiceItems.length+i+1)}.</span>${richQ(item.q)}</div><div class="brow"><button class="btn sm sjcalc" data-i="${choiceItems.length+i}">📖 查看答案/解析</button></div><div class="qans sjans"></div></div>`).join("")}</div>`);
   }
   if(s.read.length){
-    secs.push(`<div class="card sjsec"><h3>三、阅读问答（共 ${s.read.length} 题，每题 ${d.readP} 分）</h3>${short(s.read,d.readN)}${s.read.map((item,i)=>`<div class="qbox sjq"><div class="qstem"><span class="qno">${(choiceItems.length+s.fill.length+i+1)}.</span>${richQ(item.q)}</div><div class="brow"><button class="btn sm sjcalc" data-i="${choiceItems.length+s.fill.length+i}">📖 查看答案/解析</button></div><div class="qans sjans"></div></div>`).join("")}</div>`);
+    secs.push(`<div class="card sjsec"><h3>三、简答与赏析（课文理解 / 人物形象 / 名句赏析，共 ${s.read.length} 题，每题 ${d.readP} 分）</h3>${short(s.read,d.readN)}${s.read.map((item,i)=>`<div class="qbox sjq"><div class="qstem"><span class="qno">${(choiceItems.length+s.fill.length+i+1)}.</span>${richQ(item.q)}</div><div class="brow"><button class="btn sm sjcalc" data-i="${choiceItems.length+s.fill.length+i}">📖 查看答案/解析</button></div><div class="qans sjans"></div></div>`).join("")}</div>`);
   }
   if(s.solve.length){
     secs.push(`<div class="card sjsec"><h3>四、解答题（共 ${s.solve.length} 题，每题 ${d.solveP} 分）</h3>${short(s.solve,d.solveN)}${s.solve.map((item,i)=>`<div class="qbox sjq"><div class="qstem"><span class="qno">${(choiceItems.length+s.fill.length+s.read.length+i+1)}.</span>${richQ(item.q)}</div><div class="sjwrite"></div><div class="brow"><button class="btn sm sjcalc" data-i="${choiceItems.length+s.fill.length+s.read.length+i}">📖 查看答案/解析</button></div><div class="qans sjans"></div></div>`).join("")}</div>`);
