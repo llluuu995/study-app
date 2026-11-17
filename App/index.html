@@ -1407,9 +1407,9 @@ function renderPath(){
   const he=$("#hubSetExam");if(he)he.onclick=renderSettings;
   $$("[data-weak]").forEach(b=>b.onclick=()=>{const id=b.dataset.weak;if(id)openChapter(id)});
 }
-const APP_VERSION="v2.63.0（2026-11-17）";
+const APP_VERSION="v2.64.0（2026-11-17）";
 /* 全库题库快照（每次扩库后随打包同步更新，仅用于展示） */
-const BANK_SNAP={total:12637,ans:6664,noans:5973,src:478};
+const BANK_SNAP={total:12759,ans:6725,noans:6034,src:491};
 // 更新源（免服务器方案）：把 update.json 上传到任一免费托管后，把「直链」填到这里。
 // 对方打开软件点「🔄 检查更新」→ 有新版本就显示更新内容+下载链接。
 // 部署指引见项目内：更新部署\如何部署更新服务器.txt（5分钟即可，无需买服务器）。
@@ -1418,6 +1418,15 @@ const UPDATE_URL_ALT="https://ghfast.top/https://raw.githubusercontent.com/llluu
 const UPDATE_URL_ALT2="https://gh-proxy.com/https://raw.githubusercontent.com/llluuu995/update/main/update.json"; // 镜像2（实时回源）
 /* 注：jsDelivr CDN 有缓存延迟（更新后最长数小时才刷新），会造成「检查更新」读到旧版本误报已最新，故不再作为更新源 */
 const APP_LOG=[
+  {v:"v2.64.0（2026-11-17）",items:[
+    "🚀 题库再上一层：12637 → 12759 题（+122 题）。当前实测有参考答案 6725 题、无答案 6034 题；无答案题照收，答案栏留空不伪造。",
+    "📈 这轮加 13 份有效卷（478 → 491 份源卷），切出 13658 条选项完整的原始题，按题干指纹去重掉 6713 条，净入库 122 条（语文 2617 / 数学 819 / 英语 1171 / 职业技能 2334）。",
+    "🗺️ 第五次换维度：数列概率统计专项、现代文阅读媒体文专项、湖北职教高考现代文讲义、单招英语情景交际补全对话、广东春考情景交际特训 100 题、多所院校单招英语历年频考点卷。",
+    "📊 新增「本卷题型诊断」：交卷后自动按题型（选择题 / 填空 / 阅读问答 / 解答题 / 写作）列出题数、满分、得分、得分率，并直接点出最拖分的那一类。以前只知道总分，不知道分丢在哪。",
+    "🎯 为了做这个诊断，判分环节补了逐题埋点：选择题点选项的那一刻记对错、主观题点「我答对了／我答错了」也记，未作答按 0 分计入，所以诊断表里的得分和总分严格对得上。",
+    "🧪 实测：春考数学随机 94 题整卷（选择题 69 题 62 分 / 填空 15 题 8 分 / 解答 10 题 28 分），诊断表算出选择题 16%、填空 100%、解答 100%，并提示「最拖分的是选择题」。",
+    "⚠️ 来源口径不变：全部题来自原创力文档上传者整理的试卷与题库汇编，非官方发布，答案以原文为准。"],
+  },
   {v:"v2.63.0（2026-11-17）",items:[
     "🚀 题库继续上冲：12203 → 12637 题（+434 题）。当前实测有参考答案 6664 题、无答案 5973 题；无答案题照收，做题后按自评记账，答案栏留空不伪造。",
     "📈 这轮加了 67 份有效卷（411 → 478 份源卷），切出 13454 条选项完整的原始题，按题干指纹去重掉 6631 条，净入库 434 条（语文 2598 / 数学 815 / 英语 1072 / 职业技能 2334）。",
@@ -4744,6 +4753,7 @@ function sjJudgeChoice(i,k){
   const pts=item._pts||0;
   if(item.ans){
     const ok=k===item.ans;
+    s.res=s.res||{};s.res[i]=ok?1:0;
     btns.forEach(b=>{b.classList.add("dis");if(b.dataset.k===item.ans)b.classList.add("correct");});
     if(ok){s.score+=pts;s.right++;}
     else{btns.forEach(b=>{if(b.dataset.k===k)b.classList.add("wrong")});wbAdd(s.ckType,item._t||s.subj+"·选择题",item.q,item.opts[k]||k,item.opts[item.ans]||item.ans,"模拟卷答错收录"+(item.note?"；"+item.note:""));}
@@ -4755,7 +4765,7 @@ function sjJudgeChoice(i,k){
     btns.forEach(b=>{if(b.dataset.k===k)b.classList.add("sel")});
     const a=card?card.querySelector(".sjans"):null;
     if(a){a.innerHTML=`<span class="muted">本题官方未附答案（来源未提供），不做对错判定，请参考题面提示自行核对教材/原卷。</span><div class="brow" style="margin-top:6px"><button class="btn sm pri" data-sjok="1">✅ 我答对了</button><button class="btn sm" data-sjok="0">❌ 我答错了</button></div>`;a.classList.add("show");
-      a.querySelectorAll("[data-sjok]").forEach(b=>b.onclick=()=>{const ok=b.dataset.sjok==="1";if(ok){s.score+=pts;s.right++}else{wbAdd(s.ckType,item._t||s.subj+"·选择题",item.q,item.opts[k]||k,"来源未提供","模拟卷自评答错收录（官方未附答案，此条为自评记录）")}s.done++;a.innerHTML=`<b>${ok?"✅ 已自评答对，+"+pts+" 分":"❌ 已自评答错（已进错题本）"}</b>`;const sc=$(".sj-sc");if(sc)sc.textContent=s.score;});
+      a.querySelectorAll("[data-sjok]").forEach(b=>b.onclick=()=>{const ok=b.dataset.sjok==="1";s.res=s.res||{};s.res[i]=ok?1:0;if(ok){s.score+=pts;s.right++}else{wbAdd(s.ckType,item._t||s.subj+"·选择题",item.q,item.opts[k]||k,"来源未提供","模拟卷自评答错收录（官方未附答案，此条为自评记录）")}s.done++;a.innerHTML=`<b>${ok?"✅ 已自评答对，+"+pts+" 分":"❌ 已自评答错（已进错题本）"}</b>`;const sc=$(".sj-sc");if(sc)sc.textContent=s.score;});
     }
   }
   const sc=$(".sj-sc");if(sc)sc.textContent=s.score;
@@ -4777,6 +4787,7 @@ function sjShowCalc(i){
   a.classList.add("show");
   a.querySelectorAll("[data-sjok]").forEach(b=>b.onclick=()=>{
     const ok=b.dataset.sjok==="1";
+    s.res=s.res||{};s.res[i]=ok?1:0;
     if(ok){s.score+=item._pts||0;s.right++;}
     else wbAdd(s.ckType,item._t||s.subj+"·主观",item.q,"（自评答错）",item.ans||"来源未提供","模拟卷自评答错收录（官方未附答案时此条为自评记录）"+(item.note?"；"+item.note:""));
     s.done++;
@@ -4785,6 +4796,14 @@ function sjShowCalc(i){
   });
 }
 /* ===== v2.63.0 模考成绩档案：每套模拟卷交卷后自动存档，按科目看进步 ===== */
+function sjKindOf(i,s){
+  const cl=s.choice.length+s.embed.length+s.readChoice.length;
+  if(i<cl)return "choice";
+  if(i<cl+s.fill.length)return "fill";
+  if(i<cl+s.fill.length+s.read.length)return "read";
+  if(i<cl+s.fill.length+s.read.length+s.solve.length)return "solve";
+  return "essay";
+}
 const K_SJ_HIST="sj_hist";
 const SJ_KEYS=["ck-cn","ck-math","ck-en","dz-cn","dz-math","dz-en"];
 const SJ_KEY_NAME={"ck-cn":"春考·语文","ck-math":"春考·数学","ck-en":"春考·英语","dz-cn":"单招·语文","dz-math":"单招·数学","dz-en":"单招·英语"};
@@ -4870,6 +4889,26 @@ function sjSubmit(){
   const diff=(pct-((prevSame&&prevSame.pct)||0));
   const cmpLine=prevSame?`同一科目上次 ${prevSame.score}/${prevSame.total}（${prevSame.grade} 级）→ 本次 ${s.score}/${s.total}（${g} 级），<b style="color:${diff>0?"#0a8a5f":diff<0?"#d93a3a":"#6b7280"}">${diff>0?"+":""}${diff}</b> 个百分点`:"这是该科目的第一次模考，成绩已记入档案";
   const bestSame=Math.max.apply(null,sameList.map(x=>x.pct||0));
+  const KD=[["choice","选择题"],["fill","填空"],["read","阅读问答"],["solve","解答题"],["essay","写作"]];
+  const diag=KD.map(p=>{
+    let n=0,full=0,got=0,ans=0;
+    s.seq.forEach((row,i)=>{
+      if(sjKindOf(i,s)!==p[0])return;
+      n++;const pts=row.item._pts||0;full+=pts;
+      if(s.res&&s.res[i]!==undefined){ans++;if(s.res[i]===1)got+=pts;}
+    });
+    return {nm:p[1],n:n,full:full,got:got,ans:ans};
+  }).filter(x=>x.n>0);
+  const worst=diag.filter(x=>x.ans>0&&x.full>0).sort((a,b)=>(a.got/a.full)-(b.got/b.full))[0];
+  let diagHtml="<p class=\"muted\">本卷无可统计的题目。</p>";
+  if(diag.length){
+    const rows=diag.map(x=>{
+      const r=x.full?Math.round(x.got/x.full*100):0;
+      return `<tr style="border-top:1px solid var(--line)"><td style="padding:6px 4px"><b>${x.nm}</b></td><td style="text-align:center">${x.n}</td><td style="text-align:center">${Math.round(x.full)}</td><td style="text-align:center">${Math.round(x.got)}</td><td style="text-align:center">${r}%</td></tr>`;
+    }).join("");
+    const tip=worst?`最拖分的是「${worst.nm}」：已判 ${worst.ans} 题拿 ${Math.round(worst.got)}/${Math.round(worst.full)} 分（${Math.round(worst.got/worst.full*100)}%）。下一套重点练这一块。`:"本卷题型不足两项，无法横向比较。";
+    diagHtml=`<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="color:var(--sub)"><th style="text-align:left;padding:6px 4px">题型</th><th style="padding:6px 4px">题数</th><th style="padding:6px 4px">满分</th><th style="padding:6px 4px">得分</th><th style="padding:6px 4px">得分率</th></tr>${rows}</table></div><p class="muted" style="font-size:12px;margin-top:8px">${tip}未作答的题按 0 分计；主观题得分取决于你的自评。</p>`;
+  }
   $("#main").innerHTML=`<h2 class="pg">📄 交卷结果</h2>
   <div class="card" style="text-align:center;padding:26px">
     <div style="font-size:46px">${pct>=60?"🎉":"💪"}</div>
@@ -4885,7 +4924,8 @@ function sjSubmit(){
       <button class="btn" id="sjBack2">返回模拟卷首页</button>
       <button class="btn" id="sjWrong2">❌ 查看错题本</button>
     </div>
-  </div>`;
+  </div>
+  <div class="card"><h3>📊 本卷题型诊断</h3>${diagHtml}</div>`;
   const ag=$("#sjAgain2");if(ag)ag.onclick=()=>genSjPaper(s.key);
   const hi=$("#sjHist2");if(hi)hi.onclick=renderSjHist;
   const bk=$("#sjBack2");if(bk)bk.onclick=renderSjHome;
